@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gray Cast Iron — Data Collection Sheet</title>
+<style>
+  :root{
+    --header-bg:#1F4E78;
+    --header-fg:#ffffff;
+    --border:#b7b7b7;
+    --bg:#f4f6f9;
+    --panel:#ffffff;
+    --calc:#e8f1fa;
+    --accent:#1F4E78;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--bg);
+    color:#1c1c1c;
+    font-size:13px;
+  }
+
+  /* ---------- Header ---------- */
+  header.app-header{
+    background:var(--header-bg);
+    color:#fff;
+    padding:16px 20px;
+  }
+  header.app-header h1{margin:0;font-size:18px;font-weight:600;}
+  header.app-header p{margin:4px 0 0;font-size:12px;opacity:.85;}
+
+  /* ---------- Toolbar / Tabs ---------- */
+  .toolbar{
+    position:sticky; top:0; z-index:30;
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+    padding:8px 20px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+  }
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;flex:1;}
+  .tab-btn{
+    border:1px solid var(--border);
+    background:#f7f9fc;
+    color:#333;
+    padding:7px 12px;
+    border-radius:4px;
+    cursor:pointer;
+    font:inherit;
+    font-weight:600;
+  }
+  .tab-btn:hover{background:#e9eff6;}
+  .tab-btn.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+  .action-btn{
+    border:1px solid var(--accent);
+    background:#fff;
+    color:var(--accent);
+    padding:7px 12px;
+    border-radius:4px;
+    cursor:pointer;
+    font:inherit;
+    font-weight:600;
+  }
+  .action-btn:hover{background:#e9eff6;}
+
+  /* ---------- Panels ---------- */
+  main{padding:16px 20px 40px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel h2{
+    margin:0 0 10px;
+    font-size:15px;
+    font-weight:600;
+    color:var(--accent);
+  }
+  .hint{
+    margin:0 0 10px;
+    font-size:12px;
+    color:#555;
+    line-height:1.5;
+  }
+
+  /* ---------- Tables ---------- */
+  .table-wrap{
+    overflow:auto;
+    max-height:calc(100vh - 230px);
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:6px;
+  }
+  table{border-collapse:collapse;width:100%;min-width:max-content;}
+  th,td{border:1px solid var(--border);padding:0;vertical-align:top;}
+  thead th{
+    position:sticky; top:0; z-index:10;
+    background:var(--header-bg);
+    color:var(--header-fg);
+    font-weight:600;
+    font-size:12px;
+    padding:8px 6px;
+    text-align:center;
+    min-width:110px;
+    line-height:1.25;
+  }
+  tbody td{padding:1px;}
+  tbody td.rowhead{
+    position:sticky; left:0; z-index:5;
+    background:#eef3f8;
+    font-weight:700;
+    padding:6px 8px;
+    white-space:nowrap;
+    color:var(--accent);
+  }
+  input,select,textarea{
+    width:100%;
+    border:0;
+    background:transparent;
+    padding:6px;
+    font:inherit;
+    color:inherit;
+    outline:none;
+    border-radius:0;
+    resize:vertical;
+  }
+  input:focus,select:focus,textarea:focus{
+    background:#fff9dd;
+    box-shadow:inset 0 0 0 2px #f0c040;
+  }
+  input[readonly],select[readonly]{
+    background:var(--calc);
+    font-weight:700;
+    color:#123;
+  }
+  td.num input{text-align:center;}
+  tbody tr:nth-child(even) td{background:#fafcfe;}
+  tbody tr:nth-child(even) td.rowhead{background:#e6eef7;}
+  tbody tr:nth-child(even) input[readonly]{background:#e2edf9;}
+
+  /* Instructions table */
+  #tbl-instructions td{padding:7px 10px;vertical-align:top;}
+  #tbl-instructions td:first-child{font-weight:700;width:200px;background:#eef3f8;color:var(--accent);}
+  #tbl-instructions thead th{min-width:0;}
+
+  /* ---------- Charts ---------- */
+  .chart-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(430px,1fr));
+    gap:14px;
+  }
+  .chart-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:10px 12px 12px;
+    box-shadow:0 1px 2px rgba(0,0,0,.04);
+  }
+  .chart-card h3{
+    margin:0 0 6px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--accent);
+  }
+  canvas.chart{
+    width:100%;
+    height:300px;
+    display:block;
+  }
+  .chart-card .cap{
+    margin:8px 0 0;
+    font-size:11px;
+    color:#667;
+    line-height:1.45;
+  }
+
+  /* ---------- Formula Reference ---------- */
+  .formula-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(430px,1fr));
+    gap:14px;
+  }
+  .formula-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:14px 16px;
+    box-shadow:0 1px 2px rgba(0,0,0,.04);
+  }
+  .formula-card h3{
+    margin:0 0 12px;
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--accent);
+    padding-bottom:7px;
+    border-bottom:2px solid #e5ecf3;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .formula-card h3 .badge{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    background:var(--calc);
+    color:var(--accent);
+    padding:2px 8px;
+    border-radius:9px;
+    border:1px solid #c6dcf0;
+  }
+  .formula-item{margin-bottom:16px;}
+  .formula-item:last-child{margin-bottom:0;}
+  .formula-name{
+    font-weight:700;
+    font-size:12.5px;
+    color:#2b3a4a;
+    margin-bottom:5px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .formula-name .tag{
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    color:#fff;
+    background:var(--accent);
+    padding:1px 7px;
+    border-radius:8px;
+  }
+  .formula-name .tag.green{background:#2E9E5B;}
+  .formula-name .tag.red{background:#D9534F;}
+  .formula-name .tag.amber{background:#E8A33D;}
+  .formula-name .tag.purple{background:#7B5EA7;}
+  .formula-eq{
+    font-family:"Cambria Math","Latin Modern Math","Times New Roman",serif;
+    font-size:15px;
+    line-height:1.9;
+    background:var(--calc);
+    border-left:4px solid var(--accent);
+    padding:9px 14px;
+    border-radius:4px;
+    color:#102a44;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .formula-eq .frac{
+    display:inline-block;
+    vertical-align:middle;
+    text-align:center;
+    margin:0 4px;
+    font-size:0.94em;
+  }
+  .formula-eq .frac > .num{
+    display:block;
+    border-bottom:1.6px solid #102a44;
+    padding:0 6px 2px;
+  }
+  .formula-eq .frac > .den{
+    display:block;
+    padding:2px 6px 0;
+  }
+  .formula-eq sub,
+  .formula-eq sup{font-size:0.7em;}
+  .formula-eq .op{padding:0 2px;}
+  .formula-desc{
+    font-size:11.5px;
+    color:#556;
+    margin-top:6px;
+    line-height:1.55;
+  }
+  .formula-desc code{
+    background:#eef3f8;
+    padding:1px 6px;
+    border-radius:3px;
+    font-family:"Consolas","Monaco","Courier New",monospace;
+    font-size:11px;
+    color:#1F4E78;
+  }
+  .formula-desc ul{margin:4px 0 0 18px;padding:0;}
+  .formula-desc li{margin-bottom:2px;}
+
+  /* Regex table inside formula card */
+  .formula-card table{
+    width:100%;
+    min-width:0;
+    border-collapse:collapse;
+    margin-top:4px;
+    font-size:11.5px;
+  }
+  .formula-card table th,
+  .formula-card table td{
+    border:1px solid #dbe4ec;
+    padding:5px 8px;
+    text-align:left;
+    vertical-align:middle;
+  }
+  .formula-card table th{
+    background:#eef3f8;
+    color:var(--accent);
+    font-weight:700;
+    font-size:11px;
+  }
+  .formula-card table code{
+    background:#fff4d6;
+    padding:1px 5px;
+    border-radius:3px;
+    font-family:"Consolas","Monaco","Courier New",monospace;
+    font-size:10.5px;
+    color:#7a4d00;
+  }
+
+  /* Rating chips */
+  .rating-chip{
+    display:inline-block;
+    padding:2px 9px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.3px;
+  }
+  .rating-excellent{background:#d4f0dd;color:#1e6b3a;}
+  .rating-good{background:#e2f0d0;color:#4a7a1f;}
+  .rating-fair{background:#fff3d0;color:#8a6300;}
+  .rating-poor{background:#ffe0d4;color:#a53b1a;}
+  .rating-verypoor{background:#f9d4d2;color:#942a26;}
+
+  /* ---------- Print ---------- */
+  @media print{
+    body{background:#fff;font-size:11px;}
+    .toolbar{display:none !important;}
+    main{padding:0;}
+    .panel{display:block !important;page-break-after:always;}
+    .panel:last-child{page-break-after:auto;}
+    .table-wrap{max-height:none;overflow:visible;border:1px solid #999;}
+    thead th{position:static;background:#1F4E78 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    tbody td.rowhead{position:static;}
+    input,select{background:transparent !important;}
+    header.app-header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .chart-grid{grid-template-columns:1fr 1fr;gap:10px;}
+    canvas.chart{height:250px;}
+    .chart-card{page-break-inside:avoid;border:1px solid #999;}
+    .formula-grid{grid-template-columns:1fr 1fr;gap:10px;}
+    .formula-card{page-break-inside:avoid;border:1px solid #999;}
+    .formula-eq{background:#eef3f8 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <h1>Gray Cast Iron — Data Collection Sheet</h1>
+  <p>Sample register · Heat treatment · Rockwell hardness · Microstructure · Results summary · Graphs · Formulas</p>
+</header>
+
+<div class="toolbar">
+  <div class="tabs">
+    <button class="tab-btn active" data-target="panel-sample">Sample Register</button>
+    <button class="tab-btn" data-target="panel-ht">Heat Treatment</button>
+    <button class="tab-btn" data-target="panel-rockwell">Rockwell Hardness</button>
+    <button class="tab-btn" data-target="panel-micro">Microstructure</button>
+    <button class="tab-btn" data-target="panel-results">Results Summary</button>
+    <button class="tab-btn" data-target="panel-graphs">📈 Graphs &amp; Relations</button>
+    <button class="tab-btn" data-target="panel-formulas">📐 Formulas</button>
+    <button class="tab-btn" data-target="panel-instructions">Instructions</button>
+  </div>
+  <button class="action-btn" id="btn-export">Export active table (CSV)</button>
+  <button class="action-btn" id="btn-print">Print / Save as PDF</button>
+</div>
+
+<main>
+
+  <!-- ============ SAMPLE REGISTER ============ -->
+  <section class="panel active" id="panel-sample">
+    <h2>1 · Sample Register</h2>
+    <p class="hint">Use a unique code for every specimen. Record the actual condition of each sample.</p>
+    <div class="table-wrap">
+      <table id="tbl-sample">
+        <thead>
+          <tr>
+            <th>Sample ID</th>
+            <th>Condition</th>
+            <th>Heat Treatment</th>
+            <th>Temperature (°C)</th>
+            <th>Holding Time (min)</th>
+            <th>Cooling Method</th>
+            <th>Quench Medium</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rowhead"><input value="GI-01"></td><td><input value="As-received"></td><td><input value="None"></td><td class="num"><input></td><td class="num"><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-02"></td><td><input value="Softened"></td><td><input value="Annealing"></td><td class="num"><input></td><td class="num"><input></td><td><input value="Furnace cooling"></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-03"></td><td><input value="Softened"></td><td><input value="Annealing"></td><td class="num"><input></td><td class="num"><input></td><td><input value="Furnace cooling"></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-04"></td><td><input value="Softened"></td><td><input value="Annealing"></td><td class="num"><input></td><td class="num"><input></td><td><input value="Furnace cooling"></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-05"></td><td><input value="Re-hardened"></td><td><input value="Hardening"></td><td class="num"><input></td><td class="num"><input></td><td><input value="Quenching"></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-06"></td><td><input value="Re-hardened"></td><td><input value="Hardening"></td><td class="num"><input></td><td class="num"><input></td><td><input value="Quenching"></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-07"></td><td><input value="Re-hardened"></td><td><input value="Hardening"></td><td class="num"><input></td><td class="num"><input></td><td><input value="Quenching"></td><td><input></td><td><input></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ HEAT TREATMENT ============ -->
+  <section class="panel" id="panel-ht">
+    <h2>2 · Heat Treatment Record</h2>
+    <p class="hint">Record the <strong>actual</strong> furnace temperature and holding time, not only the planned values.</p>
+    <div class="table-wrap">
+      <table id="tbl-ht">
+        <thead>
+          <tr>
+            <th>Sample ID</th>
+            <th>Treatment Type</th>
+            <th>Target Temp (°C)</th>
+            <th>Actual Temp (°C)</th>
+            <th>Heating Start</th>
+            <th>Target Reached</th>
+            <th>Holding Time (min)</th>
+            <th>Cooling Start</th>
+            <th>Cooling Method</th>
+            <th>Quench Medium</th>
+            <th>Furnace ID</th>
+            <th>Operator</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rowhead"><input value="GI-02"></td><td><input></td><td class="num"><input></td><td class="num"><input></td><td><input type="time"></td><td><input type="time"></td><td class="num"><input></td><td><input type="time"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-03"></td><td><input></td><td class="num"><input></td><td class="num"><input></td><td><input type="time"></td><td><input type="time"></td><td class="num"><input></td><td><input type="time"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-04"></td><td><input></td><td class="num"><input></td><td class="num"><input></td><td><input type="time"></td><td><input type="time"></td><td class="num"><input></td><td><input type="time"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-05"></td><td><input></td><td class="num"><input></td><td class="num"><input></td><td><input type="time"></td><td><input type="time"></td><td class="num"><input></td><td><input type="time"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-06"></td><td><input></td><td class="num"><input></td><td class="num"><input></td><td><input type="time"></td><td><input type="time"></td><td class="num"><input></td><td><input type="time"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead"><input value="GI-07"></td><td><input></td><td class="num"><input></td><td class="num"><input></td><td><input type="time"></td><td><input type="time"></td><td class="num"><input></td><td><input type="time"></td><td><input></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ ROCKWELL HARDNESS ============ -->
+  <section class="panel" id="panel-rockwell">
+    <h2>3 · Rockwell Hardness</h2>
+    <p class="hint">
+      Enter the five individual readings — <strong>Average, Std. Dev., Min and Max are calculated automatically</strong>
+      (Std. Dev. uses the sample standard deviation, n−1).
+    </p>
+    <div class="table-wrap">
+      <table id="tbl-rockwell">
+        <thead>
+          <tr>
+            <th>Sample ID</th>
+            <th>Condition</th>
+            <th>Rockwell Scale</th>
+            <th>Test Point 1</th>
+            <th>Test Point 2</th>
+            <th>Test Point 3</th>
+            <th>Test Point 4</th>
+            <th>Test Point 5</th>
+            <th>Average</th>
+            <th>Std. Dev.</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Operator</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-sample="GI-01">
+            <td class="rowhead">GI-01</td><td><input value="As-received"></td><td><input placeholder="HRB / HRC"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="calc-avg" readonly></td>
+            <td class="num"><input class="calc-sd" readonly></td>
+            <td class="num"><input class="calc-min" readonly></td>
+            <td class="num"><input class="calc-max" readonly></td>
+            <td><input></td><td><input></td>
+          </tr>
+          <tr data-sample="GI-02">
+            <td class="rowhead">GI-02</td><td><input value="Softened"></td><td><input placeholder="HRB / HRC"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="calc-avg" readonly></td>
+            <td class="num"><input class="calc-sd" readonly></td>
+            <td class="num"><input class="calc-min" readonly></td>
+            <td class="num"><input class="calc-max" readonly></td>
+            <td><input></td><td><input></td>
+          </tr>
+          <tr data-sample="GI-03">
+            <td class="rowhead">GI-03</td><td><input value="Softened"></td><td><input placeholder="HRB / HRC"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="calc-avg" readonly></td>
+            <td class="num"><input class="calc-sd" readonly></td>
+            <td class="num"><input class="calc-min" readonly></td>
+            <td class="num"><input class="calc-max" readonly></td>
+            <td><input></td><td><input></td>
+          </tr>
+          <tr data-sample="GI-04">
+            <td class="rowhead">GI-04</td><td><input value="Softened"></td><td><input placeholder="HRB / HRC"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="calc-avg" readonly></td>
+            <td class="num"><input class="calc-sd" readonly></td>
+            <td class="num"><input class="calc-min" readonly></td>
+            <td class="num"><input class="calc-max" readonly></td>
+            <td><input></td><td><input></td>
+          </tr>
+          <tr data-sample="GI-05">
+            <td class="rowhead">GI-05</td><td><input value="Re-hardened"></td><td><input placeholder="HRB / HRC"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="calc-avg" readonly></td>
+            <td class="num"><input class="calc-sd" readonly></td>
+            <td class="num"><input class="calc-min" readonly></td>
+            <td class="num"><input class="calc-max" readonly></td>
+            <td><input></td><td><input></td>
+          </tr>
+          <tr data-sample="GI-06">
+            <td class="rowhead">GI-06</td><td><input value="Re-hardened"></td><td><input placeholder="HRB / HRC"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="calc-avg" readonly></td>
+            <td class="num"><input class="calc-sd" readonly></td>
+            <td class="num"><input class="calc-min" readonly></td>
+            <td class="num"><input class="calc-max" readonly></td>
+            <td><input></td><td><input></td>
+          </tr>
+          <tr data-sample="GI-07">
+            <td class="rowhead">GI-07</td><td><input value="Re-hardened"></td><td><input placeholder="HRB / HRC"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="tp" type="number" step="0.1"></td>
+            <td class="num"><input class="calc-avg" readonly></td>
+            <td class="num"><input class="calc-sd" readonly></td>
+            <td class="num"><input class="calc-min" readonly></td>
+            <td class="num"><input class="calc-max" readonly></td>
+            <td><input></td><td><input></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ MICROSTRUCTURE ============ -->
+  <section class="panel" id="panel-micro">
+    <h2>4 · Microstructure</h2>
+    <p class="hint">Record magnification, etchant, matrix, graphite morphology/distribution and any other observed phases. Dropdown lists are suggestions — you can type any value.</p>
+    <div class="table-wrap">
+      <table id="tbl-micro">
+        <thead>
+          <tr>
+            <th>Sample ID</th>
+            <th>Condition</th>
+            <th>Etchant</th>
+            <th>Magnification</th>
+            <th>Matrix Type</th>
+            <th>Graphite Flake Morphology</th>
+            <th>Graphite Distribution</th>
+            <th>Pearlite/Ferrite Observation</th>
+            <th>Other Phases / Features</th>
+            <th>Image File / No.</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rowhead">GI-01</td><td><input value="As-received"></td><td><input list="dl-etchant"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead">GI-02</td><td><input value="Softened"></td><td><input list="dl-etchant"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead">GI-03</td><td><input value="Softened"></td><td><input list="dl-etchant"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead">GI-04</td><td><input value="Softened"></td><td><input list="dl-etchant"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead">GI-05</td><td><input value="Re-hardened"></td><td><input list="dl-etchant"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead">GI-06</td><td><input value="Re-hardened"></td><td><input list="dl-etchant"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr><td class="rowhead">GI-07</td><td><input value="Re-hardened"></td><td><input list="dl-etchant"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td><td><input></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <datalist id="dl-etchant">
+      <option value="Nital 2%"></option>
+      <option value="Nital 4%"></option>
+      <option value="Picral 4%"></option>
+      <option value="Nital + Picral"></option>
+      <option value="As-polished (graphite only)"></option>
+    </datalist>
+    <datalist id="dl-mag">
+      <option value="100×"></option>
+      <option value="200×"></option>
+      <option value="400×"></option>
+      <option value="500×"></option>
+      <option value="1000×"></option>
+    </datalist>
+    <datalist id="dl-matrix">
+      <option value="Ferrite"></option>
+      <option value="Pearlite"></option>
+      <option value="Ferrite + Pearlite"></option>
+      <option value="Tempered Martensite"></option>
+      <option value="Martensite + Retained Austenite"></option>
+      <option value="Bainite"></option>
+      <option value="Pearlite + Cementite"></option>
+    </datalist>
+    <datalist id="dl-morph">
+      <option value="Type A – uniform flake"></option>
+      <option value="Type B – rosette"></option>
+      <option value="Type C – kish"></option>
+      <option value="Type D – interdendritic, fine"></option>
+      <option value="Type E – interdendritic, coarse"></option>
+      <option value="Type F – star / spiky"></option>
+    </datalist>
+    <datalist id="dl-dist">
+      <option value="Uniform"></option>
+      <option value="Random"></option>
+      <option value="Interdendritic"></option>
+      <option value="Clustered / segregated"></option>
+      <option value="Banded"></option>
+    </datalist>
+  </section>
+
+  <!-- ============ RESULTS SUMMARY ============ -->
+  <section class="panel" id="panel-results">
+    <h2>5 · Results Summary</h2>
+    <p class="hint">
+      Average Hardness and Std. Dev. are pulled automatically from the Rockwell Hardness sheet.
+      Reduction / increase percentages and <strong>machinability index / rating</strong> are computed against the
+      GI-01 (as-received) baseline — no separate machinability test is required.
+    </p>
+    <div class="table-wrap">
+      <table id="tbl-results">
+        <thead>
+          <tr>
+            <th>Sample ID</th>
+            <th>Condition</th>
+            <th>Treatment Temp (°C)</th>
+            <th>Holding Time (min)</th>
+            <th>Cooling Method</th>
+            <th>Average Hardness</th>
+            <th>Std. Dev.</th>
+            <th>Matrix / Microstructure</th>
+            <th>Machinability Index <br><span style="font-weight:400;font-size:10.5px;opacity:.85;">(baseline = 100)</span></th>
+            <th>Machinability Rating</th>
+            <th>Hardness Reduction (%)</th>
+            <th>Hardness Increase After Re-hardening (%)</th>
+            <th>Final Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-sample="GI-01">
+            <td class="rowhead">GI-01</td>
+            <td><select class="res-cond"><option>As-received</option><option>Softened</option><option>Re-hardened</option></select></td>
+            <td class="num"><input></td><td class="num"><input></td><td><input></td>
+            <td class="num"><input class="res-avg" readonly></td>
+            <td class="num"><input class="res-sd" readonly></td>
+            <td><input></td>
+            <td class="num"><input class="res-mach" readonly></td>
+            <td><input class="res-mach-rating" readonly></td>
+            <td class="num"><input class="res-red" readonly></td>
+            <td class="num"><input class="res-inc" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="GI-02">
+            <td class="rowhead">GI-02</td>
+            <td><select class="res-cond"><option>As-received</option><option selected>Softened</option><option>Re-hardened</option></select></td>
+            <td class="num"><input></td><td class="num"><input></td><td><input></td>
+            <td class="num"><input class="res-avg" readonly></td>
+            <td class="num"><input class="res-sd" readonly></td>
+            <td><input></td>
+            <td class="num"><input class="res-mach" readonly></td>
+            <td><input class="res-mach-rating" readonly></td>
+            <td class="num"><input class="res-red" readonly></td>
+            <td class="num"><input class="res-inc" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="GI-03">
+            <td class="rowhead">GI-03</td>
+            <td><select class="res-cond"><option>As-received</option><option selected>Softened</option><option>Re-hardened</option></select></td>
+            <td class="num"><input></td><td class="num"><input></td><td><input></td>
+            <td class="num"><input class="res-avg" readonly></td>
+            <td class="num"><input class="res-sd" readonly></td>
+            <td><input></td>
+            <td class="num"><input class="res-mach" readonly></td>
+            <td><input class="res-mach-rating" readonly></td>
+            <td class="num"><input class="res-red" readonly></td>
+            <td class="num"><input class="res-inc" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="GI-04">
+            <td class="rowhead">GI-04</td>
+            <td><select class="res-cond"><option>As-received</option><option selected>Softened</option><option>Re-hardened</option></select></td>
+            <td class="num"><input></td><td class="num"><input></td><td><input></td>
+            <td class="num"><input class="res-avg" readonly></td>
+            <td class="num"><input class="res-sd" readonly></td>
+            <td><input></td>
+            <td class="num"><input class="res-mach" readonly></td>
+            <td><input class="res-mach-rating" readonly></td>
+            <td class="num"><input class="res-red" readonly></td>
+            <td class="num"><input class="res-inc" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="GI-05">
+            <td class="rowhead">GI-05</td>
+            <td><select class="res-cond"><option>As-received</option><option>Softened</option><option selected>Re-hardened</option></select></td>
+            <td class="num"><input></td><td class="num"><input></td><td><input></td>
+            <td class="num"><input class="res-avg" readonly></td>
+            <td class="num"><input class="res-sd" readonly></td>
+            <td><input></td>
+            <td class="num"><input class="res-mach" readonly></td>
+            <td><input class="res-mach-rating" readonly></td>
+            <td class="num"><input class="res-red" readonly></td>
+            <td class="num"><input class="res-inc" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="GI-06">
+            <td class="rowhead">GI-06</td>
+            <td><select class="res-cond"><option>As-received</option><option>Softened</option><option selected>Re-hardened</option></select></td>
+            <td class="num"><input></td><td class="num"><input></td><td><input></td>
+            <td class="num"><input class="res-avg" readonly></td>
+            <td class="num"><input class="res-sd" readonly></td>
+            <td><input></td>
+            <td class="num"><input class="res-mach" readonly></td>
+            <td><input class="res-mach-rating" readonly></td>
+            <td class="num"><input class="res-red" readonly></td>
+            <td class="num"><input class="res-inc" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="GI-07">
+            <td class="rowhead">GI-07</td>
+            <td><select class="res-cond"><option>As-received</option><option>Softened</option><option selected>Re-hardened</option></select></td>
+            <td class="num"><input></td><td class="num"><input></td><td><input></td>
+            <td class="num"><input class="res-avg" readonly></td>
+            <td class="num"><input class="res-sd" readonly></td>
+            <td><input></td>
+            <td class="num"><input class="res-mach" readonly></td>
+            <td><input class="res-mach-rating" readonly></td>
+            <td class="num"><input class="res-red" readonly></td>
+            <td class="num"><input class="res-inc" readonly></td>
+            <td><input></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ GRAPHS ============ -->
+  <section class="panel" id="panel-graphs">
+    <h2>6 · Relations &amp; Graphs</h2>
+    <p class="hint">
+      Charts are generated automatically from the data entered in the other sheets.
+      They refresh when you open this tab, when data changes, and on window resize —
+      or press
+      <button class="action-btn" id="btn-refresh-charts" type="button"
+              style="padding:2px 9px;font-size:12px;">Refresh charts</button>.
+    </p>
+
+    <div class="chart-grid">
+
+      <div class="chart-card">
+        <h3>① Heat-treatment temperature vs. hardness</h3>
+        <canvas id="chart-temp-hardness" class="chart"></canvas>
+        <p class="cap">One point per sample. Temperature is taken from the Heat Treatment sheet (actual, then target), otherwise from Results Summary or Sample Register. The dashed line is the least-squares trend.</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>② Holding time vs. hardness</h3>
+        <canvas id="chart-hold-hardness" class="chart"></canvas>
+        <p class="cap">Holding time from the Heat Treatment / Results Summary / Sample Register sheets. Dashed line = least-squares trend.</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>③ Cooling method vs. hardness</h3>
+        <canvas id="chart-cooling-hardness" class="chart"></canvas>
+        <p class="cap">Bars = mean hardness of all samples sharing the same cooling method; error bars = ±1 standard deviation; n = number of samples.</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>④ Temperature vs. % hardness reduction / recovery</h3>
+        <canvas id="chart-temp-change" class="chart"></canvas>
+        <p class="cap">% change = (hardness − as-received baseline) / baseline × 100. Negative values = softening (reduction); positive values = re-hardening (recovery / increase).</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>⑤ Hardness vs. microstructure (matrix type)</h3>
+        <canvas id="chart-micro-hardness" class="chart"></canvas>
+        <p class="cap">Bars = mean hardness per matrix type recorded in the Microstructure / Results Summary sheet.</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>⑥ As-received vs. softened vs. re-hardened</h3>
+        <canvas id="chart-condition" class="chart"></canvas>
+        <p class="cap">Mean hardness per condition group with ±1 standard deviation error bars. Bars use a truncated axis to make the differences visible.</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>⑦ Individual sample hardness</h3>
+        <canvas id="chart-samples" class="chart"></canvas>
+        <p class="cap">Average hardness of every specimen, colour-coded by condition (blue = as-received, green = softened, red = re-hardened).</p>
+      </div>
+
+      <div class="chart-card">
+        <h3>⑧ Derived machinability index (baseline = 100)</h3>
+        <canvas id="chart-machinability" class="chart"></canvas>
+        <p class="cap">Machinability index = baseline hardness ÷ sample hardness × 100. Higher bars = easier to machine. Colour follows condition group.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ FORMULAS & REFERENCE ============ -->
+  <section class="panel" id="panel-formulas">
+    <h2>7 · Formulas &amp; Reference</h2>
+    <p class="hint">
+      Every formula used by the automatic calculators and chart generators in this sheet, grouped by where it is applied.
+      <br>
+      Notation: <strong>n</strong> = number of valid readings; <strong>x<sub>i</sub></strong> = individual reading;
+      <strong>x̄</strong> = sample mean; <strong>s</strong> = sample standard deviation;
+      <strong>k</strong> = number of values in a group; <strong>y<sub>i</sub></strong> = group value.
+    </p>
+
+    <div class="formula-grid">
+
+      <!-- Card 1 : Rockwell Hardness -->
+      <div class="formula-card">
+        <h3>① Rockwell Hardness Sheet <span class="badge">Auto-calculated</span></h3>
+
+        <div class="formula-item">
+          <div class="formula-name">Average (mean) <span class="tag">Average column</span></div>
+          <div class="formula-eq">
+            x̄ <span class="op">=</span>
+            <span class="frac">
+              <span class="num">1</span>
+              <span class="den">n</span>
+            </span>
+            <span class="op">·</span>
+            <span style="font-size:1.15em;">Σ</span><sub>i=1</sub><sup>n</sup>
+            x<sub>i</sub>
+          </div>
+          <div class="formula-desc">
+            Mean of all valid test-point readings in that row. Blank if no reading entered.
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Sample standard deviation <span class="tag green">Std. Dev. column</span></div>
+          <div class="formula-eq">
+            s <span class="op">=</span>
+            √
+            <span style="border-top:1.6px solid #102a44;padding:0 6px;">
+              <span class="frac" style="margin:0;">
+                <span class="num">Σ<sub>i=1</sub><sup>n</sup> (x<sub>i</sub> − x̄)²</span>
+                <span class="den">n − 1</span>
+              </span>
+            </span>
+          </div>
+          <div class="formula-desc">
+            Uses <code>n − 1</code> (Bessel correction). Blank if fewer than 2 readings are entered.
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Minimum / Maximum <span class="tag amber">Min · Max columns</span></div>
+          <div class="formula-eq">
+            Min <span class="op">=</span> min(x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub>)
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            Max <span class="op">=</span> max(x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub>)
+          </div>
+          <div class="formula-desc">
+            Smallest and largest valid reading in the row.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 : Results Summary -->
+      <div class="formula-card">
+        <h3>② Results Summary Sheet <span class="badge">Auto-calculated</span></h3>
+
+        <div class="formula-item">
+          <div class="formula-name">Baseline hardness <span class="tag">Reference value</span></div>
+          <div class="formula-eq">
+            Baseline <span class="op">=</span> Average hardness of <strong>GI-01</strong>
+          </div>
+          <div class="formula-desc">
+            For graphs, if GI-01 is missing, the first sample whose condition is <em>As-received</em> is used instead.
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Hardness reduction (%) <span class="tag green">Reduction column</span></div>
+          <div class="formula-eq">
+            Reduction&nbsp;(%) <span class="op">=</span>
+            <span class="frac">
+              <span class="num">Baseline − Avg</span>
+              <span class="den">Baseline</span>
+            </span>
+            <span class="op">× 100</span>
+          </div>
+          <div class="formula-desc">
+            Positive value indicates softening relative to the as-received condition.
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Hardness increase after re-hardening (%) <span class="tag red">Increase column</span></div>
+          <div class="formula-eq">
+            Increase&nbsp;(%) <span class="op">=</span>
+            <span class="frac">
+              <span class="num">Avg − Baseline</span>
+              <span class="den">Baseline</span>
+            </span>
+            <span class="op">× 100</span>
+          </div>
+          <div class="formula-desc">
+            Computed only when the condition is <code>Re-hardened</code>. Otherwise the cell is left blank.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 : Machinability (derived) -->
+      <div class="formula-card">
+        <h3>③ Derived Machinability <span class="badge">No test required</span></h3>
+        <p class="hint" style="margin:0 0 10px;font-size:11.5px;">
+          Machinability is <strong>not</strong> collected directly. It is estimated from the average hardness
+          relative to the as-received baseline: softer material → lower cutting forces → better machinability.
+        </p>
+
+        <div class="formula-item">
+          <div class="formula-name">Machinability index <span class="tag green">Index column</span></div>
+          <div class="formula-eq">
+            Machinability&nbsp;Index <span class="op">=</span>
+            <span class="frac">
+              <span class="num">Baseline Hardness</span>
+              <span class="den">Sample Hardness</span>
+            </span>
+            <span class="op">× 100</span>
+          </div>
+          <div class="formula-desc">
+            Baseline sample (as-received) = <strong>100</strong>. Index &gt; 100 = softer / easier to machine.
+            Index &lt; 100 = harder / more difficult to machine.
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Machinability rating <span class="tag amber">Rating column</span></div>
+          <table>
+            <thead>
+              <tr><th>Index range</th><th>Rating</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>≥ 115</td><td><span class="rating-chip rating-excellent">Excellent</span></td></tr>
+              <tr><td>105 – 114.9</td><td><span class="rating-chip rating-good">Good</span></td></tr>
+              <tr><td>95 – 104.9</td><td><span class="rating-chip rating-fair">Fair</span></td></tr>
+              <tr><td>85 – 94.9</td><td><span class="rating-chip rating-poor">Poor</span></td></tr>
+              <tr><td>&lt; 85</td><td><span class="rating-chip rating-verypoor">Very Poor</span></td></tr>
+            </tbody>
+          </table>
+          <div class="formula-desc">
+            Ratings are relative to the as-received baseline of this test series.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 : Graph Data -->
+      <div class="formula-card">
+        <h3>④ Graph Data Preparation</h3>
+
+        <div class="formula-item">
+          <div class="formula-name">Condition normalisation <span class="tag purple">Regex mapping</span></div>
+          <table>
+            <thead>
+              <tr><th>Pattern (case-insensitive)</th><th>Normalised group</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>as[\s\-_]*received</code></td><td><strong>As-received</strong></td></tr>
+              <tr><td><code>soften</code>, <code>anneal</code></td><td><strong>Softened</strong></td></tr>
+              <tr><td><code>re[\s\-_]*hard</code>, <code>harden</code>, <code>quench</code></td><td><strong>Re-hardened</strong></td></tr>
+            </tbody>
+          </table>
+          <div class="formula-desc">Used to group samples in charts ③, ⑥, ⑦ and ⑧.</div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Percentage hardness change (graph ④) <span class="tag amber">Per sample</span></div>
+          <div class="formula-eq">
+            Change&nbsp;(%) <span class="op">=</span>
+            <span class="frac">
+              <span class="num">Avg − Baseline</span>
+              <span class="den">Baseline</span>
+            </span>
+            <span class="op">× 100</span>
+          </div>
+          <div class="formula-desc">
+            Negative value → reduction (softening). Positive value → recovery (re-hardening).
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 : Group Statistics -->
+      <div class="formula-card">
+        <h3>⑤ Group Statistics <span class="badge">Bar charts</span></h3>
+
+        <div class="formula-item">
+          <div class="formula-name">Group mean <span class="tag">Bar height</span></div>
+          <div class="formula-eq">
+            ȳ <span class="op">=</span>
+            <span class="frac">
+              <span class="num">1</span>
+              <span class="den">k</span>
+            </span>
+            <span class="op">·</span>
+            <span style="font-size:1.15em;">Σ</span><sub>i=1</sub><sup>k</sup>
+            y<sub>i</sub>
+          </div>
+          <div class="formula-desc">
+            <strong>k</strong> = number of samples in the group (e.g. all samples with the same cooling method).
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Group standard deviation <span class="tag red">Error bar</span></div>
+          <div class="formula-eq">
+            s <span class="op">=</span>
+            √
+            <span style="border-top:1.6px solid #102a44;padding:0 6px;">
+              <span class="frac" style="margin:0;">
+                <span class="num">Σ<sub>i=1</sub><sup>k</sup> (y<sub>i</sub> − ȳ)²</span>
+                <span class="den">k − 1</span>
+              </span>
+            </span>
+          </div>
+          <div class="formula-desc">
+            Sample standard deviation (n−1). If <code>k = 1</code>, the deviation is set to 0.
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Error bar <span class="tag">Bar chart whiskers</span></div>
+          <div class="formula-eq">
+            Error bar <span class="op">=</span> ȳ <span class="op">±</span> s
+          </div>
+          <div class="formula-desc">Drawn as a vertical line with caps above and below the bar.</div>
+        </div>
+      </div>
+
+      <!-- Card 6 : Linear Regression -->
+      <div class="formula-card">
+        <h3>⑥ Linear Regression <span class="badge">Trend line</span></h3>
+        <p class="hint" style="margin:0 0 10px;font-size:11.5px;">
+          Applied to scatter plots ① Temperature vs. hardness and ② Holding time vs. hardness.
+          Given <strong>n</strong> data points (x<sub>i</sub>, y<sub>i</sub>):
+        </p>
+
+        <div class="formula-item">
+          <div class="formula-name">Summations</div>
+          <div class="formula-eq">
+            S<sub>x</sub> <span class="op">=</span> Σ x<sub>i</sub>
+            &nbsp;|&nbsp;
+            S<sub>y</sub> <span class="op">=</span> Σ y<sub>i</sub>
+            &nbsp;|&nbsp;
+            S<sub>xx</sub> <span class="op">=</span> Σ x<sub>i</sub>²
+            &nbsp;|&nbsp;
+            S<sub>xy</sub> <span class="op">=</span> Σ x<sub>i</sub>y<sub>i</sub>
+            &nbsp;|&nbsp;
+            S<sub>yy</sub> <span class="op">=</span> Σ y<sub>i</sub>²
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Slope <span class="tag">m</span></div>
+          <div class="formula-eq">
+            m <span class="op">=</span>
+            <span class="frac">
+              <span class="num">n·S<sub>xy</sub> − S<sub>x</sub>·S<sub>y</sub></span>
+              <span class="den">n·S<sub>xx</sub> − (S<sub>x</sub>)²</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Intercept <span class="tag">b</span></div>
+          <div class="formula-eq">
+            b <span class="op">=</span>
+            <span class="frac">
+              <span class="num">S<sub>y</sub> − m·S<sub>x</sub></span>
+              <span class="den">n</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Correlation coefficient <span class="tag">r</span></div>
+          <div class="formula-eq">
+            r <span class="op">=</span>
+            <span class="frac">
+              <span class="num">n·S<sub>xy</sub> − S<sub>x</sub>·S<sub>y</sub></span>
+              <span class="den">√[ (n·S<sub>xx</sub> − S<sub>x</sub>²)(n·S<sub>yy</sub> − S<sub>y</sub>²) ]</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Coefficient of determination <span class="tag amber">R²</span></div>
+          <div class="formula-eq">
+            R² <span class="op">=</span> r²
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Trend line equation <span class="tag green">Displayed on chart</span></div>
+          <div class="formula-eq">
+            y <span class="op">=</span> m·x <span class="op">+</span> b
+            &nbsp;&nbsp;&nbsp;
+            <span style="color:#888;font-size:0.85em;">(with R² annotation)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7 : Axis Scaling -->
+      <div class="formula-card">
+        <h3>⑦ Axis Scaling <span class="badge">“Nice number” algorithm</span></h3>
+        <p class="hint" style="margin:0 0 10px;font-size:11.5px;">
+          Purely cosmetic — it does not change the underlying data. It rounds the axis limits and tick step to human-friendly numbers.
+        </p>
+
+        <div class="formula-item">
+          <div class="formula-name">Step size</div>
+          <div class="formula-eq">
+            step <span class="op">=</span> niceNum( range / (ticks − 1), <em>round</em> )
+          </div>
+          <div class="formula-desc">
+            <code>niceNum</code> snaps to 1, 2, 5, or 10 × 10<sup>k</sup>.
+          </div>
+        </div>
+
+        <div class="formula-item">
+          <div class="formula-name">Axis limits</div>
+          <div class="formula-eq">
+            min<sub>axis</sub> <span class="op">=</span> ⌊ min<sub>data</sub> / step ⌋ · step
+            <br>
+            max<sub>axis</sub> <span class="op">=</span> ⌈ max<sub>data</sub> / step ⌉ · step
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ INSTRUCTIONS ============ -->
+  <section class="panel" id="panel-instructions">
+    <h2>8 · Instructions &amp; Notes</h2>
+    <div class="table-wrap">
+      <table id="tbl-instructions">
+        <thead>
+          <tr><th>Item</th><th>Instruction</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Sample ID</td><td>Use a unique code for every specimen.</td></tr>
+          <tr><td>Rockwell scale</td><td>Record the actual scale used (for example HRB or HRC) according to the applicable standard and specimen hardness.</td></tr>
+          <tr><td>Hardness points</td><td>Take multiple readings at separated locations and record all individual values.</td></tr>
+          <tr><td>Heat treatment</td><td>Record actual furnace temperature and holding time, not only the planned values.</td></tr>
+          <tr><td>Microstructure</td><td>Record magnification, etchant, matrix, graphite morphology/distribution, and other observed phases/features.</td></tr>
+          <tr><td>Machinability</td><td><strong>No separate machinability test is required.</strong> Machinability is derived automatically from the average hardness relative to the as-received baseline. The Results Summary sheet shows a Machinability Index (baseline = 100) and a qualitative rating (Excellent / Good / Fair / Poor / Very Poor).</td></tr>
+          <tr><td>Data analysis</td><td>Use the Results Summary sheet to compare as-received, softened, and re-hardened specimens.</td></tr>
+          <tr><td>Graphs</td><td>The “Graphs &amp; Relations” tab plots temperature, holding time, cooling method and microstructure against hardness, compares conditions, and shows the derived machinability index. Charts update automatically.</td></tr>
+          <tr><td>Formulas</td><td>See the “📐 Formulas” tab for the complete list of equations used by the automatic calculators and charts.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =========================================================
+     0 · SHARED HELPERS
+     ========================================================= */
+  function qsa(sel, root) {
+    return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+  }
+
+  function toNum(v) {
+    if (v === null || v === undefined) return null;
+    var s = String(v).trim();
+    if (s === "") return null;
+    var n = parseFloat(s);
+    return isNaN(n) ? null : n;
+  }
+
+  function cellInput(tr, idx) {
+    var cell = tr.children[idx];
+    if (!cell) return null;
+    return cell.querySelector("input, select, textarea");
+  }
+
+  function rowSampleId(tr) {
+    if (tr.dataset && tr.dataset.sample) return tr.dataset.sample.trim();
+    var rh = tr.querySelector("td.rowhead");
+    if (!rh) return "";
+    var inp = rh.querySelector("input");
+    return (inp ? inp.value : rh.textContent).trim();
+  }
+
+  /* =========================================================
+     1 · TABS
+     ========================================================= */
+  var tabButtons = qsa(".tab-btn");
+
+  tabButtons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      tabButtons.forEach(function (b) { b.classList.remove("active"); });
+      qsa(".panel").forEach(function (p) { p.classList.remove("active"); });
+      btn.classList.add("active");
+      var panel = document.getElementById(btn.dataset.target);
+      panel.classList.add("active");
+      if (btn.dataset.target === "panel-graphs") {
+        requestAnimationFrame(function () { renderAllCharts(); });
+      }
+    });
+  });
+
+  /* =========================================================
+     2 · ROCKWELL CALCULATIONS
+     ========================================================= */
+  function computeRockwell() {
+    qsa("#tbl-rockwell tbody tr").forEach(function (tr) {
+      var values = qsa("input.tp", tr)
+        .map(function (i) { return toNum(i.value); })
+        .filter(function (v) { return v !== null; });
+
+      var avgOut = tr.querySelector(".calc-avg");
+      var sdOut  = tr.querySelector(".calc-sd");
+      var minOut = tr.querySelector(".calc-min");
+      var maxOut = tr.querySelector(".calc-max");
+      if (!avgOut) return;
+
+      if (values.length === 0) {
+        avgOut.value = ""; sdOut.value = ""; minOut.value = ""; maxOut.value = "";
+        return;
+      }
+
+      var sum = values.reduce(function (a, b) { return a + b; }, 0);
+      var mean = sum / values.length;
+
+      avgOut.value = mean.toFixed(1);
+      minOut.value = Math.min.apply(null, values).toFixed(1);
+      maxOut.value = Math.max.apply(null, values).toFixed(1);
+
+      if (values.length < 2) {
+        sdOut.value = "";
+      } else {
+        var sq = values.reduce(function (a, b) { return a + Math.pow(b - mean, 2); }, 0);
+        sdOut.value = Math.sqrt(sq / (values.length - 1)).toFixed(2);
+      }
+    });
+  }
+
+  /* =========================================================
+     3 · MACHINABILITY (derived, no test required)
+     ========================================================= */
+  function machinabilityRating(index) {
+    if (index === null || index === undefined || isNaN(index)) return "";
+    if (index >= 115) return "Excellent";
+    if (index >= 105) return "Good";
+    if (index >= 95)  return "Fair";
+    if (index >= 85)  return "Poor";
+    return "Very Poor";
+  }
+
+  function machinabilityColor(index) {
+    if (index === null || index === undefined || isNaN(index)) return "";
+    if (index >= 115) return "rating-excellent";
+    if (index >= 105) return "rating-good";
+    if (index >= 95)  return "rating-fair";
+    if (index >= 85)  return "rating-poor";
+    return "rating-verypoor";
+  }
+
+  /* =========================================================
+     4 · RESULTS SUMMARY
+     ========================================================= */
+  function updateResults() {
+    var rockwell = {};
+
+    qsa("#tbl-rockwell tbody tr").forEach(function (tr) {
+      rockwell[tr.dataset.sample] = {
+        avg: toNum(tr.querySelector(".calc-avg").value),
+        sd: tr.querySelector(".calc-sd").value
+      };
+    });
+
+    var baseline = rockwell["GI-01"] ? rockwell["GI-01"].avg : null;
+
+    qsa("#tbl-results tbody tr").forEach(function (tr) {
+      var sample = tr.dataset.sample;
+      var data = rockwell[sample] || {};
+
+      var avgIn    = tr.querySelector(".res-avg");
+      var sdIn     = tr.querySelector(".res-sd");
+      var redIn    = tr.querySelector(".res-red");
+      var incIn    = tr.querySelector(".res-inc");
+      var machIn   = tr.querySelector(".res-mach");
+      var machRat  = tr.querySelector(".res-mach-rating");
+      var cond     = tr.querySelector(".res-cond").value;
+
+      avgIn.value = (data.avg === null || data.avg === undefined) ? "" : data.avg.toFixed(1);
+      sdIn.value  = data.sd || "";
+
+      /* Hardness reduction / increase */
+      if (baseline && baseline !== 0 && data.avg !== null && data.avg !== undefined) {
+        redIn.value = (((baseline - data.avg) / baseline) * 100).toFixed(1);
+        incIn.value = (cond === "Re-hardened")
+          ? (((data.avg - baseline) / baseline) * 100).toFixed(1)
+          : "";
+      } else {
+        redIn.value = "";
+        incIn.value = "";
+      }
+
+      /* Derived machinability index and rating */
+      if (baseline && baseline !== 0 && data.avg !== null && data.avg !== undefined && data.avg !== 0) {
+        var idx = (baseline / data.avg) * 100;
+        machIn.value = idx.toFixed(1);
+        if (machRat) {
+          machRat.value = machinabilityRating(idx);
+          machRat.className = "res-mach-rating " + machinabilityColor(idx);
+          machRat.style.color = ""; // let class handle it
+        }
+      } else {
+        machIn.value = "";
+        if (machRat) {
+          machRat.value = "";
+          machRat.className = "res-mach-rating";
+        }
+      }
+    });
+  }
+
+  function recalcAll() {
+    computeRockwell();
+    updateResults();
+  }
+
+  /* =========================================================
+     5 · DATA COLLECTION (joins all sheets by Sample ID)
+     ========================================================= */
+  function collectData() {
+    var map = {};
+
+    function rec(sid) {
+      if (!map[sid]) {
+        map[sid] = {
+          id: sid,
+          condition: "",
+          treatment: "",
+          temp: null,
+          hold: null,
+          cooling: "",
+          matrix: "",
+          avg: null,
+          sd: null,
+          scale: ""
+        };
+      }
+      return map[sid];
+    }
+
+    /* ---- (a) Rockwell : sample list + hardness + condition ---- */
+    qsa("#tbl-rockwell tbody tr").forEach(function (tr) {
+      var sid = rowSampleId(tr);
+      if (!sid) return;
+      var r = rec(sid);
+
+      var avgEl = tr.querySelector(".calc-avg");
+      var sdEl  = tr.querySelector(".calc-sd");
+      r.avg = toNum(avgEl ? avgEl.value : "");
+      r.sd  = toNum(sdEl ? sdEl.value : "");
+
+      var condEl = cellInput(tr, 1);
+      if (condEl && condEl.value.trim()) r.condition = condEl.value.trim();
+
+      var scaleEl = cellInput(tr, 2);
+      if (scaleEl && scaleEl.value.trim()) r.scale = scaleEl.value.trim();
+    });
+
+    /* ---- (b) Sample Register : fallback values ---- */
+    qsa("#tbl-sample tbody tr").forEach(function (tr) {
+      var sid = rowSampleId(tr);
+      if (!sid) return;
+      var r = rec(sid);
+
+      var cCond = cellInput(tr, 1);
+      var cTr   = cellInput(tr, 2);
+      var cTmp  = cellInput(tr, 3);
+      var cHold = cellInput(tr, 4);
+      var cCool = cellInput(tr, 5);
+
+      if (cCond && cCond.value.trim()) r.condition = cCond.value.trim();
+      if (cTr   && cTr.value.trim())   r.treatment = cTr.value.trim();
+      var t = cTmp ? toNum(cTmp.value) : null;
+      if (t !== null) r.temp = t;
+      var h = cHold ? toNum(cHold.value) : null;
+      if (h !== null) r.hold = h;
+      if (cCool && cCool.value.trim()) r.cooling = cCool.value.trim();
+    });
+
+    /* ---- (c) Microstructure : matrix type ---- */
+    qsa("#tbl-micro tbody tr").forEach(function (tr) {
+      var sid = rowSampleId(tr);
+      if (!sid) return;
+      var r = rec(sid);
+
+      var cCond = cellInput(tr, 1);
+      var cMat  = cellInput(tr, 4);
+
+      if (cCond && cCond.value.trim()) r.condition = cCond.value.trim();
+      if (cMat && cMat.value.trim())   r.matrix = cMat.value.trim();
+    });
+
+    /* ---- (d) Results Summary : overrides register ---- */
+    qsa("#tbl-results tbody tr").forEach(function (tr) {
+      var sid = rowSampleId(tr);
+      if (!sid) return;
+      var r = rec(sid);
+
+      var cCond = cellInput(tr, 1);
+      var cTmp  = cellInput(tr, 2);
+      var cHold = cellInput(tr, 3);
+      var cCool = cellInput(tr, 4);
+      var cMat  = cellInput(tr, 7);
+
+      if (cCond && cCond.value.trim()) r.condition = cCond.value.trim();
+      var t = cTmp ? toNum(cTmp.value) : null;
+      if (t !== null) r.temp = t;
+      var h = cHold ? toNum(cHold.value) : null;
+      if (h !== null) r.hold = h;
+      if (cCool && cCool.value.trim()) r.cooling = cCool.value.trim();
+      if (cMat && cMat.value.trim())   r.matrix = cMat.value.trim();
+    });
+
+    /* ---- (e) Heat Treatment : highest priority for temp / hold / cooling ---- */
+    qsa("#tbl-ht tbody tr").forEach(function (tr) {
+      var sid = rowSampleId(tr);
+      if (!sid) return;
+      var r = rec(sid);
+
+      var cType   = cellInput(tr, 1);
+      var cTarget = cellInput(tr, 2);
+      var cActual = cellInput(tr, 3);
+      var cHold   = cellInput(tr, 6);
+      var cCool   = cellInput(tr, 8);
+
+      if (cType && cType.value.trim()) r.treatment = cType.value.trim();
+
+      var actual = cActual ? toNum(cActual.value) : null;
+      var target = cTarget ? toNum(cTarget.value) : null;
+      if (actual !== null) r.temp = actual;
+      else if (target !== null) r.temp = target;
+
+      var h = cHold ? toNum(cHold.value) : null;
+      if (h !== null) r.hold = h;
+
+      if (cCool && cCool.value.trim()) r.cooling = cCool.value.trim();
+    });
+
+    return map;
+  }
+
+  function getChartRecords() {
+    var D = collectData();
+    return Object.keys(D)
+      .map(function (k) { return D[k]; })
+      .filter(function (r) { return r.avg !== null; });
+  }
+
+  function normaliseCondition(c) {
+    if (!c) return "";
+    if (/as[\s\-_]*received/i.test(c)) return "As-received";
+    if (/soften|anneal/i.test(c))      return "Softened";
+    if (/re[\s\-_]*hard|harden|quench/i.test(c)) return "Re-hardened";
+    return c;
+  }
+
+  var CONDITION_ORDER = ["As-received", "Softened", "Re-hardened"];
+  var CONDITION_COLORS = {
+    "As-received": "#1F4E78",
+    "Softened":    "#2E9E5B",
+    "Re-hardened": "#D9534F"
+  };
+  var FALLBACK_COLOR = "#1F4E78";
+  var PALETTE = ["#1F4E78", "#2E9E5B", "#D9534F", "#E8A33D", "#7B5EA7", "#3AA6B9", "#C0603A"];
+
+  function conditionColor(c) {
+    var n = normaliseCondition(c);
+    return CONDITION_COLORS[n] || FALLBACK_COLOR;
+  }
+
+  function getBaseline(records) {
+    var base = null;
+    records.forEach(function (r) {
+      if (base !== null) return;
+      if (/as[\s\-_]*received/i.test(r.condition)) base = r.avg;
+    });
+    if (base === null) {
+      records.forEach(function (r) {
+        if (base === null && r.id === "GI-01") base = r.avg;
+      });
+    }
+    return base;
+  }
+
+  function groupStats(items, keyFn, valueFn) {
+    var map = {};
+    items.forEach(function (it) {
+      var k = keyFn(it);
+      if (!k) return;
+      var v = valueFn ? valueFn(it) : it.avg;
+      if (v === null || v === undefined || isNaN(v)) return;
+      if (!map[k]) map[k] = [];
+      map[k].push(v);
+    });
+    return Object.keys(map).map(function (k) {
+      var arr = map[k];
+      var mean = arr.reduce(function (a, b) { return a + b; }, 0) / arr.length;
+      var sd = 0;
+      if (arr.length > 1) {
+        sd = Math.sqrt(arr.reduce(function (a, b) {
+          return a + Math.pow(b - mean, 2);
+        }, 0) / (arr.length - 1));
+      }
+      return { label: k, value: mean, sd: sd, n: arr.length };
+    });
+  }
+
+  /* =========================================================
+     6 · MINI CHART ENGINE (pure canvas, no libraries)
+     ========================================================= */
+  var FONT_STACK = "'Segoe UI', Roboto, Arial, sans-serif";
+
+  function setupCanvas(canvas) {
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    var w = Math.round(rect.width) || 600;
+    var h = Math.round(rect.height) || 300;
+    canvas.width  = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    var ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.font = "12px " + FONT_STACK;
+    ctx.textBaseline = "middle";
+    return { ctx: ctx, w: w, h: h };
+  }
+
+  function niceNum(range, round) {
+    if (!(range > 0)) range = 1;
+    var exp = Math.floor(Math.log10(range));
+    var f = range / Math.pow(10, exp);
+    var nf;
+    if (round) {
+      if (f < 1.5) nf = 1;
+      else if (f < 3) nf = 2;
+      else if (f < 7) nf = 5;
+      else nf = 10;
+    } else {
+      if (f <= 1) nf = 1;
+      else if (f <= 2) nf = 2;
+      else if (f <= 5) nf = 5;
+      else nf = 10;
+    }
+    return nf * Math.pow(10, exp);
+  }
+
+  function niceScale(min, max, maxTicks) {
+    maxTicks = Math.max(2, maxTicks || 5);
+    if (!isFinite(min) || !isFinite(max)) { min = 0; max = 1; }
+    if (min > max) { var tmp = min; min = max; max = tmp; }
+    if (min === max) {
+      var d = Math.abs(min) || 1;
+      min -= d * 0.5;
+      max += d * 0.5;
+    }
+    var range = niceNum(max - min, false);
+    var step  = niceNum(range / (maxTicks - 1), true);
+    var nmin  = Math.floor(min / step) * step;
+    var nmax  = Math.ceil(max / step) * step;
+    return { min: nmin, max: nmax, step: step };
+  }
+
+  function tickValues(sc) {
+    var out = [];
+    var n = Math.round((sc.max - sc.min) / sc.step);
+    if (n > 60) n = 60;
+    for (var i = 0; i <= n; i++) out.push(sc.min + i * sc.step);
+    return out;
+  }
+
+  function fmtNum(v) {
+    var a = Math.abs(v);
+    var s;
+    if (a >= 1000) s = v.toFixed(0);
+    else if (a >= 100) s = v.toFixed(0);
+    else if (a >= 1) s = v.toFixed(1);
+    else s = v.toFixed(2);
+    return s.replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+  }
+
+  function emptyChart(ctx, W, H, text) {
+    ctx.save();
+    ctx.fillStyle = "#9aa5b1";
+    ctx.font = "13px " + FONT_STACK;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    var words = String(text || "No data yet.").split(" ");
+    var lines = [], cur = "";
+    words.forEach(function (wd) {
+      var test = cur ? cur + " " + wd : wd;
+      if (ctx.measureText(test).width > W - 70 && cur) { lines.push(cur); cur = wd; }
+      else cur = test;
+    });
+    if (cur) lines.push(cur);
+    var lh = 18;
+    var startY = H / 2 - (lines.length - 1) * lh / 2;
+    lines.forEach(function (l, i) { ctx.fillText(l, W / 2, startY + i * lh); });
+    ctx.restore();
+  }
+
+  function linreg(pts) {
+    var n = pts.length;
+    if (n < 2) return null;
+    var sx = 0, sy = 0, sxx = 0, sxy = 0, syy = 0;
+    pts.forEach(function (p) {
+      sx += p.x; sy += p.y;
+      sxx += p.x * p.x; sxy += p.x * p.y; syy += p.y * p.y;
+    });
+    var denom = n * sxx - sx * sx;
+    if (Math.abs(denom) < 1e-12) return null;
+    var slope = (n * sxy - sx * sy) / denom;
+    var intercept = (sy - slope * sx) / n;
+    var rNum = n * sxy - sx * sy;
+    var rDen = Math.sqrt((n * sxx - sx * sx) * (n * syy - sy * sy));
+    var r2 = rDen === 0 ? 0 : Math.pow(rNum / rDen, 2);
+    return { slope: slope, intercept: intercept, r2: r2, n: n };
+  }
+
+  /* -------------------- SCATTER CHART -------------------- */
+  function scatterChart(canvas, cfg) {
+    if (!canvas) return;
+    var s = setupCanvas(canvas);
+    var ctx = s.ctx, W = s.w, H = s.h;
+
+    var allPts = [];
+    (cfg.series || []).forEach(function (ser) {
+      (ser.points || []).forEach(function (p) { allPts.push(p); });
+    });
+
+    if (allPts.length === 0) {
+      emptyChart(ctx, W, H, cfg.emptyText);
+      return;
+    }
+
+    var m = { l: 64, r: 24, t: 18, b: 56 };
+    var x0 = m.l, y0 = m.t, x1 = W - m.r, y1 = H - m.b;
+
+    var xs = allPts.map(function (p) { return p.x; });
+    var ys = allPts.map(function (p) { return p.y; });
+
+    var xsc = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs),
+                        Math.max(3, Math.floor((x1 - x0) / 95)));
+    var ysc = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys),
+                        Math.max(3, Math.floor((y1 - y0) / 55)));
+
+    function xMap(v) { return x0 + (v - xsc.min) / (xsc.max - xsc.min) * (x1 - x0); }
+    function yMap(v) { return y1 - (v - ysc.min) / (ysc.max - ysc.min) * (y1 - y0); }
+
+    /* grid */
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#eceff3";
+    tickValues(ysc).forEach(function (t) {
+      var y = Math.round(yMap(t)) + 0.5;
+      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+    });
+    tickValues(xsc).forEach(function (t) {
+      var x = Math.round(xMap(t)) + 0.5;
+      ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x, y1); ctx.stroke();
+    });
+
+    /* zero line */
+    if (cfg.hLine !== undefined && cfg.hLine >= ysc.min && cfg.hLine <= ysc.max) {
+      ctx.strokeStyle = "#b9c2cc";
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.moveTo(x0, yMap(cfg.hLine));
+      ctx.lineTo(x1, yMap(cfg.hLine));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    /* axes */
+    ctx.strokeStyle = "#9aa5b1";
+    ctx.beginPath();
+    ctx.moveTo(x0 + 0.5, y0); ctx.lineTo(x0 + 0.5, y1 + 0.5); ctx.lineTo(x1, y1 + 0.5);
+    ctx.stroke();
+
+    /* tick labels */
+    ctx.fillStyle = "#444";
+    ctx.font = "11px " + FONT_STACK;
+    ctx.textAlign = "right";
+    tickValues(ysc).forEach(function (t) {
+      ctx.fillText(fmtNum(t), x0 - 8, yMap(t));
+    });
+    ctx.textAlign = "center";
+    tickValues(xsc).forEach(function (t) {
+      ctx.fillText(fmtNum(t), xMap(t), y1 + 16);
+    });
+
+    /* axis titles */
+    ctx.fillStyle = "#333";
+    ctx.font = "12px " + FONT_STACK;
+    ctx.fillText(cfg.xLabel || "", (x0 + x1) / 2, H - 12);
+
+    ctx.save();
+    ctx.translate(15, (y0 + y1) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = "center";
+    ctx.fillText(cfg.yLabel || "", 0, 0);
+    ctx.restore();
+
+    /* series */
+    var showLabels = allPts.length <= 10 && cfg.showPointLabels !== false;
+
+    (cfg.series || []).forEach(function (ser) {
+      if (!ser.points || ser.points.length === 0) return;
+      var color = ser.color || FALLBACK_COLOR;
+
+      ser.points.forEach(function (p) {
+        var cx = xMap(p.x);
+        var cy = yMap(p.y);
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, 5.5, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.globalAlpha = 0.85;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = "#ffffff";
+        ctx.stroke();
+
+        if (showLabels && p.label) {
+          ctx.fillStyle = "#555";
+          ctx.font = "10px " + FONT_STACK;
+          ctx.textAlign = "left";
+          ctx.fillText(p.label, cx + 8, cy - 9);
+        }
+      });
+    });
+
+    /* trend line */
+    if (cfg.trend && allPts.length >= 3) {
+      var reg = linreg(allPts);
+      if (reg) {
+        var xa = xsc.min, xb = xsc.max;
+        var ya = reg.slope * xa + reg.intercept;
+        var yb = reg.slope * xb + reg.intercept;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(x0, y0, x1 - x0, y1 - y0);
+        ctx.clip();
+
+        ctx.strokeStyle = "#D9534F";
+        ctx.lineWidth = 1.8;
+        ctx.setLineDash([7, 5]);
+        ctx.beginPath();
+        ctx.moveTo(xMap(xa), yMap(ya));
+        ctx.lineTo(xMap(xb), yMap(yb));
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+
+        /* equation box */
+        var eq = "y = " + reg.slope.toFixed(4) + "x + " + reg.intercept.toFixed(2) +
+                 "   R² = " + reg.r2.toFixed(3);
+        ctx.font = "11px " + FONT_STACK;
+        var tw = ctx.measureText(eq).width;
+        ctx.fillStyle = "rgba(255,255,255,0.88)";
+        ctx.fillRect(x1 - tw - 16, y0 + 6, tw + 12, 20);
+        ctx.strokeStyle = "#e0e5ea";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x1 - tw - 16, y0 + 6, tw + 12, 20);
+        ctx.fillStyle = "#444";
+        ctx.textAlign = "left";
+        ctx.fillText(eq, x1 - tw - 10, y0 + 16);
+      }
+    }
+
+    /* legend */
+    if ((cfg.series || []).length > 1) {
+      var lx = x0 + 14, ly = y0 + 16;
+      ctx.font = "11px " + FONT_STACK;
+      (cfg.series || []).forEach(function (ser, i) {
+        if (!ser.points || ser.points.length === 0) return;
+        var yy = ly + i * 18;
+        ctx.beginPath();
+        ctx.arc(lx + 5, yy, 5, 0, Math.PI * 2);
+        ctx.fillStyle = ser.color || FALLBACK_COLOR;
+        ctx.fill();
+        ctx.fillStyle = "#333";
+        ctx.textAlign = "left";
+        ctx.fillText(ser.name, lx + 16, yy);
+      });
+    }
+  }
+
+  /* -------------------- BAR CHART -------------------- */
+  function barChart(canvas, cfg) {
+    if (!canvas) return;
+    var s = setupCanvas(canvas);
+    var ctx = s.ctx, W = s.w, H = s.h;
+
+    var cats = (cfg.categories || []).filter(function (c) {
+      return c.value !== null && c.value !== undefined && !isNaN(c.value);
+    });
+
+    if (cats.length === 0) {
+      emptyChart(ctx, W, H, cfg.emptyText);
+      return;
+    }
+
+    var rotate = cats.some(function (c) { return String(c.label).length > 11; }) || cats.length > 5;
+
+    var m = { l: 64, r: 24, t: 18, b: rotate ? 88 : 62 };
+    var x0 = m.l, y0 = m.t, x1 = W - m.r, y1 = H - m.b;
+
+    var vals = cats.map(function (c) { return c.value; });
+    var lo = Math.min.apply(null, vals);
+    var hi = Math.max.apply(null, vals);
+    var pad = (hi - lo) || Math.abs(hi) * 0.1 || 1;
+
+    var yMin, yMax;
+    if (cfg.zeroBase) {
+      yMin = 0;
+      yMax = hi + pad * 0.25;
+    } else {
+      yMin = lo - pad * 0.35;
+      yMax = hi + pad * 0.35;
+    }
+    var ysc = niceScale(yMin, yMax, 5);
+
+    function yMap(v) { return y1 - (v - ysc.min) / (ysc.max - ysc.min) * (y1 - y0); }
+
+    /* grid */
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#eceff3";
+    tickValues(ysc).forEach(function (t) {
+      var y = Math.round(yMap(t)) + 0.5;
+      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+    });
+
+    /* axes */
+    ctx.strokeStyle = "#9aa5b1";
+    ctx.beginPath();
+    ctx.moveTo(x0 + 0.5, y0); ctx.lineTo(x0 + 0.5, y1 + 0.5); ctx.lineTo(x1, y1 + 0.5);
+    ctx.stroke();
+
+    /* y ticks */
+    ctx.fillStyle = "#444";
+    ctx.font = "11px " + FONT_STACK;
+    ctx.textAlign = "right";
+    tickValues(ysc).forEach(function (t) {
+      ctx.fillText(fmtNum(t), x0 - 8, yMap(t));
+    });
+
+    /* axis titles */
+    ctx.fillStyle = "#333";
+    ctx.font = "12px " + FONT_STACK;
+    ctx.textAlign = "center";
+    ctx.fillText(cfg.xLabel || "", (x0 + x1) / 2, H - 12);
+
+    ctx.save();
+    ctx.translate(15, (y0 + y1) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = "center";
+    ctx.fillText(cfg.yLabel || "", 0, 0);
+    ctx.restore();
+
+    /* bars */
+    var band = (x1 - x0) / cats.length;
+    var barW = Math.min(band * 0.62, 90);
+    var showErr = cats.some(function (c) { return c.sd && c.sd > 0; });
+    var baseY = y1;
+
+    cats.forEach(function (c, i) {
+      var cx = x0 + band * (i + 0.5);
+      var yv = yMap(c.value);
+      var color = c.color || FALLBACK_COLOR;
+
+      /* bar */
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.88;
+      ctx.fillRect(cx - barW / 2, yv, barW, baseY - yv);
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(cx - barW / 2 + 0.5, yv + 0.5, barW - 1, baseY - yv - 1);
+
+      /* error bar */
+      var topY = yv;
+      if (showErr && c.sd > 0) {
+        var sdTop = yMap(c.value + c.sd);
+        var sdBot = yMap(c.value - c.sd);
+        sdTop = Math.max(sdTop, y0);
+        sdBot = Math.min(sdBot, y1);
+
+        ctx.strokeStyle = "#333";
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.moveTo(cx, sdTop); ctx.lineTo(cx, sdBot);
+        ctx.moveTo(cx - 6, sdTop); ctx.lineTo(cx + 6, sdTop);
+        ctx.moveTo(cx - 6, sdBot); ctx.lineTo(cx + 6, sdBot);
+        ctx.stroke();
+        topY = sdTop;
+      }
+
+      /* value label */
+      var txt = fmtNum(c.value);
+      if (showErr && c.sd > 0) txt += " ±" + fmtNum(c.sd);
+      ctx.fillStyle = "#1c1c1c";
+      ctx.font = "600 11px " + FONT_STACK;
+      ctx.textAlign = "center";
+      ctx.fillText(txt, cx, Math.max(topY - 10, y0 + 8));
+      ctx.font = "11px " + FONT_STACK;
+
+      /* x label */
+      var label = c.label + (cfg.showN && c.n ? "  (n=" + c.n + ")" : "");
+      ctx.fillStyle = "#333";
+      if (rotate) {
+        ctx.save();
+        ctx.translate(cx + 3, y1 + 10);
+        ctx.rotate(-Math.PI / 6);
+        ctx.textAlign = "right";
+        ctx.fillText(label, 0, 0);
+        ctx.restore();
+      } else {
+        ctx.textAlign = "center";
+        ctx.fillText(label, cx, y1 + 16);
+      }
+    });
+
+    /* reference line at 100 for machinability chart */
+    if (cfg.refLine !== undefined && cfg.refLine >= ysc.min && cfg.refLine <= ysc.max) {
+      ctx.strokeStyle = "#888";
+      ctx.setLineDash([6, 4]);
+      ctx.lineWidth = 1.4;
+      var ry = yMap(cfg.refLine);
+      ctx.beginPath();
+      ctx.moveTo(x0, ry);
+      ctx.lineTo(x1, ry);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = "#666";
+      ctx.font = "10.5px " + FONT_STACK;
+      ctx.textAlign = "right";
+      ctx.fillText("baseline = " + fmtNum(cfg.refLine), x1 - 4, ry - 9);
+    }
+  }
+
+  /* =========================================================
+     7 · CHART RENDERERS
+     ========================================================= */
+  function renderTempVsHardness(records) {
+    var pts = [];
+    records.forEach(function (r) {
+      if (r.temp !== null && r.avg !== null) {
+        pts.push({ x: r.temp, y: r.avg, label: r.id });
+      }
+    });
+
+    scatterChart(document.getElementById("chart-temp-hardness"), {
+      xLabel: "Heat-treatment temperature (°C)",
+      yLabel: "Average hardness",
+      trend: true,
+      series: [{ name: "Samples", color: "#1F4E78", points: pts }],
+      emptyText: "Enter heat-treatment temperatures and Rockwell readings to plot this relation."
+    });
+  }
+
+  function renderHoldVsHardness(records) {
+    var pts = [];
+    records.forEach(function (r) {
+      if (r.hold !== null && r.avg !== null) {
+        pts.push({ x: r.hold, y: r.avg, label: r.id });
+      }
+    });
+
+    scatterChart(document.getElementById("chart-hold-hardness"), {
+      xLabel: "Holding time (min)",
+      yLabel: "Average hardness",
+      trend: true,
+      series: [{ name: "Samples", color: "#2E9E5B", points: pts }],
+      emptyText: "Enter holding times and Rockwell readings to plot this relation."
+    });
+  }
+
+  function renderCoolingVsHardness(records) {
+    var groups = groupStats(
+      records.filter(function (r) { return r.cooling; }),
+      function (r) { return r.cooling; }
+    ).sort(function (a, b) { return b.value - a.value; });
+
+    groups.forEach(function (g, i) {
+      g.color = PALETTE[i % PALETTE.length];
+    });
+
+    barChart(document.getElementById("chart-cooling-hardness"), {
+      xLabel: "Cooling method",
+      yLabel: "Average hardness",
+      categories: groups,
+      showN: true,
+      emptyText: "Record a cooling method for each sample to compare cooling routes."
+    });
+  }
+
+  function renderTempVsChange(records, baseline) {
+    var soft = [], hard = [];
+
+    if (baseline && baseline !== 0) {
+      records.forEach(function (r) {
+        if (r.temp === null || r.avg === null) return;
+        var pct = (r.avg - baseline) / baseline * 100;
+        var p = { x: r.temp, y: pct, label: r.id };
+        if (/re[\s\-_]*hard|harden|quench/i.test(r.condition)) hard.push(p);
+        else soft.push(p);
+      });
+    }
+
+    scatterChart(document.getElementById("chart-temp-change"), {
+      xLabel: "Heat-treatment temperature (°C)",
+      yLabel: "% change vs as-received",
+      hLine: 0,
+      series: [
+        { name: "Softened (reduction)", color: "#2E9E5B", points: soft },
+        { name: "Re-hardened (recovery)", color: "#D9534F", points: hard }
+      ],
+      emptyText: "A baseline sample (As-received / GI-01) and temperatures are needed for this chart."
+    });
+  }
+
+  function renderHardnessVsMicro(records) {
+    var groups = groupStats(
+      records.filter(function (r) { return r.matrix; }),
+      function (r) { return r.matrix; }
+    ).sort(function (a, b) { return b.value - a.value; });
+
+    groups.forEach(function (g, i) {
+      g.color = PALETTE[i % PALETTE.length];
+    });
+
+    barChart(document.getElementById("chart-micro-hardness"), {
+      xLabel: "Matrix / microstructure",
+      yLabel: "Average hardness",
+      categories: groups,
+      showN: true,
+      emptyText: "Enter the matrix type for each sample in the Microstructure or Results Summary sheet."
+    });
+  }
+
+  function renderConditionBars(records) {
+    var groups = groupStats(records, function (r) {
+      return normaliseCondition(r.condition);
+    });
+
+    groups.sort(function (a, b) {
+      var ia = CONDITION_ORDER.indexOf(a.label);
+      var ib = CONDITION_ORDER.indexOf(b.label);
+      if (ia === -1) ia = 99;
+      if (ib === -1) ib = 99;
+      return ia - ib;
+    });
+
+    groups.forEach(function (g) {
+      g.color = CONDITION_COLORS[g.label] || FALLBACK_COLOR;
+    });
+
+    barChart(document.getElementById("chart-condition"), {
+      xLabel: "Condition",
+      yLabel: "Average hardness",
+      categories: groups,
+      showN: true,
+      zeroBase: false,
+      emptyText: "Enter hardness readings to compare as-received, softened and re-hardened specimens."
+    });
+  }
+
+  function renderSampleBars(records) {
+    var cats = records
+      .slice()
+      .sort(function (a, b) { return a.id.localeCompare(b.id); })
+      .map(function (r) {
+        return {
+          label: r.id,
+          value: r.avg,
+          sd: r.sd || 0,
+          n: 1,
+          color: conditionColor(r.condition)
+        };
+      });
+
+    barChart(document.getElementById("chart-samples"), {
+      xLabel: "Sample ID",
+      yLabel: "Average hardness",
+      categories: cats,
+      zeroBase: false,
+      emptyText: "Enter Rockwell readings to plot individual sample hardness."
+    });
+  }
+
+  function renderMachinabilityChart(records, baseline) {
+    var cats = records
+      .slice()
+      .sort(function (a, b) { return a.id.localeCompare(b.id); })
+      .filter(function (r) { return r.avg !== null && r.avg !== 0 && baseline; })
+      .map(function (r) {
+        var idx = (baseline / r.avg) * 100;
+        return {
+          label: r.id,
+          value: idx,
+          sd: 0,
+          n: 1,
+          color: conditionColor(r.condition)
+        };
+      });
+
+    barChart(document.getElementById("chart-machinability"), {
+      xLabel: "Sample ID",
+      yLabel: "Machinability index",
+      categories: cats,
+      zeroBase: false,
+      refLine: 100,
+      emptyText: "Enter a baseline (GI-01) and Rockwell readings to derive machinability."
+    });
+  }
+
+  function renderAllCharts() {
+    var records, baseline;
+    try {
+      records = getChartRecords();
+      baseline = getBaseline(records);
+    } catch (err) {
+      console.error("Data collection error:", err);
+      records = [];
+      baseline = null;
+    }
+
+    try {
+      renderTempVsHardness(records);
+      renderHoldVsHardness(records);
+      renderCoolingVsHardness(records);
+      renderTempVsChange(records, baseline);
+      renderHardnessVsMicro(records);
+      renderConditionBars(records);
+      renderSampleBars(records);
+      renderMachinabilityChart(records, baseline);
+    } catch (err) {
+      console.error("Chart rendering error:", err);
+    }
+  }
+
+  /* =========================================================
+     8 · EVENTS
+     ========================================================= */
+  var chartTimer = null;
+  function scheduleCharts() {
+    if (chartTimer) clearTimeout(chartTimer);
+    chartTimer = setTimeout(renderAllCharts, 350);
+  }
+
+  document.addEventListener("input", function (e) {
+    if (e.target.closest("#tbl-rockwell") || e.target.closest("#tbl-results")) {
+      recalcAll();
+    }
+    if (e.target.closest("table")) scheduleCharts();
+  });
+
+  document.addEventListener("change", function (e) {
+    if (e.target.closest("#tbl-results")) recalcAll();
+    if (e.target.closest("table")) scheduleCharts();
+  });
+
+  var refreshBtn = document.getElementById("btn-refresh-charts");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", function () {
+      recalcAll();
+      renderAllCharts();
+    });
+  }
+
+  var resizeTimer = null;
+  window.addEventListener("resize", function () {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      if (document.getElementById("panel-graphs").classList.contains("active")) {
+        renderAllCharts();
+      }
+    }, 220);
+  });
+
+  /* ---------- CSV export of the active panel table ---------- */
+  function tableToCSV(table) {
+    var lines = [];
+    table.querySelectorAll("tr").forEach(function (tr) {
+      var cells = Array.prototype.slice.call(tr.children).map(function (cell) {
+        var field = cell.querySelector("input, select, textarea");
+        var value = field ? field.value : cell.textContent;
+        value = String(value === null || value === undefined ? "" : value).trim();
+        return '"' + value.replace(/"/g, '""') + '"';
+      });
+      lines.push(cells.join(","));
+    });
+    return lines.join("\r\n");
+  }
+
+  document.getElementById("btn-export").addEventListener("click", function () {
+    var activePanel = document.querySelector(".panel.active");
+    var table = activePanel.querySelector("table");
+    if (!table) {
+      alert("This tab has no table to export. Use Print / Save as PDF for the charts and formulas.");
+      return;
+    }
+
+    var csv = "\uFEFF" + tableToCSV(table);
+    var blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    var url = URL.createObjectURL(blob);
+
+    var link = document.createElement("a");
+    link.href = url;
+    link.download = (table.id || "data") + ".csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  });
+
+  /* ---------- Print (render charts first) ---------- */
+  document.getElementById("btn-print").addEventListener("click", function () {
+    window.print();
+  });
+
+  window.addEventListener("beforeprint", function () {
+    var current = document.querySelector(".panel.active");
+    var graphs = document.getElementById("panel-graphs");
+    var restore = null;
+
+    if (current && current !== graphs && graphs) {
+      restore = current;
+      current.classList.remove("active");
+      graphs.classList.add("active");
+    }
+    renderAllCharts();
+    if (restore) {
+      graphs.classList.remove("active");
+      restore.classList.add("active");
+    }
+  });
+
+  /* =========================================================
+     9 · INIT
+     ========================================================= */
+  recalcAll();
+  renderAllCharts();
+})();
+</script>
+
+</body>
+</html>
