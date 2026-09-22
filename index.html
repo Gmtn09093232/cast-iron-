@@ -7,325 +7,161 @@
 <title>Cast Iron — Data Collection Sheet</title>
 <style>
   :root{
-    --header-bg:#1F4E78;
-    --header-fg:#ffffff;
-    --border:#b7b7b7;
-    --bg:#f4f6f9;
-    --panel:#ffffff;
-    --calc:#e8f1fa;
-    --accent:#1F4E78;
+    --header-bg:#1F4E78; --header-fg:#fff; --border:#b7b7b7;
+    --bg:#f4f6f9; --panel:#fff; --calc:#e8f1fa; --accent:#1F4E78;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:rgba(31,78,120,.15);}
   html{-webkit-text-size-adjust:100%;}
   body{
-    margin:0;
-    font-family:"Segoe UI",Roboto,Arial,sans-serif;
-    background:var(--bg);
-    color:#1c1c1c;
-    font-size:13px;
-    overflow-x:hidden;
+    margin:0; font-family:"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--bg); color:#1c1c1c; font-size:13px; overflow-x:hidden;
   }
-
-  /* ---------- Header ---------- */
-  header.app-header{
-    background:var(--header-bg);
-    color:#fff;
-    padding:16px 20px;
-  }
+  header.app-header{background:var(--header-bg);color:#fff;padding:16px 20px;}
   header.app-header h1{margin:0;font-size:18px;font-weight:600;}
   header.app-header p{margin:4px 0 0;font-size:12px;opacity:.85;}
 
-  /* ---------- Toolbar / Tabs ---------- */
   .toolbar{
     position:sticky; top:0; z-index:30;
     display:flex; flex-wrap:wrap; align-items:center; gap:8px;
-    padding:8px 20px;
-    background:#fff;
-    border-bottom:1px solid var(--border);
+    padding:8px 20px; background:#fff; border-bottom:1px solid var(--border);
   }
   .tabs{display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0;}
   .tab-btn{
-    border:1px solid var(--border);
-    background:#f7f9fc;
-    color:#333;
-    padding:7px 12px;
-    border-radius:4px;
-    cursor:pointer;
-    font:inherit;
-    font-weight:600;
-    white-space:nowrap;
+    border:1px solid var(--border); background:#f7f9fc; color:#333;
+    padding:7px 12px; border-radius:4px; cursor:pointer;
+    font:inherit; font-weight:600; white-space:nowrap;
     transition:background .15s ease;
   }
   .tab-btn:hover{background:#e9eff6;}
   .tab-btn:active{background:#dde6ee;}
-  .tab-btn.active{
-    background:var(--accent);
-    border-color:var(--accent);
-    color:#fff;
-  }
+  .tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
   .toolbar-actions{display:flex;gap:8px;flex-wrap:wrap;}
   .action-btn{
-    border:1px solid var(--accent);
-    background:#fff;
-    color:var(--accent);
-    padding:7px 12px;
-    border-radius:4px;
-    cursor:pointer;
-    font:inherit;
-    font-weight:600;
-    white-space:nowrap;
-    transition:background .15s ease;
+    border:1px solid var(--accent); background:#fff; color:var(--accent);
+    padding:7px 12px; border-radius:4px; cursor:pointer;
+    font:inherit; font-weight:600; white-space:nowrap; transition:background .15s ease;
   }
   .action-btn:hover{background:#e9eff6;}
   .action-btn:active{background:#dbe6f2;}
 
-  /* ---------- Panels ---------- */
   main{padding:16px 20px 40px;}
   .panel{display:none;}
   .panel.active{display:block;}
-  .panel h2{
-    margin:0 0 10px;
-    font-size:15px;
-    font-weight:600;
-    color:var(--accent);
-  }
-  .hint{
-    margin:0 0 10px;
-    font-size:12px;
-    color:#555;
-    line-height:1.5;
-  }
+  .panel h2{margin:0 0 10px;font-size:15px;font-weight:600;color:var(--accent);}
+  .hint{margin:0 0 10px;font-size:12px;color:#555;line-height:1.5;}
 
-  /* ---------- Tables ---------- */
   .table-wrap{
-    overflow:auto;
-    max-height:calc(100vh - 230px);
-    background:var(--panel);
-    border:1px solid var(--border);
-    border-radius:6px;
-    -webkit-overflow-scrolling:touch;
+    overflow:auto; max-height:calc(100vh - 230px);
+    background:var(--panel); border:1px solid var(--border);
+    border-radius:6px; -webkit-overflow-scrolling:touch;
   }
   table{border-collapse:collapse;width:100%;min-width:max-content;}
   th,td{border:1px solid var(--border);padding:0;vertical-align:top;}
   thead th{
     position:sticky; top:0; z-index:10;
-    background:var(--header-bg);
-    color:var(--header-fg);
-    font-weight:600;
-    font-size:12px;
-    padding:8px 6px;
-    text-align:center;
-    min-width:110px;
-    line-height:1.25;
+    background:var(--header-bg); color:var(--header-fg);
+    font-weight:600; font-size:12px; padding:8px 6px;
+    text-align:center; min-width:110px; line-height:1.25;
   }
   tbody td{padding:1px;}
   tbody td.rowhead{
     position:sticky; left:0; z-index:5;
-    background:#eef3f8;
-    font-weight:700;
-    padding:6px 8px;
-    white-space:nowrap;
-    color:var(--accent);
+    background:#eef3f8; font-weight:700; padding:6px 8px;
+    white-space:nowrap; color:var(--accent);
   }
   input,select,textarea{
-    width:100%;
-    border:0;
-    background:transparent;
-    padding:6px;
-    font:inherit;
-    color:inherit;
-    outline:none;
-    border-radius:0;
-    resize:vertical;
+    width:100%; border:0; background:transparent; padding:6px;
+    font:inherit; color:inherit; outline:none; border-radius:0; resize:vertical;
   }
   input:focus,select:focus,textarea:focus{
-    background:#fff9dd;
-    box-shadow:inset 0 0 0 2px #f0c040;
+    background:#fff9dd; box-shadow:inset 0 0 0 2px #f0c040;
   }
   input[readonly],select[readonly]{
-    background:var(--calc);
-    font-weight:700;
-    color:#123;
+    background:var(--calc); font-weight:700; color:#123;
   }
   td.num input{text-align:center;}
   tbody tr:nth-child(even) td{background:#fafcfe;}
   tbody tr:nth-child(even) td.rowhead{background:#e6eef7;}
-  tbody tr:nth-child(even) input[readonly]{background:#e2edf9;}
 
-  /* Instructions table */
   #tbl-instructions td{padding:8px 10px;vertical-align:top;font-size:12px;line-height:1.55;}
   #tbl-instructions td:first-child{font-weight:700;width:200px;background:#eef3f8;color:var(--accent);}
   #tbl-instructions thead th{min-width:0;}
 
-  /* ---------- Charts ---------- */
   .chart-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(430px,1fr));
-    gap:14px;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(430px,1fr)); gap:14px;
   }
   .chart-card{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:6px;
-    padding:10px 12px 12px;
-    box-shadow:0 1px 2px rgba(0,0,0,.04);
+    background:#fff; border:1px solid var(--border); border-radius:6px;
+    padding:10px 12px 12px; box-shadow:0 1px 2px rgba(0,0,0,.04);
   }
-  .chart-card h3{
-    margin:0 0 6px;
-    font-size:13px;
-    font-weight:600;
-    color:var(--accent);
-  }
-  canvas.chart{
-    width:100%;
-    height:300px;
-    display:block;
-  }
-  .chart-card .cap{
-    margin:8px 0 0;
-    font-size:11px;
-    color:#667;
-    line-height:1.45;
-  }
+  .chart-card h3{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--accent);}
+  canvas.chart{width:100%;height:300px;display:block;}
+  .chart-card .cap{margin:8px 0 0;font-size:11px;color:#667;line-height:1.45;}
 
-  /* ---------- Formula Reference ---------- */
   .formula-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(430px,1fr));
-    gap:14px;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(430px,1fr)); gap:14px;
   }
   .formula-card{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:6px;
-    padding:14px 16px;
-    box-shadow:0 1px 2px rgba(0,0,0,.04);
+    background:#fff; border:1px solid var(--border); border-radius:6px;
+    padding:14px 16px; box-shadow:0 1px 2px rgba(0,0,0,.04);
   }
   .formula-card h3{
-    margin:0 0 12px;
-    font-size:13.5px;
-    font-weight:700;
-    color:var(--accent);
-    padding-bottom:7px;
-    border-bottom:2px solid #e5ecf3;
-    display:flex;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:8px;
+    margin:0 0 12px; font-size:13.5px; font-weight:700; color:var(--accent);
+    padding-bottom:7px; border-bottom:2px solid #e5ecf3;
+    display:flex; align-items:center; flex-wrap:wrap; gap:8px;
   }
   .formula-card h3 .badge{
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.5px;
-    text-transform:uppercase;
-    background:var(--calc);
-    color:var(--accent);
-    padding:2px 8px;
-    border-radius:9px;
-    border:1px solid #c6dcf0;
+    font-size:10px; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+    background:var(--calc); color:var(--accent); padding:2px 8px;
+    border-radius:9px; border:1px solid #c6dcf0;
   }
   .formula-item{margin-bottom:16px;}
   .formula-item:last-child{margin-bottom:0;}
   .formula-name{
-    font-weight:700;
-    font-size:12.5px;
-    color:#2b3a4a;
-    margin-bottom:5px;
-    display:flex;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:6px;
+    font-weight:700; font-size:12.5px; color:#2b3a4a; margin-bottom:5px;
+    display:flex; align-items:center; flex-wrap:wrap; gap:6px;
   }
   .formula-name .tag{
-    font-size:9.5px;
-    font-weight:700;
-    letter-spacing:.4px;
-    text-transform:uppercase;
-    color:#fff;
-    background:var(--accent);
-    padding:1px 7px;
-    border-radius:8px;
+    font-size:9.5px; font-weight:700; letter-spacing:.4px; text-transform:uppercase;
+    color:#fff; background:var(--accent); padding:1px 7px; border-radius:8px;
   }
   .formula-name .tag.green{background:#2E9E5B;}
   .formula-name .tag.red{background:#D9534F;}
   .formula-name .tag.amber{background:#E8A33D;}
-  .formula-name .tag.purple{background:#7B5EA7;}
   .formula-eq{
     font-family:"Cambria Math","Latin Modern Math","Times New Roman",serif;
-    font-size:15px;
-    line-height:1.9;
-    background:var(--calc);
-    border-left:4px solid var(--accent);
-    padding:9px 14px;
-    border-radius:4px;
-    color:#102a44;
-    overflow-x:auto;
-    white-space:nowrap;
+    font-size:15px; line-height:1.9; background:var(--calc);
+    border-left:4px solid var(--accent); padding:9px 14px;
+    border-radius:4px; color:#102a44; overflow-x:auto; white-space:nowrap;
     -webkit-overflow-scrolling:touch;
   }
-  .formula-eq .frac{
-    display:inline-block;
-    vertical-align:middle;
-    text-align:center;
-    margin:0 4px;
-    font-size:0.94em;
-  }
-  .formula-eq .frac > .num{
-    display:block;
-    border-bottom:1.6px solid #102a44;
-    padding:0 6px 2px;
-  }
-  .formula-eq .frac > .den{
-    display:block;
-    padding:2px 6px 0;
-  }
-  .formula-eq sub,
-  .formula-eq sup{font-size:0.7em;}
+  .formula-eq .frac{display:inline-block;vertical-align:middle;text-align:center;margin:0 4px;font-size:0.94em;}
+  .formula-eq .frac > .num{display:block;border-bottom:1.6px solid #102a44;padding:0 6px 2px;}
+  .formula-eq .frac > .den{display:block;padding:2px 6px 0;}
+  .formula-eq sub,.formula-eq sup{font-size:0.7em;}
   .formula-eq .op{padding:0 2px;}
-  .formula-desc{
-    font-size:11.5px;
-    color:#556;
-    margin-top:6px;
-    line-height:1.55;
-  }
+  .formula-desc{font-size:11.5px;color:#556;margin-top:6px;line-height:1.55;}
   .formula-desc code{
-    background:#eef3f8;
-    padding:1px 6px;
-    border-radius:3px;
+    background:#eef3f8; padding:1px 6px; border-radius:3px;
     font-family:"Consolas","Monaco","Courier New",monospace;
-    font-size:11px;
-    color:#1F4E78;
+    font-size:11px; color:#1F4E78;
   }
   .formula-card table{
-    width:100%;
-    min-width:0;
-    border-collapse:collapse;
-    margin-top:4px;
-    font-size:11.5px;
+    width:100%; min-width:0; border-collapse:collapse; margin-top:4px; font-size:11.5px;
   }
-  .formula-card table th,
-  .formula-card table td{
-    border:1px solid #dbe4ec;
-    padding:5px 8px;
-    text-align:left;
-    vertical-align:middle;
+  .formula-card table th,.formula-card table td{
+    border:1px solid #dbe4ec; padding:5px 8px;
+    text-align:left; vertical-align:middle;
   }
   .formula-card table th{
-    background:#eef3f8;
-    color:var(--accent);
-    font-weight:700;
-    font-size:11px;
+    background:#eef3f8; color:var(--accent); font-weight:700; font-size:11px;
   }
   .formula-card table code{
-    background:#fff4d6;
-    padding:1px 5px;
-    border-radius:3px;
+    background:#fff4d6; padding:1px 5px; border-radius:3px;
     font-family:"Consolas","Monaco","Courier New",monospace;
-    font-size:10.5px;
-    color:#7a4d00;
+    font-size:10.5px; color:#7a4d00;
   }
 
-  /* ---------- Print ---------- */
   @media print{
     body{background:#fff;font-size:11px;}
     .toolbar{display:none !important;}
@@ -345,76 +181,52 @@
     .formula-eq{background:#eef3f8 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   }
 
-  /* =========================================================
-     RESPONSIVE — TABLET (≤ 900px)
-     ========================================================= */
-  @media (max-width: 900px) {
+  @media (max-width:900px){
     header.app-header{padding:12px 14px;}
     header.app-header h1{font-size:16px;}
     header.app-header p{font-size:11px;}
-
     .toolbar{padding:6px 10px;gap:6px;}
     .tabs{
-      flex-wrap:nowrap;
-      overflow-x:auto;
-      overflow-y:hidden;
-      -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-      padding-bottom:2px;
+      flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
+      -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;
     }
     .tabs::-webkit-scrollbar{display:none;}
     .tab-btn{flex:0 0 auto;font-size:12px;padding:8px 12px;}
-
     .toolbar-actions{width:100%;justify-content:flex-end;margin-top:2px;}
     .action-btn{font-size:12px;padding:8px 12px;}
-
     main{padding:12px 12px 32px;}
     .panel h2{font-size:14px;}
     .hint{font-size:11.5px;}
-
     .table-wrap{max-height:calc(100vh - 240px);border-radius:5px;}
     thead th{font-size:11px;padding:6px 4px;min-width:95px;}
     tbody td.rowhead{padding:7px 9px;font-size:12px;}
-
     input,select,textarea{font-size:16px;padding:8px 6px;min-height:36px;}
-
     .chart-grid,.formula-grid{grid-template-columns:1fr;gap:12px;}
     canvas.chart{height:250px;}
-
     .formula-card{padding:12px 14px;}
     .formula-card h3{font-size:13px;}
     .formula-eq{font-size:14px;padding:8px 12px;}
   }
 
-  /* =========================================================
-     RESPONSIVE — PHONE (≤ 560px)
-     ========================================================= */
-  @media (max-width: 560px) {
+  @media (max-width:560px){
     header.app-header{padding:10px 12px;}
     header.app-header h1{font-size:15px;}
     header.app-header p{font-size:10.5px;line-height:1.4;}
-
     .toolbar{padding:6px 8px;gap:5px;}
     .tab-btn{font-size:11.5px;padding:7px 10px;border-radius:5px;}
-
     .toolbar-actions{width:100%;display:flex;gap:6px;margin-top:2px;}
     .action-btn{flex:1 1 0;font-size:11.5px;padding:9px 8px;text-align:center;min-width:0;}
-
     main{padding:10px 10px 28px;}
     .panel h2{font-size:13.5px;}
     .hint{font-size:11px;line-height:1.45;}
-
     .table-wrap{max-height:calc(100vh - 220px);margin:0 -2px;border-radius:4px;border-left:0;border-right:0;}
     thead th{font-size:10.5px;padding:5px 3px;min-width:82px;line-height:1.2;}
     tbody td.rowhead{padding:6px 7px;font-size:11.5px;}
-
     input,select,textarea{font-size:16px;padding:8px 5px;min-height:38px;}
-
     canvas.chart{height:220px;}
     .chart-card{padding:8px 10px 10px;border-radius:5px;}
     .chart-card h3{font-size:12.5px;}
     .chart-card .cap{font-size:10.5px;}
-
     .formula-card{padding:10px 12px;border-radius:5px;}
     .formula-card h3{font-size:12.5px;flex-wrap:wrap;gap:5px;}
     .formula-card h3 .badge{font-size:9px;padding:1px 6px;}
@@ -424,15 +236,12 @@
     .formula-desc{font-size:10.5px;line-height:1.5;}
     .formula-desc code{font-size:10px;padding:1px 4px;}
     .formula-card table{font-size:10.5px;}
-    .formula-card table th,
-    .formula-card table td{padding:4px 6px;}
-    .formula-card table code{font-size:9.5px;}
-
+    .formula-card table th,.formula-card table td{padding:4px 6px;}
     #tbl-instructions td{padding:6px 8px;font-size:11px;}
     #tbl-instructions td:first-child{width:120px;font-size:11px;}
   }
 
-  @media (max-width: 380px) {
+  @media (max-width:380px){
     header.app-header h1{font-size:14px;}
     .tab-btn{font-size:11px;padding:6px 9px;}
     .action-btn{font-size:11px;padding:8px 6px;}
@@ -448,13 +257,16 @@
 
 <header class="app-header">
   <h1>Cast Iron — Data Collection Sheet</h1>
-  <p>Specimen register · Heat treatment · Rockwell hardness · Microstructure · Graphs · Formulas</p>
+  <p>Initial characterization · Softening · Re-hardening · Microstructure · Graphs · Formulas</p>
 </header>
 
 <div class="toolbar">
   <div class="tabs">
-    <button class="tab-btn active" data-target="panel-data">Data Collection</button>
-    <button class="tab-btn" data-target="panel-graphs">📈 Graphs &amp; Relations</button>
+    <button class="tab-btn active" data-target="panel-initial">1 · Initial Characterization</button>
+    <button class="tab-btn" data-target="panel-softening">2 · Softening</button>
+    <button class="tab-btn" data-target="panel-rehard">3 · Re-Hardening</button>
+    <button class="tab-btn" data-target="panel-micro">4 · Microstructure</button>
+    <button class="tab-btn" data-target="panel-graphs">📈 Graphs</button>
     <button class="tab-btn" data-target="panel-formulas">📐 Formulas</button>
     <button class="tab-btn" data-target="panel-instructions">Instructions</button>
   </div>
@@ -466,211 +278,88 @@
 
 <main>
 
-  <!-- ============ DATA COLLECTION ============ -->
-  <section class="panel active" id="panel-data">
-    <h2>Data Collection</h2>
+  <!-- ============ SHEET 1 — INITIAL CHARACTERIZATION ============ -->
+  <section class="panel active" id="panel-initial">
+    <h2>Sheet 1 · Initial Characterization</h2>
     <p class="hint">
-      Record the specimen condition, heat treatment parameters, Rockwell hardness (HRC) and microstructure observations.
-      <strong>Do NOT collect machining data</strong> (cutting force, tool wear, surface roughness, cutting speed, feed) —
-      machinability is interpreted from hardness changes as described in the study.
+      Record the as-received condition and Rockwell hardness (HRC) of every specimen
+      <strong>before</strong> any heat treatment. This is the baseline for all % change calculations.
     </p>
     <div class="table-wrap">
-      <table id="tbl-data">
+      <table id="tbl-initial">
         <thead>
           <tr>
             <th>Specimen ID</th>
             <th>Initial Condition</th>
-            <th>Heat Treatment</th>
-            <th>Heating Temperature (°C)</th>
-            <th>Holding Time (min)</th>
-            <th>Cooling Method</th>
-            <th>Re-hardening Temperature (°C)</th>
-            <th>Re-hardening Holding Time (min)</th>
-            <th>Re-hardening Cooling Method</th>
             <th>Rockwell Hardness (HRC)</th>
-            <th>Microstructure Description</th>
-            <th>Microstructure Image/File Ref.</th>
+            <th>Rockwell Scale Used</th>
+            <th>Microstructure (as-received)</th>
             <th>Remarks</th>
           </tr>
         </thead>
         <tbody>
-          <tr data-sample="S01">
-            <td class="rowhead"><input value="S01"></td>
-            <td><input value="As-cast"></td>
-            <td><input list="dl-ht" value="None"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td>
-            <td><input></td>
-            <td><input></td>
-          </tr>
-          <tr data-sample="S02">
-            <td class="rowhead"><input value="S02"></td>
-            <td><input value="As-cast"></td>
-            <td><input list="dl-ht" value="Softening"></td>
-            <td class="num"><input value="700"></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool" value="Furnace cooling"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td>
-            <td><input></td>
-            <td><input></td>
-          </tr>
-          <tr data-sample="S03">
-            <td class="rowhead"><input value="S03"></td>
-            <td><input value="As-cast"></td>
-            <td><input list="dl-ht" value="Softening"></td>
-            <td class="num"><input value="800"></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool" value="Furnace cooling"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td>
-            <td><input></td>
-            <td><input></td>
-          </tr>
-          <tr data-sample="S04">
-            <td class="rowhead"><input value="S04"></td>
-            <td><input value="As-cast"></td>
-            <td><input list="dl-ht" value="Softening"></td>
-            <td class="num"><input value="900"></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool" value="Furnace cooling"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td>
-            <td><input></td>
-            <td><input></td>
-          </tr>
-          <tr data-sample="S05">
-            <td class="rowhead"><input value="S05"></td>
-            <td><input value="Softened"></td>
-            <td><input list="dl-ht" value="Re-hardening"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input value="800"></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool" value="Air cooling"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td>
-            <td><input></td>
-            <td><input></td>
-          </tr>
-          <tr data-sample="S06">
-            <td class="rowhead"><input value="S06"></td>
-            <td><input value="Softened"></td>
-            <td><input list="dl-ht" value="Re-hardening"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input value="900"></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool" value="Air cooling"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td>
-            <td><input></td>
-            <td><input></td>
-          </tr>
-          <tr data-sample="S07">
-            <td class="rowhead"><input value="S07"></td>
-            <td><input value="Softened"></td>
-            <td><input list="dl-ht" value="Re-hardening"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input value="1000"></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool" value="Air cooling"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td>
-            <td><input></td>
-            <td><input></td>
-          </tr>
-          <tr data-sample="S08">
-            <td class="rowhead"><input value="S08"></td>
-            <td><input value="Softened"></td>
-            <td><input list="dl-ht" value="Re-hardening"></td>
-            <td class="num"><input></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input value="1100"></td>
-            <td class="num"><input></td>
-            <td><input list="dl-cool" value="Air cooling"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td>
-            <td><input></td>
-            <td><input></td>
-          </tr>
-          <!-- Extra blank rows for additional specimens -->
-          <tr data-sample="S09">
-            <td class="rowhead"><input value="S09"></td>
-            <td><input list="dl-init"></td>
-            <td><input list="dl-ht"></td>
-            <td class="num"><input></td><td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input></td><td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td><td><input></td><td><input></td>
-          </tr>
-          <tr data-sample="S10">
-            <td class="rowhead"><input value="S10"></td>
-            <td><input list="dl-init"></td>
-            <td><input list="dl-ht"></td>
-            <td class="num"><input></td><td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input></td><td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td><td><input></td><td><input></td>
-          </tr>
-          <tr data-sample="S11">
-            <td class="rowhead"><input value="S11"></td>
-            <td><input list="dl-init"></td>
-            <td><input list="dl-ht"></td>
-            <td class="num"><input></td><td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input></td><td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td><td><input></td><td><input></td>
-          </tr>
-          <tr data-sample="S12">
-            <td class="rowhead"><input value="S12"></td>
-            <td><input list="dl-init"></td>
-            <td><input list="dl-ht"></td>
-            <td class="num"><input></td><td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input></td><td class="num"><input></td>
-            <td><input list="dl-cool"></td>
-            <td class="num"><input class="hardness" inputmode="decimal"></td>
-            <td><input></td><td><input></td><td><input></td>
-          </tr>
+          <tr data-sample="S01"><td class="rowhead"><input value="S01"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S02"><td class="rowhead"><input value="S02"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S03"><td class="rowhead"><input value="S03"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S04"><td class="rowhead"><input value="S04"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S05"><td class="rowhead"><input value="S05"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S06"><td class="rowhead"><input value="S06"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S07"><td class="rowhead"><input value="S07"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S08"><td class="rowhead"><input value="S08"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S09"><td class="rowhead"><input value="S09"></td><td><input list="dl-init"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S10"><td class="rowhead"><input value="S10"></td><td><input list="dl-init"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S11"><td class="rowhead"><input value="S11"></td><td><input list="dl-init"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S12"><td class="rowhead"><input value="S12"></td><td><input list="dl-init"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
         </tbody>
       </table>
     </div>
-
     <datalist id="dl-init">
       <option value="As-cast"></option>
+      <option value="As-received"></option>
       <option value="Softened"></option>
     </datalist>
-    <datalist id="dl-ht">
-      <option value="None"></option>
-      <option value="Softening"></option>
-      <option value="Re-hardening"></option>
+  </section>
+
+  <!-- ============ SHEET 2 — SOFTENING HEAT TREATMENT ============ -->
+  <section class="panel" id="panel-softening">
+    <h2>Sheet 2 · Softening Heat Treatment</h2>
+    <p class="hint">
+      Record the softening treatment parameters (furnace heating) and the resulting Rockwell hardness.
+      Only fill rows for specimens that received a softening treatment (S02–S04 in the standard matrix).
+    </p>
+    <div class="table-wrap">
+      <table id="tbl-softening">
+        <thead>
+          <tr>
+            <th>Specimen ID</th>
+            <th>Prior Condition</th>
+            <th>Heating Temperature (°C)</th>
+            <th>Holding Time (min)</th>
+            <th>Cooling Method</th>
+            <th>Rockwell Hardness After Softening (HRC)</th>
+            <th>Microstructure After Softening</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-sample="S01"><td class="rowhead"><input value="S01"></td><td><input list="dl-prior" value="As-cast"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S02"><td class="rowhead"><input value="S02"></td><td><input list="dl-prior" value="As-cast"></td><td class="num"><input value="700"></td><td class="num"><input></td><td><input list="dl-cool" value="Furnace cooling"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S03"><td class="rowhead"><input value="S03"></td><td><input list="dl-prior" value="As-cast"></td><td class="num"><input value="800"></td><td class="num"><input></td><td><input list="dl-cool" value="Furnace cooling"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S04"><td class="rowhead"><input value="S04"></td><td><input list="dl-prior" value="As-cast"></td><td class="num"><input value="900"></td><td class="num"><input></td><td><input list="dl-cool" value="Furnace cooling"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S05"><td class="rowhead"><input value="S05"></td><td><input list="dl-prior" value="Softened"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S06"><td class="rowhead"><input value="S06"></td><td><input list="dl-prior" value="Softened"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S07"><td class="rowhead"><input value="S07"></td><td><input list="dl-prior" value="Softened"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S08"><td class="rowhead"><input value="S08"></td><td><input list="dl-prior" value="Softened"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S09"><td class="rowhead"><input value="S09"></td><td><input list="dl-prior"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S10"><td class="rowhead"><input value="S10"></td><td><input list="dl-prior"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S11"><td class="rowhead"><input value="S11"></td><td><input list="dl-prior"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S12"><td class="rowhead"><input value="S12"></td><td><input list="dl-prior"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <datalist id="dl-prior">
+      <option value="As-cast"></option>
+      <option value="Softened"></option>
     </datalist>
     <datalist id="dl-cool">
       <option value="Furnace cooling"></option>
@@ -681,67 +370,190 @@
     </datalist>
   </section>
 
+  <!-- ============ SHEET 3 — RE-HARDENING ============ -->
+  <section class="panel" id="panel-rehard">
+    <h2>Sheet 3 · Re-Hardening</h2>
+    <p class="hint">
+      Record the re-hardening treatment parameters and the resulting Rockwell hardness.
+      Only fill rows for specimens that received a re-hardening treatment (S05–S08 in the standard matrix).
+    </p>
+    <div class="table-wrap">
+      <table id="tbl-rehard">
+        <thead>
+          <tr>
+            <th>Specimen ID</th>
+            <th>Prior Condition</th>
+            <th>Re-hardening Temperature (°C)</th>
+            <th>Re-hardening Holding Time (min)</th>
+            <th>Re-hardening Cooling Method</th>
+            <th>Rockwell Hardness After Re-hardening (HRC)</th>
+            <th>Microstructure After Re-hardening</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-sample="S01"><td class="rowhead"><input value="S01"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S02"><td class="rowhead"><input value="S02"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S03"><td class="rowhead"><input value="S03"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S04"><td class="rowhead"><input value="S04"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S05"><td class="rowhead"><input value="S05"></td><td><input list="dl-prior2" value="Softened"></td><td class="num"><input value="800"></td><td class="num"><input></td><td><input list="dl-cool2" value="Air cooling"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S06"><td class="rowhead"><input value="S06"></td><td><input list="dl-prior2" value="Softened"></td><td class="num"><input value="900"></td><td class="num"><input></td><td><input list="dl-cool2" value="Air cooling"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S07"><td class="rowhead"><input value="S07"></td><td><input list="dl-prior2" value="Softened"></td><td class="num"><input value="1000"></td><td class="num"><input></td><td><input list="dl-cool2" value="Air cooling"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S08"><td class="rowhead"><input value="S08"></td><td><input list="dl-prior2" value="Softened"></td><td class="num"><input value="1100"></td><td class="num"><input></td><td><input list="dl-cool2" value="Air cooling"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S09"><td class="rowhead"><input value="S09"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S10"><td class="rowhead"><input value="S10"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S11"><td class="rowhead"><input value="S11"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S12"><td class="rowhead"><input value="S12"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <datalist id="dl-prior2">
+      <option value="Softened"></option>
+      <option value="As-cast"></option>
+    </datalist>
+    <datalist id="dl-cool2">
+      <option value="Air cooling"></option>
+      <option value="Furnace cooling"></option>
+      <option value="Water quenching"></option>
+      <option value="Oil quenching"></option>
+      <option value="Other"></option>
+    </datalist>
+  </section>
+
+  <!-- ============ SHEET 4 — MICROSTRUCTURE ============ -->
+  <section class="panel" id="panel-micro">
+    <h2>Sheet 4 · Microstructure</h2>
+    <p class="hint">
+      Record the observed phases/features for each specimen and provide an image or file reference.
+      Condition = the state in which the sample was examined (As-cast / Softened / Re-hardened).
+    </p>
+    <div class="table-wrap">
+      <table id="tbl-micro">
+        <thead>
+          <tr>
+            <th>Specimen ID</th>
+            <th>Condition Examined</th>
+            <th>Etchant</th>
+            <th>Magnification</th>
+            <th>Matrix Type</th>
+            <th>Graphite Flake Morphology</th>
+            <th>Graphite Distribution</th>
+            <th>Other Phases / Features</th>
+            <th>Microstructure Image/File Ref.</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-sample="S01"><td class="rowhead"><input value="S01"></td><td><input list="dl-cond" value="As-cast"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S02"><td class="rowhead"><input value="S02"></td><td><input list="dl-cond" value="Softened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S03"><td class="rowhead"><input value="S03"></td><td><input list="dl-cond" value="Softened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S04"><td class="rowhead"><input value="S04"></td><td><input list="dl-cond" value="Softened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S05"><td class="rowhead"><input value="S05"></td><td><input list="dl-cond" value="Re-hardened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S06"><td class="rowhead"><input value="S06"></td><td><input list="dl-cond" value="Re-hardened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S07"><td class="rowhead"><input value="S07"></td><td><input list="dl-cond" value="Re-hardened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S08"><td class="rowhead"><input value="S08"></td><td><input list="dl-cond" value="Re-hardened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S09"><td class="rowhead"><input value="S09"></td><td><input list="dl-cond"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S10"><td class="rowhead"><input value="S10"></td><td><input list="dl-cond"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S11"><td class="rowhead"><input value="S11"></td><td><input list="dl-cond"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S12"><td class="rowhead"><input value="S12"></td><td><input list="dl-cond"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <datalist id="dl-cond">
+      <option value="As-cast"></option>
+      <option value="Softened"></option>
+      <option value="Re-hardened"></option>
+    </datalist>
+    <datalist id="dl-etch">
+      <option value="Nital 2%"></option>
+      <option value="Nital 4%"></option>
+      <option value="Picral 4%"></option>
+      <option value="Nital + Picral"></option>
+      <option value="As-polished (graphite only)"></option>
+    </datalist>
+    <datalist id="dl-mag">
+      <option value="100×"></option>
+      <option value="200×"></option>
+      <option value="400×"></option>
+      <option value="500×"></option>
+      <option value="1000×"></option>
+    </datalist>
+    <datalist id="dl-matrix">
+      <option value="Ferrite"></option>
+      <option value="Pearlite"></option>
+      <option value="Ferrite + Pearlite"></option>
+      <option value="Tempered Martensite"></option>
+      <option value="Martensite + Retained Austenite"></option>
+      <option value="Bainite"></option>
+      <option value="Pearlite + Cementite"></option>
+    </datalist>
+    <datalist id="dl-morph">
+      <option value="Type A – uniform flake"></option>
+      <option value="Type B – rosette"></option>
+      <option value="Type C – kish"></option>
+      <option value="Type D – interdendritic, fine"></option>
+      <option value="Type E – interdendritic, coarse"></option>
+      <option value="Type F – star / spiky"></option>
+    </datalist>
+    <datalist id="dl-dist">
+      <option value="Uniform"></option>
+      <option value="Random"></option>
+      <option value="Interdendritic"></option>
+      <option value="Clustered / segregated"></option>
+      <option value="Banded"></option>
+    </datalist>
+  </section>
+
   <!-- ============ GRAPHS ============ -->
   <section class="panel" id="panel-graphs">
     <h2>Graphs &amp; Relations</h2>
     <p class="hint">
-      Charts are generated automatically from the Data Collection sheet.
-      They refresh when you open this tab, when data changes, and on window resize —
-      or press
-      <button class="action-btn" id="btn-refresh-charts" type="button"
-              style="padding:4px 10px;font-size:12px;">Refresh charts</button>.
+      All charts are generated automatically from the four data sheets.
+      Press <button class="action-btn" id="btn-refresh-charts" type="button"
+              style="padding:4px 10px;font-size:12px;">Refresh charts</button> to update manually.
     </p>
-
     <div class="chart-grid">
-
       <div class="chart-card">
-        <h3>① Heating temperature (softening) vs. hardness</h3>
-        <canvas id="chart-heat-temp" class="chart"></canvas>
-        <p class="cap">Only specimens with a recorded heating temperature. Dashed line = least-squares trend.</p>
+        <h3>① Softening temperature vs. softened hardness</h3>
+        <canvas id="chart-soft-temp" class="chart"></canvas>
+        <p class="cap">Data from Sheet 2. Dashed line = least-squares trend.</p>
       </div>
-
       <div class="chart-card">
-        <h3>② Re-hardening temperature vs. hardness</h3>
+        <h3>② Re-hardening temperature vs. re-hardened hardness</h3>
         <canvas id="chart-rehard-temp" class="chart"></canvas>
-        <p class="cap">Only specimens with a recorded re-hardening temperature. Dashed line = least-squares trend.</p>
+        <p class="cap">Data from Sheet 3. Dashed line = least-squares trend.</p>
       </div>
-
       <div class="chart-card">
         <h3>③ Holding time vs. hardness</h3>
         <canvas id="chart-hold" class="chart"></canvas>
-        <p class="cap">Uses softening holding time when available, otherwise re-hardening holding time.</p>
+        <p class="cap">Softening (green) and re-hardening (red) holding times.</p>
       </div>
-
       <div class="chart-card">
         <h3>④ Cooling method vs. hardness</h3>
         <canvas id="chart-cooling" class="chart"></canvas>
-        <p class="cap">Bars = mean hardness per cooling method; error bars = ±1 SD; n = number of specimens.</p>
+        <p class="cap">Softening cooling methods from Sheet 2; error bars = ±1 SD.</p>
       </div>
-
       <div class="chart-card">
-        <h3>⑤ Initial condition vs. hardness</h3>
+        <h3>⑤ Initial condition vs. as-cast hardness</h3>
         <canvas id="chart-init" class="chart"></canvas>
-        <p class="cap">Mean hardness per initial condition (As-cast vs Softened). Error bars = ±1 SD.</p>
+        <p class="cap">Baseline hardness from Sheet 1, grouped by Initial Condition.</p>
       </div>
-
       <div class="chart-card">
-        <h3>⑥ Heat treatment vs. hardness</h3>
-        <canvas id="chart-ht" class="chart"></canvas>
-        <p class="cap">Mean hardness per heat-treatment type (None / Softening / Re-hardening).</p>
+        <h3>⑥ Treatment stage vs. hardness</h3>
+        <canvas id="chart-stage" class="chart"></canvas>
+        <p class="cap">Mean HRC at each stage — As-cast (Sheet 1), Softened (Sheet 2), Re-hardened (Sheet 3).</p>
       </div>
-
       <div class="chart-card">
         <h3>⑦ Temperature vs. % hardness change</h3>
         <canvas id="chart-pct-change" class="chart"></canvas>
-        <p class="cap">% change = (hardness − baseline) / baseline × 100. Baseline = S01 (as-cast). Dashed line at 0 %.</p>
+        <p class="cap">% change vs. the S01 as-cast baseline. Softening points green, re-hardening points red.</p>
       </div>
-
       <div class="chart-card">
-        <h3>⑧ Specimen-by-specimen hardness</h3>
+        <h3>⑧ Specimen-by-specimen final hardness</h3>
         <canvas id="chart-samples" class="chart"></canvas>
-        <p class="cap">Bar chart of hardness for every specimen, colour-coded by heat treatment.</p>
+        <p class="cap">Final recorded hardness per specimen — colour-coded by the last treatment received.</p>
       </div>
-
     </div>
   </section>
 
@@ -755,30 +567,26 @@
       <strong>x̄</strong> = mean; <strong>s</strong> = sample standard deviation;
       <strong>k</strong> = number of values in a group; <strong>y<sub>i</sub></strong> = group value.
     </p>
-
     <div class="formula-grid">
 
-      <!-- Baseline -->
       <div class="formula-card">
         <h3>① Baseline Reference <span class="badge">Auto</span></h3>
-
         <div class="formula-item">
           <div class="formula-name">Baseline hardness <span class="tag">Reference</span></div>
           <div class="formula-eq">
-            Baseline <span class="op">=</span> Hardness of <strong>S01</strong> (as-cast)
+            Baseline <span class="op">=</span> HRC<sub>initial</sub> of <strong>S01</strong> (as-cast)
           </div>
           <div class="formula-desc">
-            Used for all percentage-change calculations. If S01 has no hardness value, the first specimen with a
-            recorded hardness whose Initial Condition is <em>As-cast</em> is used instead.
+            If S01 has no initial hardness, the first specimen from Sheet 1 with an
+            <em>As-cast</em> condition and a recorded HRC is used instead.
           </div>
         </div>
-
         <div class="formula-item">
           <div class="formula-name">Hardness change (%) <span class="tag green">Reduction / Recovery</span></div>
           <div class="formula-eq">
             Change&nbsp;(%) <span class="op">=</span>
             <span class="frac">
-              <span class="num">HRC<sub>i</sub> − Baseline</span>
+              <span class="num">HRC − Baseline</span>
               <span class="den">Baseline</span>
             </span>
             <span class="op">× 100</span>
@@ -789,32 +597,24 @@
         </div>
       </div>
 
-      <!-- Group statistics -->
       <div class="formula-card">
         <h3>② Group Statistics <span class="badge">Bar charts</span></h3>
-
         <div class="formula-item">
           <div class="formula-name">Group mean <span class="tag">Bar height</span></div>
           <div class="formula-eq">
             ȳ <span class="op">=</span>
-            <span class="frac">
-              <span class="num">1</span>
-              <span class="den">k</span>
-            </span>
+            <span class="frac"><span class="num">1</span><span class="den">k</span></span>
             <span class="op">·</span>
-            <span style="font-size:1.15em;">Σ</span><sub>i=1</sub><sup>k</sup>
-            y<sub>i</sub>
+            <span style="font-size:1.15em;">Σ</span><sub>i=1</sub><sup>k</sup> y<sub>i</sub>
           </div>
           <div class="formula-desc">
             <strong>k</strong> = number of specimens in the group (e.g. all specimens sharing the same cooling method).
           </div>
         </div>
-
         <div class="formula-item">
           <div class="formula-name">Group standard deviation <span class="tag red">Error bar</span></div>
           <div class="formula-eq">
-            s <span class="op">=</span>
-            √
+            s <span class="op">=</span> √
             <span style="border-top:1.6px solid #102a44;padding:0 6px;">
               <span class="frac" style="margin:0;">
                 <span class="num">Σ<sub>i=1</sub><sup>k</sup> (y<sub>i</sub> − ȳ)²</span>
@@ -826,38 +626,27 @@
             Sample standard deviation (n−1). If <code>k = 1</code>, the deviation is set to 0.
           </div>
         </div>
-
         <div class="formula-item">
           <div class="formula-name">Error bar <span class="tag">Bar chart whiskers</span></div>
-          <div class="formula-eq">
-            Error bar <span class="op">=</span> ȳ <span class="op">±</span> s
-          </div>
+          <div class="formula-eq">Error bar <span class="op">=</span> ȳ <span class="op">±</span> s</div>
         </div>
       </div>
 
-      <!-- Linear regression -->
       <div class="formula-card">
         <h3>③ Linear Regression <span class="badge">Trend line</span></h3>
         <p class="hint" style="margin:0 0 10px;font-size:11.5px;">
-          Applied to the scatter charts (heating temp, re-hardening temp, holding time vs. hardness).
-          Given <strong>n</strong> data points (x<sub>i</sub>, y<sub>i</sub>):
+          Applied to scatter charts ① softening temp vs. hardness, ② re-hardening temp vs. hardness, and ③ holding time vs. hardness.
         </p>
-
         <div class="formula-item">
           <div class="formula-name">Summations</div>
           <div class="formula-eq">
             S<sub>x</sub> <span class="op">=</span> Σ x<sub>i</sub>
-            &nbsp;|&nbsp;
-            S<sub>y</sub> <span class="op">=</span> Σ y<sub>i</sub>
-            &nbsp;|&nbsp;
-            S<sub>xx</sub> <span class="op">=</span> Σ x<sub>i</sub>²
-            &nbsp;|&nbsp;
-            S<sub>xy</sub> <span class="op">=</span> Σ x<sub>i</sub>y<sub>i</sub>
-            &nbsp;|&nbsp;
-            S<sub>yy</sub> <span class="op">=</span> Σ y<sub>i</sub>²
+            &nbsp;|&nbsp; S<sub>y</sub> <span class="op">=</span> Σ y<sub>i</sub>
+            &nbsp;|&nbsp; S<sub>xx</sub> <span class="op">=</span> Σ x<sub>i</sub>²
+            &nbsp;|&nbsp; S<sub>xy</sub> <span class="op">=</span> Σ x<sub>i</sub>y<sub>i</sub>
+            &nbsp;|&nbsp; S<sub>yy</sub> <span class="op">=</span> Σ y<sub>i</sub>²
           </div>
         </div>
-
         <div class="formula-item">
           <div class="formula-name">Slope <span class="tag">m</span></div>
           <div class="formula-eq">
@@ -868,7 +657,6 @@
             </span>
           </div>
         </div>
-
         <div class="formula-item">
           <div class="formula-name">Intercept <span class="tag">b</span></div>
           <div class="formula-eq">
@@ -879,7 +667,6 @@
             </span>
           </div>
         </div>
-
         <div class="formula-item">
           <div class="formula-name">Correlation coefficient <span class="tag">r</span></div>
           <div class="formula-eq">
@@ -890,19 +677,16 @@
             </span>
           </div>
         </div>
-
         <div class="formula-item">
           <div class="formula-name">Coefficient of determination <span class="tag amber">R²</span></div>
           <div class="formula-eq">R² <span class="op">=</span> r²</div>
         </div>
-
         <div class="formula-item">
           <div class="formula-name">Trend line equation <span class="tag green">Displayed on chart</span></div>
           <div class="formula-eq">y <span class="op">=</span> m·x <span class="op">+</span> b</div>
         </div>
       </div>
 
-      <!-- Axis scaling -->
       <div class="formula-card">
         <h3>④ Axis Scaling <span class="badge">Nice-number algorithm</span></h3>
         <p class="hint" style="margin:0 0 10px;font-size:11.5px;">
@@ -931,19 +715,19 @@
     <h2>Instructions &amp; Notes</h2>
     <div class="table-wrap">
       <table id="tbl-instructions">
-        <thead>
-          <tr><th>Item</th><th>Instruction</th></tr>
-        </thead>
+        <thead><tr><th>Item</th><th>Instruction</th></tr></thead>
         <tbody>
-          <tr><td>Purpose</td><td>This sheet records <strong>hardness and microstructural observations only</strong>.</td></tr>
+          <tr><td>Purpose</td><td>This workbook records <strong>hardness and microstructural observations only</strong>.</td></tr>
           <tr><td>Machinability</td><td><strong>Do NOT collect</strong> machining time, cutting force, tool wear, surface roughness, cutting speed, feed, or similar machining data. Machinability is interpreted from hardness changes as defined in the study.</td></tr>
-          <tr><td>Hardness</td><td>Record Rockwell hardness (<strong>HRC</strong>) after each required treatment condition. Use the same test method and procedure for all comparable specimens.</td></tr>
-          <tr><td>Microstructure</td><td>Record the observed phases/features and provide an image / file reference where available.</td></tr>
+          <tr><td>Sheet 1</td><td>Record the as-received condition and initial Rockwell hardness (HRC) of every specimen. This provides the baseline for % change calculations.</td></tr>
+          <tr><td>Sheet 2</td><td>Record softening heat-treatment parameters (temperature, holding time, cooling method) and the resulting hardness for specimens that were softened.</td></tr>
+          <tr><td>Sheet 3</td><td>Record re-hardening parameters and the resulting hardness for specimens that were re-hardened.</td></tr>
+          <tr><td>Sheet 4</td><td>Record the observed phases/features and image references for each specimen.</td></tr>
+          <tr><td>Hardness</td><td>Record Rockwell hardness (<strong>HRC</strong>) after each condition. Use the same test method and procedure for all comparable specimens.</td></tr>
           <tr><td>Heat treatment</td><td>Enter the <strong>actual</strong> furnace temperature and holding time used in the experiment.</td></tr>
-          <tr><td>Cooling</td><td>Record the actual cooling method used (e.g. furnace cooling, air cooling, water quenching, oil quenching).</td></tr>
-          <tr><td>Specimen IDs</td><td>Pre-filled S01–S08 follow the study matrix. Extra blank rows (S09–S12) are available for additional specimens.</td></tr>
-          <tr><td>Graphs</td><td>The “Graphs &amp; Relations” tab plots heating/re-hardening temperature, holding time, cooling method, initial condition and heat treatment against hardness, plus the % hardness change relative to the as-cast baseline.</td></tr>
-          <tr><td>Formulas</td><td>See the “📐 Formulas” tab for the complete list of equations used by the automatic calculators and charts.</td></tr>
+          <tr><td>Cooling</td><td>Record the actual cooling method used (furnace cooling, air cooling, water quenching, oil quenching, etc.).</td></tr>
+          <tr><td>Graphs</td><td>The Graphs tab plots softening / re-hardening temperatures, holding times, cooling methods, treatment stages and % hardness change against hardness.</td></tr>
+          <tr><td>Formulas</td><td>See the 📐 Formulas tab for the complete list of equations used.</td></tr>
         </tbody>
       </table>
     </div>
@@ -955,804 +739,682 @@
 (function () {
   "use strict";
 
-  /* =========================================================
-     0 · HELPERS
-     ========================================================= */
-  function qsa(sel, root) {
-    return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+  /* ========== HELPERS ========== */
+  function qsa(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+  function toNum(v){
+    if(v===null||v===undefined) return null;
+    var s=String(v).trim(); if(s==="") return null;
+    var n=parseFloat(s); return isNaN(n)?null:n;
   }
-  function toNum(v) {
-    if (v === null || v === undefined) return null;
-    var s = String(v).trim();
-    if (s === "") return null;
-    var n = parseFloat(s);
-    return isNaN(n) ? null : n;
-  }
-  function cellInput(tr, idx) {
-    var cell = tr.children[idx];
-    if (!cell) return null;
-    return cell.querySelector("input, select, textarea");
-  }
-  function rowSampleId(tr) {
-    if (tr.dataset && tr.dataset.sample) return tr.dataset.sample.trim();
-    var rh = tr.querySelector("td.rowhead");
-    if (!rh) return "";
-    var inp = rh.querySelector("input");
-    return (inp ? inp.value : rh.textContent).trim();
+  function cellInput(tr,i){ var c=tr.children[i]; return c?c.querySelector("input,select,textarea"):null; }
+  function rowSampleId(tr){
+    if(tr.dataset&&tr.dataset.sample) return tr.dataset.sample.trim();
+    var rh=tr.querySelector("td.rowhead"); if(!rh) return "";
+    var inp=rh.querySelector("input"); return (inp?inp.value:rh.textContent).trim();
   }
 
-  /* =========================================================
-     1 · TABS
-     ========================================================= */
-  var tabButtons = qsa(".tab-btn");
-  tabButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      tabButtons.forEach(function (b) { b.classList.remove("active"); });
-      qsa(".panel").forEach(function (p) { p.classList.remove("active"); });
+  /* ========== TABS ========== */
+  var tabButtons=qsa(".tab-btn");
+  tabButtons.forEach(function(btn){
+    btn.addEventListener("click",function(){
+      tabButtons.forEach(function(b){b.classList.remove("active");});
+      qsa(".panel").forEach(function(p){p.classList.remove("active");});
       btn.classList.add("active");
       document.getElementById(btn.dataset.target).classList.add("active");
-      if (btn.dataset.target === "panel-graphs") {
-        requestAnimationFrame(function () { renderAllCharts(); });
-      }
-      if (window.innerWidth <= 900) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      if(btn.dataset.target==="panel-graphs") requestAnimationFrame(renderAllCharts);
+      if(window.innerWidth<=900) window.scrollTo({top:0,behavior:"smooth"});
     });
   });
 
-  /* =========================================================
-     2 · DATA COLLECTION
-     ========================================================= */
-  function collectData() {
-    var map = {};
-    qsa("#tbl-data tbody tr").forEach(function (tr) {
-      var sid = rowSampleId(tr);
-      if (!sid) return;
+  /* ========== DATA COLLECTION (merge 4 sheets by specimen ID) ========== */
+  function collectData(){
+    var map={};
+    function rec(sid){
+      if(!map[sid]){
+        map[sid]={
+          id:sid,
+          initialCondition:"", initialHardness:null,
+          softTemp:null, softHold:null, softCool:"", softHardness:null,
+          rehardTemp:null, rehardHold:null, rehardCool:"", rehardHardness:null,
+          microCondition:"", microstructure:""
+        };
+      }
+      return map[sid];
+    }
 
-      var init = cellInput(tr, 1);
-      var ht   = cellInput(tr, 2);
-      var hT   = cellInput(tr, 3);
-      var hH   = cellInput(tr, 4);
-      var hC   = cellInput(tr, 5);
-      var rT   = cellInput(tr, 6);
-      var rH   = cellInput(tr, 7);
-      var rC   = cellInput(tr, 8);
-      var hr   = cellInput(tr, 9);
-      var md   = cellInput(tr, 10);
-      var mi   = cellInput(tr, 11);
-      var rm   = cellInput(tr, 12);
-
-      map[sid] = {
-        id: sid,
-        initialCondition: init ? init.value.trim() : "",
-        heatTreatment:    ht   ? ht.value.trim()   : "",
-        heatTemp:         hT   ? toNum(hT.value)   : null,
-        holdTime:         hH   ? toNum(hH.value)   : null,
-        cooling:          hC   ? hC.value.trim()   : "",
-        rehardTemp:       rT   ? toNum(rT.value)   : null,
-        rehardHold:       rH   ? toNum(rH.value)   : null,
-        rehardCool:       rC   ? rC.value.trim()   : "",
-        hardness:         hr   ? toNum(hr.value)   : null,
-        microstructure:   md   ? md.value.trim()   : "",
-        imageRef:         mi   ? mi.value.trim()   : "",
-        remarks:          rm   ? rm.value.trim()   : ""
-      };
+    /* Sheet 1 */
+    qsa("#tbl-initial tbody tr").forEach(function(tr){
+      var sid=rowSampleId(tr); if(!sid) return;
+      var r=rec(sid);
+      var cInit=cellInput(tr,1), cHr=cellInput(tr,2);
+      if(cInit&&cInit.value.trim()) r.initialCondition=cInit.value.trim();
+      var h=cHr?toNum(cHr.value):null;
+      if(h!==null) r.initialHardness=h;
     });
+
+    /* Sheet 2 */
+    qsa("#tbl-softening tbody tr").forEach(function(tr){
+      var sid=rowSampleId(tr); if(!sid) return;
+      var r=rec(sid);
+      var cT=cellInput(tr,2), cH=cellInput(tr,3), cC=cellInput(tr,4), cHr=cellInput(tr,5);
+      var t=cT?toNum(cT.value):null; if(t!==null) r.softTemp=t;
+      var h=cH?toNum(cH.value):null; if(h!==null) r.softHold=h;
+      if(cC&&cC.value.trim()) r.softCool=cC.value.trim();
+      var hr=cHr?toNum(cHr.value):null; if(hr!==null) r.softHardness=hr;
+    });
+
+    /* Sheet 3 */
+    qsa("#tbl-rehard tbody tr").forEach(function(tr){
+      var sid=rowSampleId(tr); if(!sid) return;
+      var r=rec(sid);
+      var cT=cellInput(tr,2), cH=cellInput(tr,3), cC=cellInput(tr,4), cHr=cellInput(tr,5);
+      var t=cT?toNum(cT.value):null; if(t!==null) r.rehardTemp=t;
+      var h=cH?toNum(cH.value):null; if(h!==null) r.rehardHold=h;
+      if(cC&&cC.value.trim()) r.rehardCool=cC.value.trim();
+      var hr=cHr?toNum(cHr.value):null; if(hr!==null) r.rehardHardness=hr;
+    });
+
+    /* Sheet 4 */
+    qsa("#tbl-micro tbody tr").forEach(function(tr){
+      var sid=rowSampleId(tr); if(!sid) return;
+      var r=rec(sid);
+      var cCond=cellInput(tr,1), cDesc=cellInput(tr,7);
+      if(cCond&&cCond.value.trim()) r.microCondition=cCond.value.trim();
+      if(cDesc&&cDesc.value.trim()) r.microstructure=cDesc.value.trim();
+    });
+
     return map;
   }
 
-  function validRecords() {
-    var D = collectData();
-    return Object.keys(D)
-      .map(function (k) { return D[k]; })
-      .filter(function (r) { return r.hardness !== null; });
+  function allRecords(){
+    var D=collectData();
+    return Object.keys(D).map(function(k){return D[k];});
   }
 
-  function getBaseline(records) {
-    /* Prefer S01; else first as-cast record */
-    var s01 = records.find(function (r) { return r.id === "S01"; });
-    if (s01 && s01.hardness !== null) return s01.hardness;
-    var first = records.find(function (r) { return /as[\s\-_]*cast/i.test(r.initialCondition); });
-    return first ? first.hardness : null;
+  /* Final hardness per specimen (rehard > soft > initial) */
+  function finalHardness(r){
+    if(r.rehardHardness!==null) return r.rehardHardness;
+    if(r.softHardness!==null)    return r.softHardness;
+    return r.initialHardness;
   }
 
-  function heatTreatmentColor(ht) {
-    if (!ht) return "#1F4E78";
-    if (/re[\s\-_]*hard|harden/i.test(ht)) return "#D9534F";
-    if (/soften|anneal/i.test(ht))         return "#2E9E5B";
-    if (/none/i.test(ht))                  return "#1F4E78";
+  /* Treatment stage label for final hardness */
+  function finalStage(r){
+    if(r.rehardHardness!==null) return "Re-hardened";
+    if(r.softHardness!==null)    return "Softened";
+    return "As-cast";
+  }
+
+  function getBaseline(records){
+    var s01=records.find(function(r){return r.id==="S01";});
+    if(s01&&s01.initialHardness!==null) return s01.initialHardness;
+    var first=records.find(function(r){return /as[\s\-_]*cast/i.test(r.initialCondition)&&r.initialHardness!==null;});
+    return first?first.initialHardness:null;
+  }
+
+  function stageColor(stage){
+    if(stage==="Re-hardened") return "#D9534F";
+    if(stage==="Softened")    return "#2E9E5B";
+    if(stage==="As-cast")     return "#1F4E78";
     return "#1F4E78";
   }
 
-  var INITIAL_ORDER = ["As-cast", "Softened"];
-  var INITIAL_COLORS = { "As-cast": "#1F4E78", "Softened": "#2E9E5B" };
+  var STAGE_ORDER=["As-cast","Softened","Re-hardened"];
+  var STAGE_COLORS={"As-cast":"#1F4E78","Softened":"#2E9E5B","Re-hardened":"#D9534F"};
+  var PALETTE=["#1F4E78","#2E9E5B","#D9534F","#E8A33D","#7B5EA7","#3AA6B9","#C0603A"];
 
-  var HT_ORDER = ["None", "Softening", "Re-hardening"];
-  var HT_COLORS = { "None": "#1F4E78", "Softening": "#2E9E5B", "Re-hardening": "#D9534F" };
-
-  var PALETTE = ["#1F4E78", "#2E9E5B", "#D9534F", "#E8A33D", "#7B5EA7", "#3AA6B9", "#C0603A"];
-
-  function groupStats(items, keyFn, valueFn) {
-    var map = {};
-    items.forEach(function (it) {
-      var k = keyFn(it);
-      if (!k) return;
-      var v = valueFn ? valueFn(it) : it.hardness;
-      if (v === null || v === undefined || isNaN(v)) return;
-      if (!map[k]) map[k] = [];
-      map[k].push(v);
+  function groupStats(items, keyFn, valueFn){
+    var m={};
+    items.forEach(function(it){
+      var k=keyFn(it); if(!k) return;
+      var v=valueFn?valueFn(it):null;
+      if(v===null||v===undefined||isNaN(v)) return;
+      if(!m[k]) m[k]=[];
+      m[k].push(v);
     });
-    return Object.keys(map).map(function (k) {
-      var arr = map[k];
-      var mean = arr.reduce(function (a, b) { return a + b; }, 0) / arr.length;
-      var sd = 0;
-      if (arr.length > 1) {
-        sd = Math.sqrt(arr.reduce(function (a, b) {
-          return a + Math.pow(b - mean, 2);
-        }, 0) / (arr.length - 1));
+    return Object.keys(m).map(function(k){
+      var a=m[k];
+      var mean=a.reduce(function(x,y){return x+y;},0)/a.length;
+      var sd=0;
+      if(a.length>1){
+        sd=Math.sqrt(a.reduce(function(x,y){return x+Math.pow(y-mean,2);},0)/(a.length-1));
       }
-      return { label: k, value: mean, sd: sd, n: arr.length };
+      return {label:k,value:mean,sd:sd,n:a.length};
     });
   }
 
-  /* =========================================================
-     3 · CHART ENGINE
-     ========================================================= */
-  var FONT_STACK = "'Segoe UI', Roboto, Arial, sans-serif";
-  function isMobile() { return window.innerWidth <= 560; }
+  /* ========== CHART ENGINE ========== */
+  var FONT_STACK="'Segoe UI', Roboto, Arial, sans-serif";
+  function isMobile(){return window.innerWidth<=560;}
 
-  function setupCanvas(canvas) {
-    var dpr = window.devicePixelRatio || 1;
-    var rect = canvas.getBoundingClientRect();
-    var w = Math.round(rect.width) || 300;
-    var h = Math.round(rect.height) || 220;
-    canvas.width  = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-    var ctx = canvas.getContext("2d");
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, w, h);
-    ctx.font = (isMobile() ? 11 : 12) + "px " + FONT_STACK;
-    ctx.textBaseline = "middle";
-    return { ctx: ctx, w: w, h: h };
+  function setupCanvas(canvas){
+    var dpr=window.devicePixelRatio||1;
+    var rect=canvas.getBoundingClientRect();
+    var w=Math.round(rect.width)||300, h=Math.round(rect.height)||220;
+    canvas.width=Math.round(w*dpr); canvas.height=Math.round(h*dpr);
+    var ctx=canvas.getContext("2d");
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,w,h);
+    ctx.font=(isMobile()?11:12)+"px "+FONT_STACK;
+    ctx.textBaseline="middle";
+    return {ctx:ctx,w:w,h:h};
   }
 
-  function niceNum(range, round) {
-    if (!(range > 0)) range = 1;
-    var exp = Math.floor(Math.log10(range));
-    var f = range / Math.pow(10, exp);
-    var nf;
-    if (round) {
-      if (f < 1.5) nf = 1;
-      else if (f < 3) nf = 2;
-      else if (f < 7) nf = 5;
-      else nf = 10;
+  function niceNum(range,round){
+    if(!(range>0)) range=1;
+    var exp=Math.floor(Math.log10(range)), f=range/Math.pow(10,exp), nf;
+    if(round){
+      if(f<1.5) nf=1; else if(f<3) nf=2; else if(f<7) nf=5; else nf=10;
     } else {
-      if (f <= 1) nf = 1;
-      else if (f <= 2) nf = 2;
-      else if (f <= 5) nf = 5;
-      else nf = 10;
+      if(f<=1) nf=1; else if(f<=2) nf=2; else if(f<=5) nf=5; else nf=10;
     }
-    return nf * Math.pow(10, exp);
+    return nf*Math.pow(10,exp);
   }
 
-  function niceScale(min, max, maxTicks) {
-    maxTicks = Math.max(2, maxTicks || 5);
-    if (!isFinite(min) || !isFinite(max)) { min = 0; max = 1; }
-    if (min > max) { var t = min; min = max; max = t; }
-    if (min === max) {
-      var d = Math.abs(min) || 1;
-      min -= d * 0.5; max += d * 0.5;
-    }
-    var range = niceNum(max - min, false);
-    var step  = niceNum(range / (maxTicks - 1), true);
-    return {
-      min: Math.floor(min / step) * step,
-      max: Math.ceil(max / step) * step,
-      step: step
-    };
+  function niceScale(min,max,maxTicks){
+    maxTicks=Math.max(2,maxTicks||5);
+    if(!isFinite(min)||!isFinite(max)){min=0;max=1;}
+    if(min>max){var t=min;min=max;max=t;}
+    if(min===max){var d=Math.abs(min)||1;min-=d*0.5;max+=d*0.5;}
+    var range=niceNum(max-min,false), step=niceNum(range/(maxTicks-1),true);
+    return {min:Math.floor(min/step)*step,max:Math.ceil(max/step)*step,step:step};
   }
 
-  function tickValues(sc) {
-    var out = [];
-    var n = Math.round((sc.max - sc.min) / sc.step);
-    if (n > 60) n = 60;
-    for (var i = 0; i <= n; i++) out.push(sc.min + i * sc.step);
+  function tickValues(sc){
+    var out=[], n=Math.round((sc.max-sc.min)/sc.step);
+    if(n>60) n=60;
+    for(var i=0;i<=n;i++) out.push(sc.min+i*sc.step);
     return out;
   }
 
-  function fmtNum(v) {
-    var a = Math.abs(v);
-    var s;
-    if (a >= 1000) s = v.toFixed(0);
-    else if (a >= 100) s = v.toFixed(0);
-    else if (a >= 1) s = v.toFixed(1);
-    else s = v.toFixed(2);
-    return s.replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+  function fmtNum(v){
+    var a=Math.abs(v), s;
+    if(a>=1000) s=v.toFixed(0);
+    else if(a>=100) s=v.toFixed(0);
+    else if(a>=1) s=v.toFixed(1);
+    else s=v.toFixed(2);
+    return s.replace(/\.0+$/,"").replace(/(\.\d*?)0+$/,"$1");
   }
 
-  function emptyChart(ctx, W, H, text) {
+  function emptyChart(ctx,W,H,text){
     ctx.save();
-    ctx.fillStyle = "#9aa5b1";
-    ctx.font = (isMobile() ? 12 : 13) + "px " + FONT_STACK;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    var words = String(text || "No data yet.").split(" ");
-    var lines = [], cur = "";
-    words.forEach(function (wd) {
-      var test = cur ? cur + " " + wd : wd;
-      if (ctx.measureText(test).width > W - 50 && cur) { lines.push(cur); cur = wd; }
-      else cur = test;
+    ctx.fillStyle="#9aa5b1";
+    ctx.font=(isMobile()?12:13)+"px "+FONT_STACK;
+    ctx.textAlign="center"; ctx.textBaseline="middle";
+    var words=String(text||"No data yet.").split(" "), lines=[], cur="";
+    words.forEach(function(wd){
+      var t=cur?cur+" "+wd:wd;
+      if(ctx.measureText(t).width>W-50&&cur){lines.push(cur);cur=wd;}
+      else cur=t;
     });
-    if (cur) lines.push(cur);
-    var lh = 17;
-    var startY = H / 2 - (lines.length - 1) * lh / 2;
-    lines.forEach(function (l, i) { ctx.fillText(l, W / 2, startY + i * lh); });
+    if(cur) lines.push(cur);
+    var lh=17, startY=H/2-(lines.length-1)*lh/2;
+    lines.forEach(function(l,i){ctx.fillText(l,W/2,startY+i*lh);});
     ctx.restore();
   }
 
-  function linreg(pts) {
-    var n = pts.length;
-    if (n < 2) return null;
-    var sx = 0, sy = 0, sxx = 0, sxy = 0, syy = 0;
-    pts.forEach(function (p) {
-      sx += p.x; sy += p.y;
-      sxx += p.x * p.x; sxy += p.x * p.y; syy += p.y * p.y;
-    });
-    var denom = n * sxx - sx * sx;
-    if (Math.abs(denom) < 1e-12) return null;
-    var slope = (n * sxy - sx * sy) / denom;
-    var intercept = (sy - slope * sx) / n;
-    var rNum = n * sxy - sx * sy;
-    var rDen = Math.sqrt((n * sxx - sx * sx) * (n * syy - sy * sy));
-    var r2 = rDen === 0 ? 0 : Math.pow(rNum / rDen, 2);
-    return { slope: slope, intercept: intercept, r2: r2, n: n };
+  function linreg(pts){
+    var n=pts.length; if(n<2) return null;
+    var sx=0,sy=0,sxx=0,sxy=0,syy=0;
+    pts.forEach(function(p){sx+=p.x;sy+=p.y;sxx+=p.x*p.x;sxy+=p.x*p.y;syy+=p.y*p.y;});
+    var den=n*sxx-sx*sx; if(Math.abs(den)<1e-12) return null;
+    var slope=(n*sxy-sx*sy)/den, intercept=(sy-slope*sx)/n;
+    var rNum=n*sxy-sx*sy, rDen=Math.sqrt((n*sxx-sx*sx)*(n*syy-sy*sy));
+    var r2=rDen===0?0:Math.pow(rNum/rDen,2);
+    return {slope:slope,intercept:intercept,r2:r2,n:n};
   }
 
-  /* ---------- Scatter ---------- */
-  function scatterChart(canvas, cfg) {
-    if (!canvas) return;
-    var s = setupCanvas(canvas);
-    var ctx = s.ctx, W = s.w, H = s.h;
-    var mobile = isMobile();
+  function scatterChart(canvas,cfg){
+    if(!canvas) return;
+    var s=setupCanvas(canvas), ctx=s.ctx, W=s.w, H=s.h;
+    var mobile=isMobile();
+    var allPts=[];
+    (cfg.series||[]).forEach(function(ser){(ser.points||[]).forEach(function(p){allPts.push(p);});});
+    if(allPts.length===0){emptyChart(ctx,W,H,cfg.emptyText);return;}
 
-    var allPts = [];
-    (cfg.series || []).forEach(function (ser) {
-      (ser.points || []).forEach(function (p) { allPts.push(p); });
-    });
-    if (allPts.length === 0) { emptyChart(ctx, W, H, cfg.emptyText); return; }
+    var m=mobile?{l:46,r:12,t:14,b:42}:{l:64,r:24,t:18,b:56};
+    var x0=m.l,y0=m.t,x1=W-m.r,y1=H-m.b;
+    var xs=allPts.map(function(p){return p.x;}), ys=allPts.map(function(p){return p.y;});
+    var xsc=niceScale(Math.min.apply(null,xs),Math.max.apply(null,xs),
+                      Math.max(3,Math.floor((x1-x0)/(mobile?65:95))));
+    var ysc=niceScale(Math.min.apply(null,ys),Math.max.apply(null,ys),
+                      Math.max(3,Math.floor((y1-y0)/(mobile?42:55))));
+    function xMap(v){return x0+(v-xsc.min)/(xsc.max-xsc.min)*(x1-x0);}
+    function yMap(v){return y1-(v-ysc.min)/(ysc.max-ysc.min)*(y1-y0);}
 
-    var m = mobile
-      ? { l: 46, r: 12, t: 14, b: 42 }
-      : { l: 64, r: 24, t: 18, b: 56 };
-    var x0 = m.l, y0 = m.t, x1 = W - m.r, y1 = H - m.b;
+    ctx.lineWidth=1; ctx.strokeStyle="#eceff3";
+    tickValues(ysc).forEach(function(t){var y=Math.round(yMap(t))+0.5;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();});
+    tickValues(xsc).forEach(function(t){var x=Math.round(xMap(t))+0.5;ctx.beginPath();ctx.moveTo(x,y0);ctx.lineTo(x,y1);ctx.stroke();});
 
-    var xs = allPts.map(function (p) { return p.x; });
-    var ys = allPts.map(function (p) { return p.y; });
-
-    var xsc = niceScale(Math.min.apply(null, xs), Math.max.apply(null, xs),
-                        Math.max(3, Math.floor((x1 - x0) / (mobile ? 65 : 95))));
-    var ysc = niceScale(Math.min.apply(null, ys), Math.max.apply(null, ys),
-                        Math.max(3, Math.floor((y1 - y0) / (mobile ? 42 : 55))));
-
-    function xMap(v) { return x0 + (v - xsc.min) / (xsc.max - xsc.min) * (x1 - x0); }
-    function yMap(v) { return y1 - (v - ysc.min) / (ysc.max - ysc.min) * (y1 - y0); }
-
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "#eceff3";
-    tickValues(ysc).forEach(function (t) {
-      var y = Math.round(yMap(t)) + 0.5;
-      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
-    });
-    tickValues(xsc).forEach(function (t) {
-      var x = Math.round(xMap(t)) + 0.5;
-      ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x, y1); ctx.stroke();
-    });
-
-    if (cfg.hLine !== undefined && cfg.hLine >= ysc.min && cfg.hLine <= ysc.max) {
-      ctx.strokeStyle = "#b9c2cc";
-      ctx.setLineDash([5, 4]);
-      ctx.beginPath();
-      ctx.moveTo(x0, yMap(cfg.hLine));
-      ctx.lineTo(x1, yMap(cfg.hLine));
-      ctx.stroke();
+    if(cfg.hLine!==undefined&&cfg.hLine>=ysc.min&&cfg.hLine<=ysc.max){
+      ctx.strokeStyle="#b9c2cc"; ctx.setLineDash([5,4]);
+      ctx.beginPath(); ctx.moveTo(x0,yMap(cfg.hLine)); ctx.lineTo(x1,yMap(cfg.hLine)); ctx.stroke();
       ctx.setLineDash([]);
     }
 
-    ctx.strokeStyle = "#9aa5b1";
-    ctx.beginPath();
-    ctx.moveTo(x0 + 0.5, y0); ctx.lineTo(x0 + 0.5, y1 + 0.5); ctx.lineTo(x1, y1 + 0.5);
-    ctx.stroke();
+    ctx.strokeStyle="#9aa5b1";
+    ctx.beginPath(); ctx.moveTo(x0+0.5,y0); ctx.lineTo(x0+0.5,y1+0.5); ctx.lineTo(x1,y1+0.5); ctx.stroke();
 
-    ctx.fillStyle = "#444";
-    ctx.font = (mobile ? 10 : 11) + "px " + FONT_STACK;
-    ctx.textAlign = "right";
-    tickValues(ysc).forEach(function (t) { ctx.fillText(fmtNum(t), x0 - 5, yMap(t)); });
-    ctx.textAlign = "center";
-    tickValues(xsc).forEach(function (t) { ctx.fillText(fmtNum(t), xMap(t), y1 + (mobile ? 12 : 16)); });
+    ctx.fillStyle="#444"; ctx.font=(mobile?10:11)+"px "+FONT_STACK;
+    ctx.textAlign="right";
+    tickValues(ysc).forEach(function(t){ctx.fillText(fmtNum(t),x0-5,yMap(t));});
+    ctx.textAlign="center";
+    tickValues(xsc).forEach(function(t){ctx.fillText(fmtNum(t),xMap(t),y1+(mobile?12:16));});
 
-    ctx.fillStyle = "#333";
-    ctx.font = (mobile ? 11 : 12) + "px " + FONT_STACK;
-    ctx.fillText(cfg.xLabel || "", (x0 + x1) / 2, H - (mobile ? 8 : 12));
+    ctx.fillStyle="#333"; ctx.font=(mobile?11:12)+"px "+FONT_STACK;
+    ctx.fillText(cfg.xLabel||"",(x0+x1)/2,H-(mobile?8:12));
 
-    ctx.save();
-    ctx.translate(mobile ? 12 : 15, (y0 + y1) / 2);
-    ctx.rotate(-Math.PI / 2);
-    ctx.textAlign = "center";
-    ctx.fillText(cfg.yLabel || "", 0, 0);
-    ctx.restore();
+    ctx.save(); ctx.translate(mobile?12:15,(y0+y1)/2); ctx.rotate(-Math.PI/2);
+    ctx.textAlign="center"; ctx.fillText(cfg.yLabel||"",0,0); ctx.restore();
 
-    var showLabels = allPts.length <= (mobile ? 6 : 10) && cfg.showPointLabels !== false;
-    var dotR = mobile ? 4.5 : 5.5;
+    var showLabels=allPts.length<=(mobile?6:10)&&cfg.showPointLabels!==false;
+    var dotR=mobile?4.5:5.5;
 
-    (cfg.series || []).forEach(function (ser) {
-      if (!ser.points || ser.points.length === 0) return;
-      var color = ser.color || "#1F4E78";
-      ser.points.forEach(function (p) {
-        var cx = xMap(p.x), cy = yMap(p.y);
-        ctx.beginPath();
-        ctx.arc(cx, cy, dotR, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.globalAlpha = 0.85; ctx.fill(); ctx.globalAlpha = 1;
-        ctx.lineWidth = 1.5; ctx.strokeStyle = "#ffffff"; ctx.stroke();
-        if (showLabels && p.label) {
-          ctx.fillStyle = "#555";
-          ctx.font = "10px " + FONT_STACK;
-          ctx.textAlign = "left";
-          ctx.fillText(p.label, cx + 6, cy - 8);
+    (cfg.series||[]).forEach(function(ser){
+      if(!ser.points||ser.points.length===0) return;
+      var color=ser.color||"#1F4E78";
+      ser.points.forEach(function(p){
+        var cx=xMap(p.x), cy=yMap(p.y);
+        ctx.beginPath(); ctx.arc(cx,cy,dotR,0,Math.PI*2);
+        ctx.fillStyle=color; ctx.globalAlpha=0.85; ctx.fill(); ctx.globalAlpha=1;
+        ctx.lineWidth=1.5; ctx.strokeStyle="#fff"; ctx.stroke();
+        if(showLabels&&p.label){
+          ctx.fillStyle="#555"; ctx.font="10px "+FONT_STACK; ctx.textAlign="left";
+          ctx.fillText(p.label,cx+6,cy-8);
         }
       });
     });
 
-    if (cfg.trend && allPts.length >= 3) {
-      var reg = linreg(allPts);
-      if (reg) {
-        var xa = xsc.min, xb = xsc.max;
-        ctx.save();
+    if(cfg.trend&&allPts.length>=3){
+      var reg=linreg(allPts);
+      if(reg){
+        var xa=xsc.min, xb=xsc.max;
+        ctx.save(); ctx.beginPath(); ctx.rect(x0,y0,x1-x0,y1-y0); ctx.clip();
+        ctx.strokeStyle="#D9534F"; ctx.lineWidth=1.8; ctx.setLineDash([7,5]);
         ctx.beginPath();
-        ctx.rect(x0, y0, x1 - x0, y1 - y0);
-        ctx.clip();
-        ctx.strokeStyle = "#D9534F";
-        ctx.lineWidth = 1.8;
-        ctx.setLineDash([7, 5]);
-        ctx.beginPath();
-        ctx.moveTo(xMap(xa), yMap(reg.slope * xa + reg.intercept));
-        ctx.lineTo(xMap(xb), yMap(reg.slope * xb + reg.intercept));
+        ctx.moveTo(xMap(xa),yMap(reg.slope*xa+reg.intercept));
+        ctx.lineTo(xMap(xb),yMap(reg.slope*xb+reg.intercept));
         ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.restore();
+        ctx.setLineDash([]); ctx.restore();
 
-        var eq = "y = " + reg.slope.toFixed(mobile ? 3 : 4) + "x + " +
-                 reg.intercept.toFixed(2) + "   R² = " + reg.r2.toFixed(3);
-        ctx.font = (mobile ? 10 : 11) + "px " + FONT_STACK;
-        var tw = ctx.measureText(eq).width;
-        var eqY = y0 + 4;
-        ctx.fillStyle = "rgba(255,255,255,0.92)";
-        ctx.fillRect(x1 - tw - 10, eqY, tw + 8, mobile ? 17 : 20);
-        ctx.strokeStyle = "#e0e5ea"; ctx.lineWidth = 1;
-        ctx.strokeRect(x1 - tw - 10, eqY, tw + 8, mobile ? 17 : 20);
-        ctx.fillStyle = "#444"; ctx.textAlign = "left";
-        ctx.fillText(eq, x1 - tw - 6, eqY + (mobile ? 8 : 10));
+        var eq="y = "+reg.slope.toFixed(mobile?3:4)+"x + "+reg.intercept.toFixed(2)+
+               "   R² = "+reg.r2.toFixed(3);
+        ctx.font=(mobile?10:11)+"px "+FONT_STACK;
+        var tw=ctx.measureText(eq).width, eqY=y0+4;
+        ctx.fillStyle="rgba(255,255,255,0.92)";
+        ctx.fillRect(x1-tw-10,eqY,tw+8,mobile?17:20);
+        ctx.strokeStyle="#e0e5ea"; ctx.lineWidth=1;
+        ctx.strokeRect(x1-tw-10,eqY,tw+8,mobile?17:20);
+        ctx.fillStyle="#444"; ctx.textAlign="left";
+        ctx.fillText(eq,x1-tw-6,eqY+(mobile?8:10));
       }
     }
 
-    if ((cfg.series || []).length > 1) {
-      var lx = x0 + 10, ly = y0 + 14;
-      ctx.font = (mobile ? 10 : 11) + "px " + FONT_STACK;
-      (cfg.series || []).forEach(function (ser, i) {
-        if (!ser.points || ser.points.length === 0) return;
-        var yy = ly + i * 16;
-        ctx.beginPath(); ctx.arc(lx + 4, yy, 4, 0, Math.PI * 2);
-        ctx.fillStyle = ser.color || "#1F4E78"; ctx.fill();
-        ctx.fillStyle = "#333"; ctx.textAlign = "left";
-        ctx.fillText(ser.name, lx + 12, yy);
+    if((cfg.series||[]).length>1){
+      var lx=x0+10, ly=y0+14;
+      ctx.font=(mobile?10:11)+"px "+FONT_STACK;
+      (cfg.series||[]).forEach(function(ser,i){
+        if(!ser.points||ser.points.length===0) return;
+        var yy=ly+i*16;
+        ctx.beginPath(); ctx.arc(lx+4,yy,4,0,Math.PI*2);
+        ctx.fillStyle=ser.color||"#1F4E78"; ctx.fill();
+        ctx.fillStyle="#333"; ctx.textAlign="left"; ctx.fillText(ser.name,lx+12,yy);
       });
     }
   }
 
-  /* ---------- Bar ---------- */
-  function barChart(canvas, cfg) {
-    if (!canvas) return;
-    var s = setupCanvas(canvas);
-    var ctx = s.ctx, W = s.w, H = s.h;
-    var mobile = isMobile();
-
-    var cats = (cfg.categories || []).filter(function (c) {
-      return c.value !== null && c.value !== undefined && !isNaN(c.value);
+  function barChart(canvas,cfg){
+    if(!canvas) return;
+    var s=setupCanvas(canvas), ctx=s.ctx, W=s.w, H=s.h;
+    var mobile=isMobile();
+    var cats=(cfg.categories||[]).filter(function(c){
+      return c.value!==null&&c.value!==undefined&&!isNaN(c.value);
     });
-    if (cats.length === 0) { emptyChart(ctx, W, H, cfg.emptyText); return; }
+    if(cats.length===0){emptyChart(ctx,W,H,cfg.emptyText);return;}
 
-    var rotate = cats.some(function (c) { return String(c.label).length > 11; }) || cats.length > 5;
-    var m = mobile
-      ? { l: 44, r: 10, t: 16, b: rotate ? 74 : 48 }
-      : { l: 64, r: 24, t: 18, b: rotate ? 88 : 62 };
-    var x0 = m.l, y0 = m.t, x1 = W - m.r, y1 = H - m.b;
+    var rotate=cats.some(function(c){return String(c.label).length>11;})||cats.length>5;
+    var m=mobile
+      ?{l:44,r:10,t:16,b:rotate?74:48}
+      :{l:64,r:24,t:18,b:rotate?88:62};
+    var x0=m.l,y0=m.t,x1=W-m.r,y1=H-m.b;
+    var vals=cats.map(function(c){return c.value;});
+    var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals);
+    var pad=(hi-lo)||Math.abs(hi)*0.1||1;
+    var yMin,yMax;
+    if(cfg.zeroBase){yMin=0;yMax=hi+pad*0.25;}
+    else{yMin=lo-pad*0.35;yMax=hi+pad*0.35;}
+    var ysc=niceScale(yMin,yMax,mobile?4:5);
+    function yMap(v){return y1-(v-ysc.min)/(ysc.max-ysc.min)*(y1-y0);}
 
-    var vals = cats.map(function (c) { return c.value; });
-    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
-    var pad = (hi - lo) || Math.abs(hi) * 0.1 || 1;
+    ctx.lineWidth=1; ctx.strokeStyle="#eceff3";
+    tickValues(ysc).forEach(function(t){var y=Math.round(yMap(t))+0.5;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();});
 
-    var yMin, yMax;
-    if (cfg.zeroBase) { yMin = 0; yMax = hi + pad * 0.25; }
-    else { yMin = lo - pad * 0.35; yMax = hi + pad * 0.35; }
-    var ysc = niceScale(yMin, yMax, mobile ? 4 : 5);
+    ctx.strokeStyle="#9aa5b1";
+    ctx.beginPath(); ctx.moveTo(x0+0.5,y0); ctx.lineTo(x0+0.5,y1+0.5); ctx.lineTo(x1,y1+0.5); ctx.stroke();
 
-    function yMap(v) { return y1 - (v - ysc.min) / (ysc.max - ysc.min) * (y1 - y0); }
+    ctx.fillStyle="#444"; ctx.font=(mobile?10:11)+"px "+FONT_STACK;
+    ctx.textAlign="right";
+    tickValues(ysc).forEach(function(t){ctx.fillText(fmtNum(t),x0-5,yMap(t));});
 
-    ctx.lineWidth = 1; ctx.strokeStyle = "#eceff3";
-    tickValues(ysc).forEach(function (t) {
-      var y = Math.round(yMap(t)) + 0.5;
-      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
-    });
+    ctx.fillStyle="#333"; ctx.font=(mobile?11:12)+"px "+FONT_STACK;
+    ctx.textAlign="center"; ctx.fillText(cfg.xLabel||"",(x0+x1)/2,H-(mobile?8:12));
+    ctx.save(); ctx.translate(mobile?12:15,(y0+y1)/2); ctx.rotate(-Math.PI/2);
+    ctx.textAlign="center"; ctx.fillText(cfg.yLabel||"",0,0); ctx.restore();
 
-    ctx.strokeStyle = "#9aa5b1";
-    ctx.beginPath();
-    ctx.moveTo(x0 + 0.5, y0); ctx.lineTo(x0 + 0.5, y1 + 0.5); ctx.lineTo(x1, y1 + 0.5);
-    ctx.stroke();
+    var band=(x1-x0)/cats.length;
+    var barW=Math.min(band*(mobile?0.72:0.62),mobile?60:90);
+    var showErr=cats.some(function(c){return c.sd&&c.sd>0;});
+    var baseY=y1;
 
-    ctx.fillStyle = "#444";
-    ctx.font = (mobile ? 10 : 11) + "px " + FONT_STACK;
-    ctx.textAlign = "right";
-    tickValues(ysc).forEach(function (t) { ctx.fillText(fmtNum(t), x0 - 5, yMap(t)); });
+    cats.forEach(function(c,i){
+      var cx=x0+band*(i+0.5), yv=yMap(c.value), color=c.color||"#1F4E78";
+      ctx.fillStyle=color; ctx.globalAlpha=0.88;
+      ctx.fillRect(cx-barW/2,yv,barW,baseY-yv);
+      ctx.globalAlpha=1;
+      ctx.strokeStyle=color; ctx.lineWidth=1;
+      ctx.strokeRect(cx-barW/2+0.5,yv+0.5,barW-1,baseY-yv-1);
 
-    ctx.fillStyle = "#333";
-    ctx.font = (mobile ? 11 : 12) + "px " + FONT_STACK;
-    ctx.textAlign = "center";
-    ctx.fillText(cfg.xLabel || "", (x0 + x1) / 2, H - (mobile ? 8 : 12));
-
-    ctx.save();
-    ctx.translate(mobile ? 12 : 15, (y0 + y1) / 2);
-    ctx.rotate(-Math.PI / 2);
-    ctx.textAlign = "center";
-    ctx.fillText(cfg.yLabel || "", 0, 0);
-    ctx.restore();
-
-    var band = (x1 - x0) / cats.length;
-    var barW = Math.min(band * (mobile ? 0.72 : 0.62), mobile ? 60 : 90);
-    var showErr = cats.some(function (c) { return c.sd && c.sd > 0; });
-    var baseY = y1;
-
-    cats.forEach(function (c, i) {
-      var cx = x0 + band * (i + 0.5);
-      var yv = yMap(c.value);
-      var color = c.color || "#1F4E78";
-
-      ctx.fillStyle = color; ctx.globalAlpha = 0.88;
-      ctx.fillRect(cx - barW / 2, yv, barW, baseY - yv);
-      ctx.globalAlpha = 1;
-      ctx.strokeStyle = color; ctx.lineWidth = 1;
-      ctx.strokeRect(cx - barW / 2 + 0.5, yv + 0.5, barW - 1, baseY - yv - 1);
-
-      var topY = yv;
-      if (showErr && c.sd > 0) {
-        var sdTop = Math.max(yMap(c.value + c.sd), y0);
-        var sdBot = Math.min(yMap(c.value - c.sd), y1);
-        ctx.strokeStyle = "#333"; ctx.lineWidth = 1.4;
+      var topY=yv;
+      if(showErr&&c.sd>0){
+        var sdTop=Math.max(yMap(c.value+c.sd),y0), sdBot=Math.min(yMap(c.value-c.sd),y1);
+        ctx.strokeStyle="#333"; ctx.lineWidth=1.4;
         ctx.beginPath();
-        ctx.moveTo(cx, sdTop); ctx.lineTo(cx, sdBot);
-        ctx.moveTo(cx - 5, sdTop); ctx.lineTo(cx + 5, sdTop);
-        ctx.moveTo(cx - 5, sdBot); ctx.lineTo(cx + 5, sdBot);
+        ctx.moveTo(cx,sdTop); ctx.lineTo(cx,sdBot);
+        ctx.moveTo(cx-5,sdTop); ctx.lineTo(cx+5,sdTop);
+        ctx.moveTo(cx-5,sdBot); ctx.lineTo(cx+5,sdBot);
         ctx.stroke();
-        topY = sdTop;
+        topY=sdTop;
       }
 
-      var txt = fmtNum(c.value);
-      if (showErr && c.sd > 0) txt += " ±" + fmtNum(c.sd);
-      ctx.fillStyle = "#1c1c1c";
-      ctx.font = (mobile ? "600 10px " : "600 11px ") + FONT_STACK;
-      ctx.textAlign = "center";
-      ctx.fillText(txt, cx, Math.max(topY - (mobile ? 8 : 10), y0 + 8));
-      ctx.font = (mobile ? 10 : 11) + "px " + FONT_STACK;
+      var txt=fmtNum(c.value);
+      if(showErr&&c.sd>0) txt+=" ±"+fmtNum(c.sd);
+      ctx.fillStyle="#1c1c1c";
+      ctx.font=(mobile?"600 10px ":"600 11px ")+FONT_STACK;
+      ctx.textAlign="center";
+      ctx.fillText(txt,cx,Math.max(topY-(mobile?8:10),y0+8));
+      ctx.font=(mobile?10:11)+"px "+FONT_STACK;
 
-      var label = c.label + (cfg.showN && c.n ? "  (n=" + c.n + ")" : "");
-      ctx.fillStyle = "#333";
-      if (rotate) {
-        ctx.save();
-        ctx.translate(cx + 2, y1 + (mobile ? 6 : 10));
-        ctx.rotate(-Math.PI / 6);
-        ctx.textAlign = "right";
-        ctx.fillText(label, 0, 0);
-        ctx.restore();
+      var label=c.label+(cfg.showN&&c.n?"  (n="+c.n+")":"");
+      ctx.fillStyle="#333";
+      if(rotate){
+        ctx.save(); ctx.translate(cx+2,y1+(mobile?6:10)); ctx.rotate(-Math.PI/6);
+        ctx.textAlign="right"; ctx.fillText(label,0,0); ctx.restore();
       } else {
-        ctx.textAlign = "center";
-        ctx.fillText(label, cx, y1 + (mobile ? 12 : 16));
+        ctx.textAlign="center"; ctx.fillText(label,cx,y1+(mobile?12:16));
       }
     });
 
-    if (cfg.refLine !== undefined && cfg.refLine >= ysc.min && cfg.refLine <= ysc.max) {
-      ctx.strokeStyle = "#888"; ctx.setLineDash([6, 4]); ctx.lineWidth = 1.4;
-      var ry = yMap(cfg.refLine);
-      ctx.beginPath(); ctx.moveTo(x0, ry); ctx.lineTo(x1, ry); ctx.stroke();
+    if(cfg.refLine!==undefined&&cfg.refLine>=ysc.min&&cfg.refLine<=ysc.max){
+      ctx.strokeStyle="#888"; ctx.setLineDash([6,4]); ctx.lineWidth=1.4;
+      var ry=yMap(cfg.refLine);
+      ctx.beginPath(); ctx.moveTo(x0,ry); ctx.lineTo(x1,ry); ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle = "#666";
-      ctx.font = (mobile ? 9.5 : 10.5) + "px " + FONT_STACK;
-      ctx.textAlign = "right";
-      ctx.fillText("baseline = " + fmtNum(cfg.refLine), x1 - 4, ry - (mobile ? 6 : 9));
+      ctx.fillStyle="#666"; ctx.font=(mobile?9.5:10.5)+"px "+FONT_STACK;
+      ctx.textAlign="right";
+      ctx.fillText("baseline = "+fmtNum(cfg.refLine),x1-4,ry-(mobile?6:9));
     }
   }
 
-  /* =========================================================
-     4 · RENDERERS
-     ========================================================= */
-  function renderHeatTempVsHardness(records) {
-    var pts = [];
-    records.forEach(function (r) {
-      if (r.heatTemp !== null && r.hardness !== null) {
-        pts.push({ x: r.heatTemp, y: r.hardness, label: r.id });
+  /* ========== CHART RENDERERS ========== */
+  function renderSoftTempVsHardness(records){
+    var pts=[];
+    records.forEach(function(r){
+      if(r.softTemp!==null&&r.softHardness!==null){
+        pts.push({x:r.softTemp,y:r.softHardness,label:r.id});
       }
     });
-    scatterChart(document.getElementById("chart-heat-temp"), {
-      xLabel: "Heating temperature (°C)",
-      yLabel: "HRC",
-      trend: true,
-      series: [{ name: "Softened specimens", color: "#2E9E5B", points: pts }],
-      emptyText: "Enter heating temperatures and Rockwell hardness readings."
+    scatterChart(document.getElementById("chart-soft-temp"),{
+      xLabel:"Softening temperature (°C)", yLabel:"HRC",
+      trend:true,
+      series:[{name:"Softened specimens",color:"#2E9E5B",points:pts}],
+      emptyText:"Enter softening temperatures and hardened hardness readings in Sheet 2."
     });
   }
 
-  function renderRehardTempVsHardness(records) {
-    var pts = [];
-    records.forEach(function (r) {
-      if (r.rehardTemp !== null && r.hardness !== null) {
-        pts.push({ x: r.rehardTemp, y: r.hardness, label: r.id });
+  function renderRehardTempVsHardness(records){
+    var pts=[];
+    records.forEach(function(r){
+      if(r.rehardTemp!==null&&r.rehardHardness!==null){
+        pts.push({x:r.rehardTemp,y:r.rehardHardness,label:r.id});
       }
     });
-    scatterChart(document.getElementById("chart-rehard-temp"), {
-      xLabel: "Re-hardening temperature (°C)",
-      yLabel: "HRC",
-      trend: true,
-      series: [{ name: "Re-hardened specimens", color: "#D9534F", points: pts }],
-      emptyText: "Enter re-hardening temperatures and Rockwell hardness readings."
+    scatterChart(document.getElementById("chart-rehard-temp"),{
+      xLabel:"Re-hardening temperature (°C)", yLabel:"HRC",
+      trend:true,
+      series:[{name:"Re-hardened specimens",color:"#D9534F",points:pts}],
+      emptyText:"Enter re-hardening temperatures and hardness readings in Sheet 3."
     });
   }
 
-  function renderHoldVsHardness(records) {
-    var pts = [];
-    records.forEach(function (r) {
-      if (r.hardness === null) return;
-      var h = r.holdTime !== null ? r.holdTime : r.rehardHold;
-      if (h !== null) pts.push({ x: h, y: r.hardness, label: r.id });
+  function renderHoldVsHardness(records){
+    var soft=[], hard=[];
+    records.forEach(function(r){
+      if(r.softHold!==null&&r.softHardness!==null)
+        soft.push({x:r.softHold,y:r.softHardness,label:r.id});
+      if(r.rehardHold!==null&&r.rehardHardness!==null)
+        hard.push({x:r.rehardHold,y:r.rehardHardness,label:r.id});
     });
-    scatterChart(document.getElementById("chart-hold"), {
-      xLabel: "Holding time (min)",
-      yLabel: "HRC",
-      trend: true,
-      series: [{ name: "Specimens", color: "#1F4E78", points: pts }],
-      emptyText: "Enter holding times and Rockwell hardness readings."
-    });
-  }
-
-  function renderCoolingVsHardness(records) {
-    var groups = groupStats(
-      records.filter(function (r) { return r.cooling; }),
-      function (r) { return r.cooling; }
-    ).sort(function (a, b) { return b.value - a.value; });
-
-    groups.forEach(function (g, i) { g.color = PALETTE[i % PALETTE.length]; });
-
-    barChart(document.getElementById("chart-cooling"), {
-      xLabel: "Cooling method",
-      yLabel: "Mean HRC",
-      categories: groups,
-      showN: true,
-      emptyText: "Record a cooling method for each specimen to compare cooling routes."
+    scatterChart(document.getElementById("chart-hold"),{
+      xLabel:"Holding time (min)", yLabel:"HRC",
+      trend:true,
+      series:[
+        {name:"Softening",color:"#2E9E5B",points:soft},
+        {name:"Re-hardening",color:"#D9534F",points:hard}
+      ],
+      emptyText:"Enter holding times and hardness readings in Sheets 2 and 3."
     });
   }
 
-  function renderInitialConditionVsHardness(records) {
-    var groups = groupStats(records, function (r) {
-      return r.initialCondition;
-    });
+  function renderCoolingVsHardness(records){
+    var groups=groupStats(
+      records.filter(function(r){return r.softCool&&r.softHardness!==null;}),
+      function(r){return r.softCool;},
+      function(r){return r.softHardness;}
+    ).sort(function(a,b){return b.value-a.value;});
 
-    groups.sort(function (a, b) {
-      var ia = INITIAL_ORDER.indexOf(a.label);
-      var ib = INITIAL_ORDER.indexOf(b.label);
-      if (ia === -1) ia = 99;
-      if (ib === -1) ib = 99;
-      return ia - ib;
-    });
+    groups.forEach(function(g,i){g.color=PALETTE[i%PALETTE.length];});
 
-    groups.forEach(function (g) {
-      g.color = INITIAL_COLORS[g.label] || "#1F4E78";
-    });
-
-    barChart(document.getElementById("chart-init"), {
-      xLabel: "Initial condition",
-      yLabel: "Mean HRC",
-      categories: groups,
-      showN: true,
-      zeroBase: false,
-      emptyText: "Enter initial condition and Rockwell hardness readings."
+    barChart(document.getElementById("chart-cooling"),{
+      xLabel:"Cooling method (softening)", yLabel:"Mean HRC",
+      categories:groups, showN:true,
+      emptyText:"Record cooling methods in Sheet 2 to compare cooling routes."
     });
   }
 
-  function renderHeatTreatmentVsHardness(records) {
-    var groups = groupStats(records, function (r) {
-      return r.heatTreatment;
+  function renderInitialCondition(records){
+    var groups=groupStats(
+      records.filter(function(r){return r.initialHardness!==null;})
+    ).length?groupStats(
+      records.filter(function(r){return r.initialHardness!==null;}),
+      function(r){return r.initialCondition;},
+      function(r){return r.initialHardness;}
+    ):[];
+
+    var order=["As-cast","As-received","Softened"];
+    groups.sort(function(a,b){
+      var ia=order.indexOf(a.label), ib=order.indexOf(b.label);
+      if(ia===-1) ia=99; if(ib===-1) ib=99;
+      return ia-ib;
     });
 
-    groups.sort(function (a, b) {
-      var ia = HT_ORDER.indexOf(a.label);
-      var ib = HT_ORDER.indexOf(b.label);
-      if (ia === -1) ia = 99;
-      if (ib === -1) ib = 99;
-      return ia - ib;
-    });
+    var colorMap={"As-cast":"#1F4E78","As-received":"#1F4E78","Softened":"#2E9E5B"};
+    groups.forEach(function(g){g.color=colorMap[g.label]||"#1F4E78";});
 
-    groups.forEach(function (g) {
-      g.color = HT_COLORS[g.label] || "#1F4E78";
-    });
-
-    barChart(document.getElementById("chart-ht"), {
-      xLabel: "Heat treatment",
-      yLabel: "Mean HRC",
-      categories: groups,
-      showN: true,
-      zeroBase: false,
-      emptyText: "Enter heat-treatment type and Rockwell hardness readings."
+    barChart(document.getElementById("chart-init"),{
+      xLabel:"Initial condition", yLabel:"Mean HRC",
+      categories:groups, showN:true, zeroBase:false,
+      emptyText:"Enter initial condition and hardness in Sheet 1."
     });
   }
 
-  function renderTempVsPctChange(records, baseline) {
-    var soft = [], hard = [];
-    if (baseline && baseline !== 0) {
-      records.forEach(function (r) {
-        if (r.hardness === null) return;
-        var temp = r.heatTemp !== null ? r.heatTemp : r.rehardTemp;
-        if (temp === null) return;
-        var pct = (r.hardness - baseline) / baseline * 100;
-        var p = { x: temp, y: pct, label: r.id };
-        if (/re[\s\-_]*hard|harden/i.test(r.heatTreatment)) hard.push(p);
-        else soft.push(p);
+  function renderStageBars(records){
+    var byStage={};
+    records.forEach(function(r){
+      if(r.initialHardness!==null){
+        if(!byStage["As-cast"]) byStage["As-cast"]=[];
+        byStage["As-cast"].push(r.initialHardness);
+      }
+      if(r.softHardness!==null){
+        if(!byStage["Softened"]) byStage["Softened"]=[];
+        byStage["Softened"].push(r.softHardness);
+      }
+      if(r.rehardHardness!==null){
+        if(!byStage["Re-hardened"]) byStage["Re-hardened"]=[];
+        byStage["Re-hardened"].push(r.rehardHardness);
+      }
+    });
+
+    var cats=STAGE_ORDER.map(function(st){
+      var arr=byStage[st]||[];
+      if(arr.length===0) return null;
+      var mean=arr.reduce(function(a,b){return a+b;},0)/arr.length;
+      var sd=0;
+      if(arr.length>1) sd=Math.sqrt(arr.reduce(function(a,b){return a+Math.pow(b-mean,2);},0)/(arr.length-1));
+      return {label:st,value:mean,sd:sd,n:arr.length,color:STAGE_COLORS[st]};
+    }).filter(Boolean);
+
+    barChart(document.getElementById("chart-stage"),{
+      xLabel:"Treatment stage", yLabel:"Mean HRC",
+      categories:cats, showN:true, zeroBase:false,
+      emptyText:"Enter hardness readings in Sheets 1, 2 and 3."
+    });
+  }
+
+  function renderPctChange(records,baseline){
+    var soft=[], hard=[];
+    if(baseline&&baseline!==0){
+      records.forEach(function(r){
+        if(r.softTemp!==null&&r.softHardness!==null){
+          var pct=(r.softHardness-baseline)/baseline*100;
+          soft.push({x:r.softTemp,y:pct,label:r.id});
+        }
+        if(r.rehardTemp!==null&&r.rehardHardness!==null){
+          var pct2=(r.rehardHardness-baseline)/baseline*100;
+          hard.push({x:r.rehardTemp,y:pct2,label:r.id});
+        }
       });
     }
-    scatterChart(document.getElementById("chart-pct-change"), {
-      xLabel: "Temperature (°C)",
-      yLabel: "% change vs baseline",
-      hLine: 0,
-      series: [
-        { name: "Softening", color: "#2E9E5B", points: soft },
-        { name: "Re-hardening", color: "#D9534F", points: hard }
+    scatterChart(document.getElementById("chart-pct-change"),{
+      xLabel:"Temperature (°C)", yLabel:"% change vs baseline",
+      hLine:0,
+      series:[
+        {name:"Softening",color:"#2E9E5B",points:soft},
+        {name:"Re-hardening",color:"#D9534F",points:hard}
       ],
-      emptyText: "A baseline (S01 as-cast) and temperatures are needed for this chart."
+      emptyText:"A baseline (S01) plus temperatures are required for this chart."
     });
   }
 
-  function renderSampleBars(records) {
-    var cats = records
+  function renderSampleBars(records){
+    var cats=records
       .slice()
-      .sort(function (a, b) { return a.id.localeCompare(b.id); })
-      .map(function (r) {
+      .sort(function(a,b){return a.id.localeCompare(b.id);})
+      .filter(function(r){return finalHardness(r)!==null;})
+      .map(function(r){
+        var stage=finalStage(r);
         return {
-          label: r.id,
-          value: r.hardness,
-          sd: 0, n: 1,
-          color: heatTreatmentColor(r.heatTreatment)
+          label:r.id, value:finalHardness(r), sd:0, n:1,
+          color:stageColor(stage)
         };
       });
 
-    barChart(document.getElementById("chart-samples"), {
-      xLabel: "Specimen ID",
-      yLabel: "HRC",
-      categories: cats,
-      zeroBase: false,
-      emptyText: "Enter Rockwell hardness readings to plot individual specimen hardness."
+    barChart(document.getElementById("chart-samples"),{
+      xLabel:"Specimen ID", yLabel:"HRC",
+      categories:cats, zeroBase:false,
+      emptyText:"Enter hardness readings to plot final state per specimen."
     });
   }
 
-  function renderAllCharts() {
+  function renderAllCharts(){
     var records, baseline;
     try {
-      records = validRecords();
-      baseline = getBaseline(records);
-    } catch (err) {
-      console.error("Data collection error:", err);
-      records = []; baseline = null;
+      records=allRecords();
+      baseline=getBaseline(records);
+    } catch(err){
+      console.error("Data collection error:",err);
+      records=[]; baseline=null;
     }
     try {
-      renderHeatTempVsHardness(records);
+      renderSoftTempVsHardness(records);
       renderRehardTempVsHardness(records);
       renderHoldVsHardness(records);
       renderCoolingVsHardness(records);
-      renderInitialConditionVsHardness(records);
-      renderHeatTreatmentVsHardness(records);
-      renderTempVsPctChange(records, baseline);
+      renderInitialCondition(records);
+      renderStageBars(records);
+      renderPctChange(records,baseline);
       renderSampleBars(records);
-    } catch (err) {
-      console.error("Chart rendering error:", err);
+    } catch(err){
+      console.error("Chart rendering error:",err);
     }
   }
 
-  /* =========================================================
-     5 · EVENTS
-     ========================================================= */
-  var chartTimer = null;
-  function scheduleCharts() {
-    if (chartTimer) clearTimeout(chartTimer);
-    chartTimer = setTimeout(renderAllCharts, 350);
+  /* ========== EVENTS ========== */
+  var chartTimer=null;
+  function scheduleCharts(){
+    if(chartTimer) clearTimeout(chartTimer);
+    chartTimer=setTimeout(renderAllCharts,350);
   }
-
-  document.addEventListener("input", function (e) {
-    if (e.target.closest("table")) scheduleCharts();
+  document.addEventListener("input",function(e){
+    if(e.target.closest("table")) scheduleCharts();
   });
-  document.addEventListener("change", function (e) {
-    if (e.target.closest("table")) scheduleCharts();
+  document.addEventListener("change",function(e){
+    if(e.target.closest("table")) scheduleCharts();
   });
+  var refreshBtn=document.getElementById("btn-refresh-charts");
+  if(refreshBtn) refreshBtn.addEventListener("click",renderAllCharts);
 
-  var refreshBtn = document.getElementById("btn-refresh-charts");
-  if (refreshBtn) {
-    refreshBtn.addEventListener("click", function () { renderAllCharts(); });
-  }
-
-  var resizeTimer = null;
-  function handleResize() {
-    if (resizeTimer) clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      if (document.getElementById("panel-graphs").classList.contains("active")) {
+  var resizeTimer=null;
+  function handleResize(){
+    if(resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(function(){
+      if(document.getElementById("panel-graphs").classList.contains("active"))
         renderAllCharts();
-      }
-    }, 200);
+    },200);
   }
-  window.addEventListener("resize", handleResize);
-  window.addEventListener("orientationchange", handleResize);
+  window.addEventListener("resize",handleResize);
+  window.addEventListener("orientationchange",handleResize);
 
-  /* ---------- CSV export ---------- */
-  function tableToCSV(table) {
-    var lines = [];
-    table.querySelectorAll("tr").forEach(function (tr) {
-      var cells = Array.prototype.slice.call(tr.children).map(function (cell) {
-        var field = cell.querySelector("input, select, textarea");
-        var value = field ? field.value : cell.textContent;
-        value = String(value === null || value === undefined ? "" : value).trim();
-        return '"' + value.replace(/"/g, '""') + '"';
+  function tableToCSV(table){
+    var lines=[];
+    table.querySelectorAll("tr").forEach(function(tr){
+      var cells=Array.prototype.slice.call(tr.children).map(function(cell){
+        var f=cell.querySelector("input,select,textarea");
+        var v=f?f.value:cell.textContent;
+        v=String(v===null||v===undefined?"":v).trim();
+        return '"'+v.replace(/"/g,'""')+'"';
       });
       lines.push(cells.join(","));
     });
     return lines.join("\r\n");
   }
 
-  document.getElementById("btn-export").addEventListener("click", function () {
-    var activePanel = document.querySelector(".panel.active");
-    var table = activePanel.querySelector("table");
-    if (!table) {
+  document.getElementById("btn-export").addEventListener("click",function(){
+    var activePanel=document.querySelector(".panel.active");
+    var table=activePanel.querySelector("table");
+    if(!table){
       alert("This tab has no table to export. Use Print / Save as PDF for the charts and formulas.");
       return;
     }
-    var csv = "\uFEFF" + tableToCSV(table);
-    var blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    var url = URL.createObjectURL(blob);
-    var link = document.createElement("a");
-    link.href = url;
-    link.download = (table.id || "data") + ".csv";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    var csv="\uFEFF"+tableToCSV(table);
+    var blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
+    var url=URL.createObjectURL(blob);
+    var link=document.createElement("a");
+    link.href=url; link.download=(table.id||"data")+".csv";
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
     URL.revokeObjectURL(url);
   });
 
-  /* ---------- Print ---------- */
-  document.getElementById("btn-print").addEventListener("click", function () {
-    window.print();
-  });
-
-  window.addEventListener("beforeprint", function () {
-    var current = document.querySelector(".panel.active");
-    var graphs = document.getElementById("panel-graphs");
-    var restore = null;
-    if (current && current !== graphs && graphs) {
-      restore = current;
-      current.classList.remove("active");
-      graphs.classList.add("active");
-    }
+  document.getElementById("btn-print").addEventListener("click",function(){window.print();});
+  window.addEventListener("beforeprint",function(){
+    var cur=document.querySelector(".panel.active");
+    var graphs=document.getElementById("panel-graphs");
+    var restore=null;
+    if(cur&&cur!==graphs&&graphs){restore=cur;cur.classList.remove("active");graphs.classList.add("active");}
     renderAllCharts();
-    if (restore) {
-      graphs.classList.remove("active");
-      restore.classList.add("active");
-    }
+    if(restore){graphs.classList.remove("active");restore.classList.add("active");}
   });
 
-  /* =========================================================
-     6 · INIT
-     ========================================================= */
+  /* ========== INIT ========== */
   renderAllCharts();
 })();
 </script>
