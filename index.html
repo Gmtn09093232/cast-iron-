@@ -68,6 +68,33 @@
     background:#eef3f8; font-weight:700; padding:6px 8px;
     white-space:nowrap; color:var(--accent);
   }
+
+  /* --- Incremental number badge inside rowhead --- */
+  .rowhead-inner{
+    display:flex; align-items:center; gap:6px;
+  }
+  .rowhead-inner .rownum{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:22px;
+    height:22px;
+    padding:0 6px;
+    background:#dbe4ec;
+    color:#1F4E78;
+    font-size:10.5px;
+    font-weight:700;
+    border-radius:11px;
+    flex-shrink:0;
+    line-height:1;
+    letter-spacing:.2px;
+  }
+  .rowhead-inner input{
+    flex:1;
+    min-width:0;
+    width:auto;
+  }
+
   input,select,textarea{
     width:100%; border:0; background:transparent; padding:6px;
     font:inherit; color:inherit; outline:none; border-radius:0; resize:vertical;
@@ -158,6 +185,7 @@
     tbody td.rowhead{position:static;}
     input,select{background:transparent !important;}
     header.app-header{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .rowhead-inner .rownum{background:#dbe4ec !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     .chart-grid{grid-template-columns:1fr 1fr;gap:10px;}
     canvas.chart{height:250px;}
     .chart-card{page-break-inside:avoid;border:1px solid #999;}
@@ -183,6 +211,8 @@
     thead th{font-size:11px;padding:6px 4px;min-width:88px;}
     tbody td.rowhead{padding:7px 9px;font-size:12px;}
     input,select,textarea{font-size:16px;padding:8px 6px;min-height:36px;}
+    .rowhead-inner{gap:5px;}
+    .rowhead-inner .rownum{min-width:20px;height:20px;font-size:10px;padding:0 5px;}
     .chart-grid,.formula-grid{grid-template-columns:1fr;gap:12px;}
     canvas.chart{height:250px;}
     .formula-card{padding:12px 14px;}
@@ -205,6 +235,8 @@
     thead th{font-size:10.5px;padding:5px 3px;min-width:78px;line-height:1.2;}
     tbody td.rowhead{padding:6px 7px;font-size:11.5px;}
     input,select,textarea{font-size:16px;padding:8px 5px;min-height:38px;}
+    .rowhead-inner{gap:4px;}
+    .rowhead-inner .rownum{min-width:18px;height:18px;font-size:9.5px;padding:0 4px;border-radius:9px;}
     canvas.chart{height:220px;}
     .chart-card{padding:8px 10px 10px;border-radius:5px;}
     .chart-card h3{font-size:12.5px;}
@@ -227,6 +259,7 @@
     main{padding:8px 8px 24px;}
     thead th{min-width:70px;font-size:10px;}
     tbody td.rowhead{font-size:11px;padding:5px 6px;}
+    .rowhead-inner .rownum{min-width:16px;height:16px;font-size:9px;padding:0 3px;border-radius:8px;}
     canvas.chart{height:200px;}
     .formula-eq{font-size:12px;padding:7px 9px;}
   }
@@ -281,7 +314,7 @@
         </thead>
         <tbody>
           <tr data-sample="U-1">
-            <td class="rowhead"><input value="U-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="U-1"></div></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
@@ -292,7 +325,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="U-2">
-            <td class="rowhead"><input value="U-2"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="U-2"></div></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
@@ -303,7 +336,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="U-3">
-            <td class="rowhead"><input value="U-3"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="U-3"></div></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
             <td class="num"><input inputmode="decimal" placeholder="%"></td>
@@ -345,7 +378,7 @@
         </thead>
         <tbody>
           <tr data-sample="S1-1" data-group="S1">
-            <td class="rowhead"><input value="S1-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="S1-1"></div></td>
             <td><input value="Softening 1"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -358,7 +391,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="S1-2" data-group="S1">
-            <td class="rowhead"><input value="S1-2"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="S1-2"></div></td>
             <td><input value="Softening 1"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -371,7 +404,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="S1-3" data-group="S1">
-            <td class="rowhead"><input value="S1-3"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="S1-3"></div></td>
             <td><input value="Softening 1"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -384,7 +417,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="S2-1" data-group="S2">
-            <td class="rowhead"><input value="S2-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="S2-1"></div></td>
             <td><input value="Softening 2"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -397,7 +430,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="S2-2" data-group="S2">
-            <td class="rowhead"><input value="S2-2"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="S2-2"></div></td>
             <td><input value="Softening 2"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -410,7 +443,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="S2-3" data-group="S2">
-            <td class="rowhead"><input value="S2-3"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="S2-3"></div></td>
             <td><input value="Softening 2"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -454,7 +487,7 @@
         </thead>
         <tbody>
           <tr data-sample="R1-1" data-group="R1">
-            <td class="rowhead"><input value="R1-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="R1-1"></div></td>
             <td><input value="Re-hardening 1"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -467,7 +500,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="R1-2" data-group="R1">
-            <td class="rowhead"><input value="R1-2"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="R1-2"></div></td>
             <td><input value="Re-hardening 1"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -480,7 +513,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="R1-3" data-group="R1">
-            <td class="rowhead"><input value="R1-3"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="R1-3"></div></td>
             <td><input value="Re-hardening 1"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -493,7 +526,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="R2-1" data-group="R2">
-            <td class="rowhead"><input value="R2-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="R2-1"></div></td>
             <td><input value="Re-hardening 2"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -506,7 +539,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="R2-2" data-group="R2">
-            <td class="rowhead"><input value="R2-2"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="R2-2"></div></td>
             <td><input value="Re-hardening 2"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -519,7 +552,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="R2-3" data-group="R2">
-            <td class="rowhead"><input value="R2-3"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="R2-3"></div></td>
             <td><input value="Re-hardening 2"></td>
             <td class="num"><input inputmode="decimal"></td>
             <td class="num"><input inputmode="decimal"></td>
@@ -560,7 +593,7 @@
         </thead>
         <tbody>
           <tr data-sample="U-1">
-            <td class="rowhead"><input value="U-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="U-1"></div></td>
             <td><input value="As-cast"></td>
             <td><input list="dl-mag"></td>
             <td><input list="dl-morph"></td>
@@ -571,7 +604,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="S1-1">
-            <td class="rowhead"><input value="S1-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="S1-1"></div></td>
             <td><input value="Softened"></td>
             <td><input list="dl-mag"></td>
             <td><input list="dl-morph"></td>
@@ -582,7 +615,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="S2-1">
-            <td class="rowhead"><input value="S2-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="S2-1"></div></td>
             <td><input value="Softened"></td>
             <td><input list="dl-mag"></td>
             <td><input list="dl-morph"></td>
@@ -593,7 +626,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="R1-1">
-            <td class="rowhead"><input value="R1-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="R1-1"></div></td>
             <td><input value="Re-hardened"></td>
             <td><input list="dl-mag"></td>
             <td><input list="dl-morph"></td>
@@ -604,7 +637,7 @@
             <td><input></td>
           </tr>
           <tr data-sample="R2-1">
-            <td class="rowhead"><input value="R2-1"></td>
+            <td class="rowhead"><div class="rowhead-inner"><span class="rownum"></span><input value="R2-1"></div></td>
             <td><input value="Re-hardened"></td>
             <td><input list="dl-mag"></td>
             <td><input list="dl-morph"></td>
@@ -720,9 +753,7 @@
               <span class="den">3</span>
             </span>
           </div>
-          <div class="formula-desc">
-            Blank if no valid reading has been entered.
-          </div>
+          <div class="formula-desc">Blank if no valid reading has been entered.</div>
         </div>
       </div>
 
@@ -774,9 +805,7 @@
             <span class="op">·</span>
             <span style="font-size:1.15em;">Σ</span><sub>i=1</sub><sup>k</sup> y<sub>i</sub>
           </div>
-          <div class="formula-desc">
-            <strong>k</strong> = number of specimens in the group.
-          </div>
+          <div class="formula-desc"><strong>k</strong> = number of specimens in the group.</div>
         </div>
         <div class="formula-item">
           <div class="formula-name">Group standard deviation <span class="tag red">Error bar</span></div>
@@ -887,6 +916,7 @@
           <tr><td>Sheet 2</td><td>Record softening heat treatment (temperature, holding time, cooling condition) and three hardness readings (H1, H2, H3) per specimen. Mean hardness and % hardness reduction are calculated automatically against the average initial hardness.</td></tr>
           <tr><td>Sheet 3</td><td>Record re-hardening parameters and three hardness readings per specimen. Mean hardness and % increase from softened are calculated automatically against the mean softened hardness.</td></tr>
           <tr><td>Sheet 4</td><td>Record observed microstructure features (magnification, graphite morphology, distribution, matrix structure, defects) and provide a micrograph file number.</td></tr>
+          <tr><td>Row numbering</td><td>Each table auto-numbers its rows starting at 1. Numbers restart for each table and update automatically if rows are added.</td></tr>
           <tr><td>Hardness</td><td>Use the same test method and procedure for all comparable specimens. Record hardness on the same scale throughout.</td></tr>
           <tr><td>Heat treatment</td><td>Enter the <strong>actual</strong> furnace temperature and holding time used in the experiment.</td></tr>
           <tr><td>Graphs</td><td>The Graphs tab plots softening / re-hardening temperature vs. hardness, treatment stage vs. hardness, cooling condition, % reduction, % increase, and composition vs. initial hardness.</td></tr>
@@ -913,6 +943,22 @@
     if(tr.dataset&&tr.dataset.sample) return tr.dataset.sample.trim();
     var rh=tr.querySelector("td.rowhead"); if(!rh) return "";
     var inp=rh.querySelector("input"); return (inp?inp.value:rh.textContent).trim();
+  }
+
+  /* ========== AUTO ROW NUMBERING ========== */
+  /* Restarts at 1 for each table. Called at init and after any row count change. */
+  function numberRows(){
+    qsa("table").forEach(function(tbl){
+      var rows = qsa("tbody tr", tbl);
+      var n = 0;
+      rows.forEach(function(tr){
+        var span = tr.querySelector("td.rowhead .rownum");
+        if(span){
+          n++;
+          span.textContent = n;
+        }
+      });
+    });
   }
 
   /* ========== TABS ========== */
@@ -957,16 +1003,13 @@
   }
 
   function recalcAll(){
-    /* Sheet 2 — mean, % reduction */
     var baseInit = avgInitialHardness();
     qsa("#tbl-sheet2 tbody tr").forEach(function(tr){
       var mean = meanOf3(tr, "h-val");
       var meanOut = tr.querySelector(".mean-hardness");
       var redOut  = tr.querySelector(".pct-reduction");
       if(!meanOut) return;
-      if(mean===null){
-        meanOut.value=""; redOut.value=""; return;
-      }
+      if(mean===null){ meanOut.value=""; redOut.value=""; return; }
       meanOut.value = mean.toFixed(1);
       if(baseInit && baseInit!==0){
         redOut.value = (((baseInit-mean)/baseInit)*100).toFixed(1);
@@ -975,16 +1018,13 @@
       }
     });
 
-    /* Sheet 3 — mean, % increase */
     var baseSoft = avgSoftenedHardness();
     qsa("#tbl-sheet3 tbody tr").forEach(function(tr){
       var mean = meanOf3(tr, "h-val");
       var meanOut = tr.querySelector(".mean-hardness");
       var incOut  = tr.querySelector(".pct-increase");
       if(!meanOut) return;
-      if(mean===null){
-        meanOut.value=""; incOut.value=""; return;
-      }
+      if(mean===null){ meanOut.value=""; incOut.value=""; return; }
       meanOut.value = mean.toFixed(1);
       if(baseSoft && baseSoft!==0){
         incOut.value = (((mean-baseSoft)/baseSoft)*100).toFixed(1);
@@ -1009,7 +1049,6 @@
       return map[sid];
     }
 
-    /* Sheet 1 */
     qsa("#tbl-sheet1 tbody tr").forEach(function(tr){
       var sid=rowSampleId(tr); if(!sid) return;
       var r=rec(sid);
@@ -1024,7 +1063,6 @@
       r.stage="As-cast";
     });
 
-    /* Sheet 2 */
     qsa("#tbl-sheet2 tbody tr").forEach(function(tr){
       var sid=rowSampleId(tr); if(!sid) return;
       var r=rec(sid);
@@ -1039,7 +1077,6 @@
       if(r.softMean!==null) r.stage="Softened";
     });
 
-    /* Sheet 3 */
     qsa("#tbl-sheet3 tbody tr").forEach(function(tr){
       var sid=rowSampleId(tr); if(!sid) return;
       var r=rec(sid);
@@ -1506,6 +1543,7 @@
   var chartTimer=null;
   function scheduleAll(){
     recalcAll();
+    numberRows();
     if(chartTimer) clearTimeout(chartTimer);
     chartTimer=setTimeout(renderAllCharts,320);
   }
@@ -1517,7 +1555,10 @@
   });
 
   var refreshBtn=document.getElementById("btn-refresh-charts");
-  if(refreshBtn) refreshBtn.addEventListener("click",renderAllCharts);
+  if(refreshBtn) refreshBtn.addEventListener("click",function(){
+    numberRows();
+    renderAllCharts();
+  });
 
   var resizeTimer=null;
   function handleResize(){
@@ -1566,11 +1607,13 @@
     var graphs=document.getElementById("panel-graphs");
     var restore=null;
     if(cur&&cur!==graphs&&graphs){restore=cur;cur.classList.remove("active");graphs.classList.add("active");}
+    numberRows();
     renderAllCharts();
     if(restore){graphs.classList.remove("active");restore.classList.add("active");}
   });
 
   /* ========== INIT ========== */
+  numberRows();
   recalcAll();
   renderAllCharts();
 })();
