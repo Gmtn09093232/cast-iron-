@@ -29,8 +29,7 @@
   .tab-btn{
     border:1px solid var(--border); background:#f7f9fc; color:#333;
     padding:7px 12px; border-radius:4px; cursor:pointer;
-    font:inherit; font-weight:600; white-space:nowrap;
-    transition:background .15s ease;
+    font:inherit; font-weight:600; white-space:nowrap; transition:background .15s ease;
   }
   .tab-btn:hover{background:#e9eff6;}
   .tab-btn:active{background:#dde6ee;}
@@ -61,7 +60,7 @@
     position:sticky; top:0; z-index:10;
     background:var(--header-bg); color:var(--header-fg);
     font-weight:600; font-size:12px; padding:8px 6px;
-    text-align:center; min-width:110px; line-height:1.25;
+    text-align:center; min-width:100px; line-height:1.25;
   }
   tbody td{padding:1px;}
   tbody td.rowhead{
@@ -82,6 +81,7 @@
   td.num input{text-align:center;}
   tbody tr:nth-child(even) td{background:#fafcfe;}
   tbody tr:nth-child(even) td.rowhead{background:#e6eef7;}
+  tbody tr:nth-child(even) input[readonly]{background:#e2edf9;}
 
   #tbl-instructions td{padding:8px 10px;vertical-align:top;font-size:12px;line-height:1.55;}
   #tbl-instructions td:first-child{font-weight:700;width:200px;background:#eef3f8;color:var(--accent);}
@@ -146,21 +146,6 @@
     font-family:"Consolas","Monaco","Courier New",monospace;
     font-size:11px; color:#1F4E78;
   }
-  .formula-card table{
-    width:100%; min-width:0; border-collapse:collapse; margin-top:4px; font-size:11.5px;
-  }
-  .formula-card table th,.formula-card table td{
-    border:1px solid #dbe4ec; padding:5px 8px;
-    text-align:left; vertical-align:middle;
-  }
-  .formula-card table th{
-    background:#eef3f8; color:var(--accent); font-weight:700; font-size:11px;
-  }
-  .formula-card table code{
-    background:#fff4d6; padding:1px 5px; border-radius:3px;
-    font-family:"Consolas","Monaco","Courier New",monospace;
-    font-size:10.5px; color:#7a4d00;
-  }
 
   @media print{
     body{background:#fff;font-size:11px;}
@@ -186,10 +171,7 @@
     header.app-header h1{font-size:16px;}
     header.app-header p{font-size:11px;}
     .toolbar{padding:6px 10px;gap:6px;}
-    .tabs{
-      flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
-      -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;
-    }
+    .tabs{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
     .tabs::-webkit-scrollbar{display:none;}
     .tab-btn{flex:0 0 auto;font-size:12px;padding:8px 12px;}
     .toolbar-actions{width:100%;justify-content:flex-end;margin-top:2px;}
@@ -198,7 +180,7 @@
     .panel h2{font-size:14px;}
     .hint{font-size:11.5px;}
     .table-wrap{max-height:calc(100vh - 240px);border-radius:5px;}
-    thead th{font-size:11px;padding:6px 4px;min-width:95px;}
+    thead th{font-size:11px;padding:6px 4px;min-width:88px;}
     tbody td.rowhead{padding:7px 9px;font-size:12px;}
     input,select,textarea{font-size:16px;padding:8px 6px;min-height:36px;}
     .chart-grid,.formula-grid{grid-template-columns:1fr;gap:12px;}
@@ -220,7 +202,7 @@
     .panel h2{font-size:13.5px;}
     .hint{font-size:11px;line-height:1.45;}
     .table-wrap{max-height:calc(100vh - 220px);margin:0 -2px;border-radius:4px;border-left:0;border-right:0;}
-    thead th{font-size:10.5px;padding:5px 3px;min-width:82px;line-height:1.2;}
+    thead th{font-size:10.5px;padding:5px 3px;min-width:78px;line-height:1.2;}
     tbody td.rowhead{padding:6px 7px;font-size:11.5px;}
     input,select,textarea{font-size:16px;padding:8px 5px;min-height:38px;}
     canvas.chart{height:220px;}
@@ -234,9 +216,6 @@
     .formula-name .tag{font-size:9px;padding:1px 6px;}
     .formula-eq{font-size:13px;padding:8px 10px;line-height:1.75;}
     .formula-desc{font-size:10.5px;line-height:1.5;}
-    .formula-desc code{font-size:10px;padding:1px 4px;}
-    .formula-card table{font-size:10.5px;}
-    .formula-card table th,.formula-card table td{padding:4px 6px;}
     #tbl-instructions td{padding:6px 8px;font-size:11px;}
     #tbl-instructions td:first-child{width:120px;font-size:11px;}
   }
@@ -246,7 +225,7 @@
     .tab-btn{font-size:11px;padding:6px 9px;}
     .action-btn{font-size:11px;padding:8px 6px;}
     main{padding:8px 8px 24px;}
-    thead th{min-width:74px;font-size:10px;}
+    thead th{min-width:70px;font-size:10px;}
     tbody td.rowhead{font-size:11px;padding:5px 6px;}
     canvas.chart{height:200px;}
     .formula-eq{font-size:12px;padding:7px 9px;}
@@ -257,15 +236,15 @@
 
 <header class="app-header">
   <h1>Cast Iron — Data Collection Sheet</h1>
-  <p>Initial characterization · Softening · Re-hardening · Microstructure · Graphs · Formulas</p>
+  <p>Sheet 1 · Chemical &amp; Initial &nbsp;|&nbsp; Sheet 2 · Softening &nbsp;|&nbsp; Sheet 3 · Re-Hardening &nbsp;|&nbsp; Sheet 4 · Microstructure</p>
 </header>
 
 <div class="toolbar">
   <div class="tabs">
-    <button class="tab-btn active" data-target="panel-initial">1 · Initial Characterization</button>
-    <button class="tab-btn" data-target="panel-softening">2 · Softening</button>
-    <button class="tab-btn" data-target="panel-rehard">3 · Re-Hardening</button>
-    <button class="tab-btn" data-target="panel-micro">4 · Microstructure</button>
+    <button class="tab-btn active" data-target="panel-sheet1">1 · Chemical &amp; Initial</button>
+    <button class="tab-btn" data-target="panel-sheet2">2 · Softening</button>
+    <button class="tab-btn" data-target="panel-sheet3">3 · Re-Hardening</button>
+    <button class="tab-btn" data-target="panel-sheet4">4 · Microstructure</button>
     <button class="tab-btn" data-target="panel-graphs">📈 Graphs</button>
     <button class="tab-btn" data-target="panel-formulas">📐 Formulas</button>
     <button class="tab-btn" data-target="panel-instructions">Instructions</button>
@@ -278,215 +257,370 @@
 
 <main>
 
-  <!-- ============ SHEET 1 — INITIAL CHARACTERIZATION ============ -->
-  <section class="panel active" id="panel-initial">
-    <h2>Sheet 1 · Initial Characterization</h2>
+  <!-- ================= SHEET 1 — CHEMICAL COMPOSITION & INITIAL ================= -->
+  <section class="panel active" id="panel-sheet1">
+    <h2>Sheet 1 · Chemical Composition &amp; Initial Characterization</h2>
     <p class="hint">
-      Record the as-received condition and Rockwell hardness (HRC) of every specimen
-      <strong>before</strong> any heat treatment. This is the baseline for all % change calculations.
+      Record the chemical composition (wt.%) and the <strong>initial (as-cast) Rockwell hardness</strong>
+      of each untreated specimen. The initial hardness provides the baseline for % reduction calculations.
     </p>
     <div class="table-wrap">
-      <table id="tbl-initial">
+      <table id="tbl-sheet1">
         <thead>
           <tr>
-            <th>Specimen ID</th>
-            <th>Initial Condition</th>
-            <th>Rockwell Hardness (HRC)</th>
-            <th>Rockwell Scale Used</th>
-            <th>Microstructure (as-received)</th>
-            <th>Remarks</th>
+            <th>Sample ID</th>
+            <th>C (%)</th>
+            <th>Si (%)</th>
+            <th>Mn (%)</th>
+            <th>S (%)</th>
+            <th>P (%)</th>
+            <th>Other Elements</th>
+            <th>Initial Hardness</th>
+            <th>Microstructure Description</th>
           </tr>
         </thead>
         <tbody>
-          <tr data-sample="S01"><td class="rowhead"><input value="S01"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S02"><td class="rowhead"><input value="S02"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S03"><td class="rowhead"><input value="S03"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S04"><td class="rowhead"><input value="S04"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S05"><td class="rowhead"><input value="S05"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S06"><td class="rowhead"><input value="S06"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S07"><td class="rowhead"><input value="S07"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S08"><td class="rowhead"><input value="S08"></td><td><input list="dl-init" value="As-cast"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S09"><td class="rowhead"><input value="S09"></td><td><input list="dl-init"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S10"><td class="rowhead"><input value="S10"></td><td><input list="dl-init"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S11"><td class="rowhead"><input value="S11"></td><td><input list="dl-init"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S12"><td class="rowhead"><input value="S12"></td><td><input list="dl-init"></td><td class="num"><input class="hardness-init" inputmode="decimal"></td><td><input placeholder="HRC"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="U-1">
+            <td class="rowhead"><input value="U-1"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td><input placeholder="e.g. Cr, Mo, Ni…"></td>
+            <td class="num"><input class="init-hardness" inputmode="decimal"></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="U-2">
+            <td class="rowhead"><input value="U-2"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td><input></td>
+            <td class="num"><input class="init-hardness" inputmode="decimal"></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="U-3">
+            <td class="rowhead"><input value="U-3"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td class="num"><input inputmode="decimal" placeholder="%"></td>
+            <td><input></td>
+            <td class="num"><input class="init-hardness" inputmode="decimal"></td>
+            <td><input></td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <datalist id="dl-init">
-      <option value="As-cast"></option>
-      <option value="As-received"></option>
-      <option value="Softened"></option>
-    </datalist>
   </section>
 
-  <!-- ============ SHEET 2 — SOFTENING HEAT TREATMENT ============ -->
-  <section class="panel" id="panel-softening">
+  <!-- ================= SHEET 2 — SOFTENING HEAT TREATMENT ================= -->
+  <section class="panel" id="panel-sheet2">
     <h2>Sheet 2 · Softening Heat Treatment</h2>
     <p class="hint">
-      Record the softening treatment parameters (furnace heating) and the resulting Rockwell hardness.
-      Only fill rows for specimens that received a softening treatment (S02–S04 in the standard matrix).
+      Three hardness readings (H1, H2, H3) are taken per specimen.
+      <strong>Mean Hardness</strong> and <strong>% Hardness Reduction</strong> are calculated automatically —
+      reduction is measured against the average initial hardness from Sheet 1.
     </p>
     <div class="table-wrap">
-      <table id="tbl-softening">
+      <table id="tbl-sheet2">
         <thead>
           <tr>
-            <th>Specimen ID</th>
-            <th>Prior Condition</th>
-            <th>Heating Temperature (°C)</th>
+            <th>Sample ID</th>
+            <th>Treatment</th>
+            <th>Temperature (°C)</th>
             <th>Holding Time (min)</th>
-            <th>Cooling Method</th>
-            <th>Rockwell Hardness After Softening (HRC)</th>
-            <th>Microstructure After Softening</th>
-            <th>Remarks</th>
+            <th>Cooling Condition</th>
+            <th>H1</th>
+            <th>H2</th>
+            <th>H3</th>
+            <th>Mean Hardness</th>
+            <th>% Hardness Reduction</th>
+            <th>Microstructure Observation</th>
           </tr>
         </thead>
         <tbody>
-          <tr data-sample="S01"><td class="rowhead"><input value="S01"></td><td><input list="dl-prior" value="As-cast"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S02"><td class="rowhead"><input value="S02"></td><td><input list="dl-prior" value="As-cast"></td><td class="num"><input value="700"></td><td class="num"><input></td><td><input list="dl-cool" value="Furnace cooling"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S03"><td class="rowhead"><input value="S03"></td><td><input list="dl-prior" value="As-cast"></td><td class="num"><input value="800"></td><td class="num"><input></td><td><input list="dl-cool" value="Furnace cooling"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S04"><td class="rowhead"><input value="S04"></td><td><input list="dl-prior" value="As-cast"></td><td class="num"><input value="900"></td><td class="num"><input></td><td><input list="dl-cool" value="Furnace cooling"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S05"><td class="rowhead"><input value="S05"></td><td><input list="dl-prior" value="Softened"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S06"><td class="rowhead"><input value="S06"></td><td><input list="dl-prior" value="Softened"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S07"><td class="rowhead"><input value="S07"></td><td><input list="dl-prior" value="Softened"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S08"><td class="rowhead"><input value="S08"></td><td><input list="dl-prior" value="Softened"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S09"><td class="rowhead"><input value="S09"></td><td><input list="dl-prior"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S10"><td class="rowhead"><input value="S10"></td><td><input list="dl-prior"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S11"><td class="rowhead"><input value="S11"></td><td><input list="dl-prior"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S12"><td class="rowhead"><input value="S12"></td><td><input list="dl-prior"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool"></td><td class="num"><input class="hardness-soft" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="S1-1" data-group="S1">
+            <td class="rowhead"><input value="S1-1"></td>
+            <td><input value="Softening 1"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input placeholder="e.g. Furnace cooling"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-reduction" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="S1-2" data-group="S1">
+            <td class="rowhead"><input value="S1-2"></td>
+            <td><input value="Softening 1"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-reduction" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="S1-3" data-group="S1">
+            <td class="rowhead"><input value="S1-3"></td>
+            <td><input value="Softening 1"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-reduction" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="S2-1" data-group="S2">
+            <td class="rowhead"><input value="S2-1"></td>
+            <td><input value="Softening 2"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-reduction" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="S2-2" data-group="S2">
+            <td class="rowhead"><input value="S2-2"></td>
+            <td><input value="Softening 2"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-reduction" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="S2-3" data-group="S2">
+            <td class="rowhead"><input value="S2-3"></td>
+            <td><input value="Softening 2"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-reduction" readonly></td>
+            <td><input></td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <datalist id="dl-prior">
-      <option value="As-cast"></option>
-      <option value="Softened"></option>
-    </datalist>
-    <datalist id="dl-cool">
-      <option value="Furnace cooling"></option>
-      <option value="Air cooling"></option>
-      <option value="Water quenching"></option>
-      <option value="Oil quenching"></option>
-      <option value="Other"></option>
-    </datalist>
   </section>
 
-  <!-- ============ SHEET 3 — RE-HARDENING ============ -->
-  <section class="panel" id="panel-rehard">
+  <!-- ================= SHEET 3 — RE-HARDENING ================= -->
+  <section class="panel" id="panel-sheet3">
     <h2>Sheet 3 · Re-Hardening</h2>
     <p class="hint">
-      Record the re-hardening treatment parameters and the resulting Rockwell hardness.
-      Only fill rows for specimens that received a re-hardening treatment (S05–S08 in the standard matrix).
+      Three hardness readings (H1, H2, H3) are taken per specimen.
+      <strong>Mean Hardness</strong> and <strong>% Increase from Softened</strong> are calculated automatically —
+      the increase is measured against the mean softened hardness from Sheet 2.
     </p>
     <div class="table-wrap">
-      <table id="tbl-rehard">
+      <table id="tbl-sheet3">
         <thead>
           <tr>
-            <th>Specimen ID</th>
-            <th>Prior Condition</th>
-            <th>Re-hardening Temperature (°C)</th>
-            <th>Re-hardening Holding Time (min)</th>
-            <th>Re-hardening Cooling Method</th>
-            <th>Rockwell Hardness After Re-hardening (HRC)</th>
-            <th>Microstructure After Re-hardening</th>
-            <th>Remarks</th>
+            <th>Sample ID</th>
+            <th>Treatment</th>
+            <th>Temperature (°C)</th>
+            <th>Holding Time (min)</th>
+            <th>Cooling Condition</th>
+            <th>H1</th>
+            <th>H2</th>
+            <th>H3</th>
+            <th>Mean Hardness</th>
+            <th>% Increase from Softened</th>
+            <th>Microstructure Observation</th>
           </tr>
         </thead>
         <tbody>
-          <tr data-sample="S01"><td class="rowhead"><input value="S01"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S02"><td class="rowhead"><input value="S02"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S03"><td class="rowhead"><input value="S03"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S04"><td class="rowhead"><input value="S04"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S05"><td class="rowhead"><input value="S05"></td><td><input list="dl-prior2" value="Softened"></td><td class="num"><input value="800"></td><td class="num"><input></td><td><input list="dl-cool2" value="Air cooling"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S06"><td class="rowhead"><input value="S06"></td><td><input list="dl-prior2" value="Softened"></td><td class="num"><input value="900"></td><td class="num"><input></td><td><input list="dl-cool2" value="Air cooling"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S07"><td class="rowhead"><input value="S07"></td><td><input list="dl-prior2" value="Softened"></td><td class="num"><input value="1000"></td><td class="num"><input></td><td><input list="dl-cool2" value="Air cooling"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S08"><td class="rowhead"><input value="S08"></td><td><input list="dl-prior2" value="Softened"></td><td class="num"><input value="1100"></td><td class="num"><input></td><td><input list="dl-cool2" value="Air cooling"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S09"><td class="rowhead"><input value="S09"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S10"><td class="rowhead"><input value="S10"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S11"><td class="rowhead"><input value="S11"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S12"><td class="rowhead"><input value="S12"></td><td><input list="dl-prior2"></td><td class="num"><input></td><td class="num"><input></td><td><input list="dl-cool2"></td><td class="num"><input class="hardness-rehard" inputmode="decimal"></td><td><input></td><td><input></td></tr>
+          <tr data-sample="R1-1" data-group="R1">
+            <td class="rowhead"><input value="R1-1"></td>
+            <td><input value="Re-hardening 1"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input placeholder="e.g. Air cooling"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-increase" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="R1-2" data-group="R1">
+            <td class="rowhead"><input value="R1-2"></td>
+            <td><input value="Re-hardening 1"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-increase" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="R1-3" data-group="R1">
+            <td class="rowhead"><input value="R1-3"></td>
+            <td><input value="Re-hardening 1"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-increase" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="R2-1" data-group="R2">
+            <td class="rowhead"><input value="R2-1"></td>
+            <td><input value="Re-hardening 2"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-increase" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="R2-2" data-group="R2">
+            <td class="rowhead"><input value="R2-2"></td>
+            <td><input value="Re-hardening 2"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-increase" readonly></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="R2-3" data-group="R2">
+            <td class="rowhead"><input value="R2-3"></td>
+            <td><input value="Re-hardening 2"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td class="num"><input inputmode="decimal"></td>
+            <td><input></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="h-val" inputmode="decimal"></td>
+            <td class="num"><input class="mean-hardness" readonly></td>
+            <td class="num"><input class="pct-increase" readonly></td>
+            <td><input></td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <datalist id="dl-prior2">
-      <option value="Softened"></option>
-      <option value="As-cast"></option>
-    </datalist>
-    <datalist id="dl-cool2">
-      <option value="Air cooling"></option>
-      <option value="Furnace cooling"></option>
-      <option value="Water quenching"></option>
-      <option value="Oil quenching"></option>
-      <option value="Other"></option>
-    </datalist>
   </section>
 
-  <!-- ============ SHEET 4 — MICROSTRUCTURE ============ -->
-  <section class="panel" id="panel-micro">
+  <!-- ================= SHEET 4 — MICROSTRUCTURE ================= -->
+  <section class="panel" id="panel-sheet4">
     <h2>Sheet 4 · Microstructure</h2>
     <p class="hint">
-      Record the observed phases/features for each specimen and provide an image or file reference.
-      Condition = the state in which the sample was examined (As-cast / Softened / Re-hardened).
+      Record the observed microstructure features and provide a micrograph file number.
+      Use one row per specimen/condition examined.
     </p>
     <div class="table-wrap">
-      <table id="tbl-micro">
+      <table id="tbl-sheet4">
         <thead>
           <tr>
-            <th>Specimen ID</th>
-            <th>Condition Examined</th>
-            <th>Etchant</th>
+            <th>Sample ID</th>
+            <th>Condition</th>
             <th>Magnification</th>
-            <th>Matrix Type</th>
-            <th>Graphite Flake Morphology</th>
+            <th>Graphite Morphology</th>
             <th>Graphite Distribution</th>
-            <th>Other Phases / Features</th>
-            <th>Microstructure Image/File Ref.</th>
+            <th>Matrix Structure</th>
+            <th>Visible Defects / Cracks</th>
+            <th>Micrograph File No.</th>
             <th>Remarks</th>
           </tr>
         </thead>
         <tbody>
-          <tr data-sample="S01"><td class="rowhead"><input value="S01"></td><td><input list="dl-cond" value="As-cast"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S02"><td class="rowhead"><input value="S02"></td><td><input list="dl-cond" value="Softened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S03"><td class="rowhead"><input value="S03"></td><td><input list="dl-cond" value="Softened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S04"><td class="rowhead"><input value="S04"></td><td><input list="dl-cond" value="Softened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S05"><td class="rowhead"><input value="S05"></td><td><input list="dl-cond" value="Re-hardened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S06"><td class="rowhead"><input value="S06"></td><td><input list="dl-cond" value="Re-hardened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S07"><td class="rowhead"><input value="S07"></td><td><input list="dl-cond" value="Re-hardened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S08"><td class="rowhead"><input value="S08"></td><td><input list="dl-cond" value="Re-hardened"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S09"><td class="rowhead"><input value="S09"></td><td><input list="dl-cond"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S10"><td class="rowhead"><input value="S10"></td><td><input list="dl-cond"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S11"><td class="rowhead"><input value="S11"></td><td><input list="dl-cond"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
-          <tr data-sample="S12"><td class="rowhead"><input value="S12"></td><td><input list="dl-cond"></td><td><input list="dl-etch"></td><td><input list="dl-mag"></td><td><input list="dl-matrix"></td><td><input list="dl-morph"></td><td><input list="dl-dist"></td><td><input></td><td><input></td><td><input></td></tr>
+          <tr data-sample="U-1">
+            <td class="rowhead"><input value="U-1"></td>
+            <td><input value="As-cast"></td>
+            <td><input list="dl-mag"></td>
+            <td><input list="dl-morph"></td>
+            <td><input list="dl-dist"></td>
+            <td><input list="dl-matrix"></td>
+            <td><input></td>
+            <td><input></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="S1-1">
+            <td class="rowhead"><input value="S1-1"></td>
+            <td><input value="Softened"></td>
+            <td><input list="dl-mag"></td>
+            <td><input list="dl-morph"></td>
+            <td><input list="dl-dist"></td>
+            <td><input list="dl-matrix"></td>
+            <td><input></td>
+            <td><input></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="S2-1">
+            <td class="rowhead"><input value="S2-1"></td>
+            <td><input value="Softened"></td>
+            <td><input list="dl-mag"></td>
+            <td><input list="dl-morph"></td>
+            <td><input list="dl-dist"></td>
+            <td><input list="dl-matrix"></td>
+            <td><input></td>
+            <td><input></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="R1-1">
+            <td class="rowhead"><input value="R1-1"></td>
+            <td><input value="Re-hardened"></td>
+            <td><input list="dl-mag"></td>
+            <td><input list="dl-morph"></td>
+            <td><input list="dl-dist"></td>
+            <td><input list="dl-matrix"></td>
+            <td><input></td>
+            <td><input></td>
+            <td><input></td>
+          </tr>
+          <tr data-sample="R2-1">
+            <td class="rowhead"><input value="R2-1"></td>
+            <td><input value="Re-hardened"></td>
+            <td><input list="dl-mag"></td>
+            <td><input list="dl-morph"></td>
+            <td><input list="dl-dist"></td>
+            <td><input list="dl-matrix"></td>
+            <td><input></td>
+            <td><input></td>
+            <td><input></td>
+          </tr>
         </tbody>
       </table>
     </div>
 
-    <datalist id="dl-cond">
-      <option value="As-cast"></option>
-      <option value="Softened"></option>
-      <option value="Re-hardened"></option>
-    </datalist>
-    <datalist id="dl-etch">
-      <option value="Nital 2%"></option>
-      <option value="Nital 4%"></option>
-      <option value="Picral 4%"></option>
-      <option value="Nital + Picral"></option>
-      <option value="As-polished (graphite only)"></option>
-    </datalist>
     <datalist id="dl-mag">
-      <option value="100×"></option>
-      <option value="200×"></option>
-      <option value="400×"></option>
-      <option value="500×"></option>
-      <option value="1000×"></option>
-    </datalist>
-    <datalist id="dl-matrix">
-      <option value="Ferrite"></option>
-      <option value="Pearlite"></option>
-      <option value="Ferrite + Pearlite"></option>
-      <option value="Tempered Martensite"></option>
-      <option value="Martensite + Retained Austenite"></option>
-      <option value="Bainite"></option>
-      <option value="Pearlite + Cementite"></option>
+      <option value="100×"></option><option value="200×"></option>
+      <option value="400×"></option><option value="500×"></option><option value="1000×"></option>
     </datalist>
     <datalist id="dl-morph">
       <option value="Type A – uniform flake"></option>
@@ -497,67 +631,73 @@
       <option value="Type F – star / spiky"></option>
     </datalist>
     <datalist id="dl-dist">
-      <option value="Uniform"></option>
-      <option value="Random"></option>
+      <option value="Uniform"></option><option value="Random"></option>
       <option value="Interdendritic"></option>
-      <option value="Clustered / segregated"></option>
-      <option value="Banded"></option>
+      <option value="Clustered / segregated"></option><option value="Banded"></option>
+    </datalist>
+    <datalist id="dl-matrix">
+      <option value="Ferrite"></option><option value="Pearlite"></option>
+      <option value="Ferrite + Pearlite"></option>
+      <option value="Tempered Martensite"></option>
+      <option value="Martensite + Retained Austenite"></option>
+      <option value="Bainite"></option>
+      <option value="Pearlite + Cementite"></option>
     </datalist>
   </section>
 
-  <!-- ============ GRAPHS ============ -->
+  <!-- ================= GRAPHS ================= -->
   <section class="panel" id="panel-graphs">
     <h2>Graphs &amp; Relations</h2>
     <p class="hint">
       All charts are generated automatically from the four data sheets.
       Press <button class="action-btn" id="btn-refresh-charts" type="button"
-              style="padding:4px 10px;font-size:12px;">Refresh charts</button> to update manually.
+              style="padding:4px 10px;font-size:12px;">Refresh charts</button> to update.
     </p>
     <div class="chart-grid">
       <div class="chart-card">
-        <h3>① Softening temperature vs. softened hardness</h3>
+        <h3>① Softening temperature vs. mean hardness</h3>
         <canvas id="chart-soft-temp" class="chart"></canvas>
         <p class="cap">Data from Sheet 2. Dashed line = least-squares trend.</p>
       </div>
       <div class="chart-card">
-        <h3>② Re-hardening temperature vs. re-hardened hardness</h3>
+        <h3>② Re-hardening temperature vs. mean hardness</h3>
         <canvas id="chart-rehard-temp" class="chart"></canvas>
         <p class="cap">Data from Sheet 3. Dashed line = least-squares trend.</p>
       </div>
       <div class="chart-card">
-        <h3>③ Holding time vs. hardness</h3>
-        <canvas id="chart-hold" class="chart"></canvas>
-        <p class="cap">Softening (green) and re-hardening (red) holding times.</p>
-      </div>
-      <div class="chart-card">
-        <h3>④ Cooling method vs. hardness</h3>
-        <canvas id="chart-cooling" class="chart"></canvas>
-        <p class="cap">Softening cooling methods from Sheet 2; error bars = ±1 SD.</p>
-      </div>
-      <div class="chart-card">
-        <h3>⑤ Initial condition vs. as-cast hardness</h3>
-        <canvas id="chart-init" class="chart"></canvas>
-        <p class="cap">Baseline hardness from Sheet 1, grouped by Initial Condition.</p>
-      </div>
-      <div class="chart-card">
-        <h3>⑥ Treatment stage vs. hardness</h3>
+        <h3>③ Treatment stage vs. mean hardness</h3>
         <canvas id="chart-stage" class="chart"></canvas>
-        <p class="cap">Mean HRC at each stage — As-cast (Sheet 1), Softened (Sheet 2), Re-hardened (Sheet 3).</p>
+        <p class="cap">Baseline (Sheet 1) · Softened (Sheet 2) · Re-hardened (Sheet 3). Error bars = ±1 SD.</p>
       </div>
       <div class="chart-card">
-        <h3>⑦ Temperature vs. % hardness change</h3>
-        <canvas id="chart-pct-change" class="chart"></canvas>
-        <p class="cap">% change vs. the S01 as-cast baseline. Softening points green, re-hardening points red.</p>
+        <h3>④ Cooling condition vs. mean hardness</h3>
+        <canvas id="chart-cooling" class="chart"></canvas>
+        <p class="cap">Grouped from Sheet 2 (softening cooling). Error bars = ±1 SD.</p>
       </div>
       <div class="chart-card">
-        <h3>⑧ Specimen-by-specimen final hardness</h3>
+        <h3>⑤ % Hardness reduction (softening)</h3>
+        <canvas id="chart-reduction" class="chart"></canvas>
+        <p class="cap">Reduction % of each softened specimen relative to the average initial hardness.</p>
+      </div>
+      <div class="chart-card">
+        <h3>⑥ % Increase from softened (re-hardening)</h3>
+        <canvas id="chart-increase" class="chart"></canvas>
+        <p class="cap">Increase % of each re-hardened specimen relative to the mean softened hardness.</p>
+      </div>
+      <div class="chart-card">
+        <h3>⑦ Composition vs. initial hardness</h3>
+        <canvas id="chart-composition" class="chart"></canvas>
+        <p class="cap">Carbon equivalent vs. initial hardness from Sheet 1 (CE = %C + ⅓·%Si).</p>
+      </div>
+      <div class="chart-card">
+        <h3>⑧ Specimen-by-specimen hardness</h3>
         <canvas id="chart-samples" class="chart"></canvas>
-        <p class="cap">Final recorded hardness per specimen — colour-coded by the last treatment received.</p>
+        <p class="cap">Mean hardness per specimen, colour-coded by treatment stage.</p>
       </div>
     </div>
   </section>
 
-  <!-- ============ FORMULAS ============ -->
+  <!-- ================= FORMULAS ================= -->
   <section class="panel" id="panel-formulas">
     <h2>Formulas &amp; Reference</h2>
     <p class="hint">
@@ -570,35 +710,62 @@
     <div class="formula-grid">
 
       <div class="formula-card">
-        <h3>① Baseline Reference <span class="badge">Auto</span></h3>
+        <h3>① Mean Hardness <span class="badge">Auto-calculated</span></h3>
         <div class="formula-item">
-          <div class="formula-name">Baseline hardness <span class="tag">Reference</span></div>
+          <div class="formula-name">Mean of 3 readings <span class="tag">Sheets 2 &amp; 3</span></div>
           <div class="formula-eq">
-            Baseline <span class="op">=</span> HRC<sub>initial</sub> of <strong>S01</strong> (as-cast)
-          </div>
-          <div class="formula-desc">
-            If S01 has no initial hardness, the first specimen from Sheet 1 with an
-            <em>As-cast</em> condition and a recorded HRC is used instead.
-          </div>
-        </div>
-        <div class="formula-item">
-          <div class="formula-name">Hardness change (%) <span class="tag green">Reduction / Recovery</span></div>
-          <div class="formula-eq">
-            Change&nbsp;(%) <span class="op">=</span>
+            x̄ <span class="op">=</span>
             <span class="frac">
-              <span class="num">HRC − Baseline</span>
-              <span class="den">Baseline</span>
+              <span class="num">H<sub>1</sub> + H<sub>2</sub> + H<sub>3</sub></span>
+              <span class="den">3</span>
             </span>
-            <span class="op">× 100</span>
           </div>
           <div class="formula-desc">
-            Negative → softening (reduction). Positive → hardening / recovery.
+            Blank if no valid reading has been entered.
           </div>
         </div>
       </div>
 
       <div class="formula-card">
-        <h3>② Group Statistics <span class="badge">Bar charts</span></h3>
+        <h3>② % Hardness Reduction <span class="badge">Sheet 2</span></h3>
+        <div class="formula-item">
+          <div class="formula-name">Reduction relative to initial <span class="tag green">Auto</span></div>
+          <div class="formula-eq">
+            Reduction&nbsp;(%) <span class="op">=</span>
+            <span class="frac">
+              <span class="num">H̄<sub>initial</sub> − H̄<sub>softened</sub></span>
+              <span class="den">H̄<sub>initial</sub></span>
+            </span>
+            <span class="op">× 100</span>
+          </div>
+          <div class="formula-desc">
+            <strong>H̄<sub>initial</sub></strong> = mean initial hardness of U-1, U-2, U-3 (Sheet 1).
+            Positive value = softening (hardness dropped).
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <h3>③ % Increase from Softened <span class="badge">Sheet 3</span></h3>
+        <div class="formula-item">
+          <div class="formula-name">Increase relative to softened <span class="tag red">Auto</span></div>
+          <div class="formula-eq">
+            Increase&nbsp;(%) <span class="op">=</span>
+            <span class="frac">
+              <span class="num">H̄<sub>re-hardened</sub> − H̄<sub>softened</sub></span>
+              <span class="den">H̄<sub>softened</sub></span>
+            </span>
+            <span class="op">× 100</span>
+          </div>
+          <div class="formula-desc">
+            <strong>H̄<sub>softened</sub></strong> = mean of all valid mean hardness values from Sheet 2.
+            Positive value = hardness recovered / increased after re-hardening.
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <h3>④ Group Statistics <span class="badge">Bar charts</span></h3>
         <div class="formula-item">
           <div class="formula-name">Group mean <span class="tag">Bar height</span></div>
           <div class="formula-eq">
@@ -608,7 +775,7 @@
             <span style="font-size:1.15em;">Σ</span><sub>i=1</sub><sup>k</sup> y<sub>i</sub>
           </div>
           <div class="formula-desc">
-            <strong>k</strong> = number of specimens in the group (e.g. all specimens sharing the same cooling method).
+            <strong>k</strong> = number of specimens in the group.
           </div>
         </div>
         <div class="formula-item">
@@ -622,21 +789,26 @@
               </span>
             </span>
           </div>
-          <div class="formula-desc">
-            Sample standard deviation (n−1). If <code>k = 1</code>, the deviation is set to 0.
-          </div>
-        </div>
-        <div class="formula-item">
-          <div class="formula-name">Error bar <span class="tag">Bar chart whiskers</span></div>
-          <div class="formula-eq">Error bar <span class="op">=</span> ȳ <span class="op">±</span> s</div>
+          <div class="formula-desc">Sample standard deviation (n−1).</div>
         </div>
       </div>
 
       <div class="formula-card">
-        <h3>③ Linear Regression <span class="badge">Trend line</span></h3>
-        <p class="hint" style="margin:0 0 10px;font-size:11.5px;">
-          Applied to scatter charts ① softening temp vs. hardness, ② re-hardening temp vs. hardness, and ③ holding time vs. hardness.
-        </p>
+        <h3>⑤ Carbon Equivalent <span class="badge">Sheet 1</span></h3>
+        <div class="formula-item">
+          <div class="formula-name">Carbon equivalent (CE) <span class="tag amber">Composition</span></div>
+          <div class="formula-eq">
+            CE <span class="op">=</span> %C <span class="op">+</span>
+            <span class="frac"><span class="num">%Si</span><span class="den">3</span></span>
+          </div>
+          <div class="formula-desc">
+            Used for chart ⑦ (composition vs. initial hardness). Eutectic ≈ 4.3 %.
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <h3>⑥ Linear Regression <span class="badge">Trend line</span></h3>
         <div class="formula-item">
           <div class="formula-name">Summations</div>
           <div class="formula-eq">
@@ -668,18 +840,14 @@
           </div>
         </div>
         <div class="formula-item">
-          <div class="formula-name">Correlation coefficient <span class="tag">r</span></div>
+          <div class="formula-name">Coefficient of determination <span class="tag amber">R²</span></div>
           <div class="formula-eq">
-            r <span class="op">=</span>
+            R² <span class="op">=</span>
             <span class="frac">
-              <span class="num">n·S<sub>xy</sub> − S<sub>x</sub>·S<sub>y</sub></span>
-              <span class="den">√[ (n·S<sub>xx</sub> − S<sub>x</sub>²)(n·S<sub>yy</sub> − S<sub>y</sub>²) ]</span>
+              <span class="num">(n·S<sub>xy</sub> − S<sub>x</sub>·S<sub>y</sub>)²</span>
+              <span class="den">(n·S<sub>xx</sub> − S<sub>x</sub>²)(n·S<sub>yy</sub> − S<sub>y</sub>²)</span>
             </span>
           </div>
-        </div>
-        <div class="formula-item">
-          <div class="formula-name">Coefficient of determination <span class="tag amber">R²</span></div>
-          <div class="formula-eq">R² <span class="op">=</span> r²</div>
         </div>
         <div class="formula-item">
           <div class="formula-name">Trend line equation <span class="tag green">Displayed on chart</span></div>
@@ -688,10 +856,7 @@
       </div>
 
       <div class="formula-card">
-        <h3>④ Axis Scaling <span class="badge">Nice-number algorithm</span></h3>
-        <p class="hint" style="margin:0 0 10px;font-size:11.5px;">
-          Cosmetic only — rounds axis limits and tick steps to human-friendly numbers.
-        </p>
+        <h3>⑦ Axis Scaling <span class="badge">Nice-number algorithm</span></h3>
         <div class="formula-item">
           <div class="formula-name">Step size</div>
           <div class="formula-eq">step <span class="op">=</span> niceNum( range / (ticks − 1), <em>round</em> )</div>
@@ -710,24 +875,21 @@
     </div>
   </section>
 
-  <!-- ============ INSTRUCTIONS ============ -->
+  <!-- ================= INSTRUCTIONS ================= -->
   <section class="panel" id="panel-instructions">
     <h2>Instructions &amp; Notes</h2>
     <div class="table-wrap">
       <table id="tbl-instructions">
         <thead><tr><th>Item</th><th>Instruction</th></tr></thead>
         <tbody>
-          <tr><td>Purpose</td><td>This workbook records <strong>hardness and microstructural observations only</strong>.</td></tr>
-          <tr><td>Machinability</td><td><strong>Do NOT collect</strong> machining time, cutting force, tool wear, surface roughness, cutting speed, feed, or similar machining data. Machinability is interpreted from hardness changes as defined in the study.</td></tr>
-          <tr><td>Sheet 1</td><td>Record the as-received condition and initial Rockwell hardness (HRC) of every specimen. This provides the baseline for % change calculations.</td></tr>
-          <tr><td>Sheet 2</td><td>Record softening heat-treatment parameters (temperature, holding time, cooling method) and the resulting hardness for specimens that were softened.</td></tr>
-          <tr><td>Sheet 3</td><td>Record re-hardening parameters and the resulting hardness for specimens that were re-hardened.</td></tr>
-          <tr><td>Sheet 4</td><td>Record the observed phases/features and image references for each specimen.</td></tr>
-          <tr><td>Hardness</td><td>Record Rockwell hardness (<strong>HRC</strong>) after each condition. Use the same test method and procedure for all comparable specimens.</td></tr>
+          <tr><td>Purpose</td><td>This workbook records <strong>chemical composition, hardness and microstructural observations only</strong>. No machining data is collected.</td></tr>
+          <tr><td>Sheet 1</td><td>Record the chemical composition (C, Si, Mn, S, P, other elements in wt.%) and the initial (as-cast) hardness of U-1, U-2, U-3.</td></tr>
+          <tr><td>Sheet 2</td><td>Record softening heat treatment (temperature, holding time, cooling condition) and three hardness readings (H1, H2, H3) per specimen. Mean hardness and % hardness reduction are calculated automatically against the average initial hardness.</td></tr>
+          <tr><td>Sheet 3</td><td>Record re-hardening parameters and three hardness readings per specimen. Mean hardness and % increase from softened are calculated automatically against the mean softened hardness.</td></tr>
+          <tr><td>Sheet 4</td><td>Record observed microstructure features (magnification, graphite morphology, distribution, matrix structure, defects) and provide a micrograph file number.</td></tr>
+          <tr><td>Hardness</td><td>Use the same test method and procedure for all comparable specimens. Record hardness on the same scale throughout.</td></tr>
           <tr><td>Heat treatment</td><td>Enter the <strong>actual</strong> furnace temperature and holding time used in the experiment.</td></tr>
-          <tr><td>Cooling</td><td>Record the actual cooling method used (furnace cooling, air cooling, water quenching, oil quenching, etc.).</td></tr>
-          <tr><td>Graphs</td><td>The Graphs tab plots softening / re-hardening temperatures, holding times, cooling methods, treatment stages and % hardness change against hardness.</td></tr>
-          <tr><td>Formulas</td><td>See the 📐 Formulas tab for the complete list of equations used.</td></tr>
+          <tr><td>Graphs</td><td>The Graphs tab plots softening / re-hardening temperature vs. hardness, treatment stage vs. hardness, cooling condition, % reduction, % increase, and composition vs. initial hardness.</td></tr>
         </tbody>
       </table>
     </div>
@@ -766,61 +928,130 @@
     });
   });
 
-  /* ========== DATA COLLECTION (merge 4 sheets by specimen ID) ========== */
+  /* ========== AUTO-CALCULATIONS ========== */
+  function meanOf3(tr, hClass){
+    var vals=[];
+    qsa("input."+hClass, tr).forEach(function(i){
+      var n=toNum(i.value); if(n!==null) vals.push(n);
+    });
+    if(vals.length===0) return null;
+    return vals.reduce(function(a,b){return a+b;},0)/vals.length;
+  }
+
+  function avgInitialHardness(){
+    var vals=[];
+    qsa("#tbl-sheet1 tbody input.init-hardness").forEach(function(i){
+      var n=toNum(i.value); if(n!==null) vals.push(n);
+    });
+    if(vals.length===0) return null;
+    return vals.reduce(function(a,b){return a+b;},0)/vals.length;
+  }
+
+  function avgSoftenedHardness(){
+    var vals=[];
+    qsa("#tbl-sheet2 tbody input.mean-hardness").forEach(function(i){
+      var n=toNum(i.value); if(n!==null) vals.push(n);
+    });
+    if(vals.length===0) return null;
+    return vals.reduce(function(a,b){return a+b;},0)/vals.length;
+  }
+
+  function recalcAll(){
+    /* Sheet 2 — mean, % reduction */
+    var baseInit = avgInitialHardness();
+    qsa("#tbl-sheet2 tbody tr").forEach(function(tr){
+      var mean = meanOf3(tr, "h-val");
+      var meanOut = tr.querySelector(".mean-hardness");
+      var redOut  = tr.querySelector(".pct-reduction");
+      if(!meanOut) return;
+      if(mean===null){
+        meanOut.value=""; redOut.value=""; return;
+      }
+      meanOut.value = mean.toFixed(1);
+      if(baseInit && baseInit!==0){
+        redOut.value = (((baseInit-mean)/baseInit)*100).toFixed(1);
+      } else {
+        redOut.value = "";
+      }
+    });
+
+    /* Sheet 3 — mean, % increase */
+    var baseSoft = avgSoftenedHardness();
+    qsa("#tbl-sheet3 tbody tr").forEach(function(tr){
+      var mean = meanOf3(tr, "h-val");
+      var meanOut = tr.querySelector(".mean-hardness");
+      var incOut  = tr.querySelector(".pct-increase");
+      if(!meanOut) return;
+      if(mean===null){
+        meanOut.value=""; incOut.value=""; return;
+      }
+      meanOut.value = mean.toFixed(1);
+      if(baseSoft && baseSoft!==0){
+        incOut.value = (((mean-baseSoft)/baseSoft)*100).toFixed(1);
+      } else {
+        incOut.value = "";
+      }
+    });
+  }
+
+  /* ========== DATA COLLECTION ========== */
   function collectData(){
     var map={};
     function rec(sid){
-      if(!map[sid]){
-        map[sid]={
-          id:sid,
-          initialCondition:"", initialHardness:null,
-          softTemp:null, softHold:null, softCool:"", softHardness:null,
-          rehardTemp:null, rehardHold:null, rehardCool:"", rehardHardness:null,
-          microCondition:"", microstructure:""
-        };
-      }
+      if(!map[sid]) map[sid]={
+        id:sid,
+        C:null,Si:null,Mn:null,S:null,P:null,other:"",
+        initHardness:null,
+        softTemp:null, softHold:null, softCool:"", softMean:null, softRed:null,
+        rehardTemp:null, rehardHold:null, rehardCool:"", rehardMean:null, rehardInc:null,
+        stage:""
+      };
       return map[sid];
     }
 
     /* Sheet 1 */
-    qsa("#tbl-initial tbody tr").forEach(function(tr){
+    qsa("#tbl-sheet1 tbody tr").forEach(function(tr){
       var sid=rowSampleId(tr); if(!sid) return;
       var r=rec(sid);
-      var cInit=cellInput(tr,1), cHr=cellInput(tr,2);
-      if(cInit&&cInit.value.trim()) r.initialCondition=cInit.value.trim();
-      var h=cHr?toNum(cHr.value):null;
-      if(h!==null) r.initialHardness=h;
+      r.C=toNum(cellInput(tr,1)?cellInput(tr,1).value:null);
+      r.Si=toNum(cellInput(tr,2)?cellInput(tr,2).value:null);
+      r.Mn=toNum(cellInput(tr,3)?cellInput(tr,3).value:null);
+      r.S=toNum(cellInput(tr,4)?cellInput(tr,4).value:null);
+      r.P=toNum(cellInput(tr,5)?cellInput(tr,5).value:null);
+      var otherEl=cellInput(tr,6);
+      if(otherEl&&otherEl.value.trim()) r.other=otherEl.value.trim();
+      r.initHardness=toNum(cellInput(tr,7)?cellInput(tr,7).value:null);
+      r.stage="As-cast";
     });
 
     /* Sheet 2 */
-    qsa("#tbl-softening tbody tr").forEach(function(tr){
+    qsa("#tbl-sheet2 tbody tr").forEach(function(tr){
       var sid=rowSampleId(tr); if(!sid) return;
       var r=rec(sid);
-      var cT=cellInput(tr,2), cH=cellInput(tr,3), cC=cellInput(tr,4), cHr=cellInput(tr,5);
-      var t=cT?toNum(cT.value):null; if(t!==null) r.softTemp=t;
-      var h=cH?toNum(cH.value):null; if(h!==null) r.softHold=h;
-      if(cC&&cC.value.trim()) r.softCool=cC.value.trim();
-      var hr=cHr?toNum(cHr.value):null; if(hr!==null) r.softHardness=hr;
+      r.softTemp=toNum(cellInput(tr,2)?cellInput(tr,2).value:null);
+      r.softHold=toNum(cellInput(tr,3)?cellInput(tr,3).value:null);
+      var cc=cellInput(tr,4);
+      if(cc&&cc.value.trim()) r.softCool=cc.value.trim();
+      var meanEl=tr.querySelector(".mean-hardness");
+      r.softMean=toNum(meanEl?meanEl.value:null);
+      var redEl=tr.querySelector(".pct-reduction");
+      r.softRed=toNum(redEl?redEl.value:null);
+      if(r.softMean!==null) r.stage="Softened";
     });
 
     /* Sheet 3 */
-    qsa("#tbl-rehard tbody tr").forEach(function(tr){
+    qsa("#tbl-sheet3 tbody tr").forEach(function(tr){
       var sid=rowSampleId(tr); if(!sid) return;
       var r=rec(sid);
-      var cT=cellInput(tr,2), cH=cellInput(tr,3), cC=cellInput(tr,4), cHr=cellInput(tr,5);
-      var t=cT?toNum(cT.value):null; if(t!==null) r.rehardTemp=t;
-      var h=cH?toNum(cH.value):null; if(h!==null) r.rehardHold=h;
-      if(cC&&cC.value.trim()) r.rehardCool=cC.value.trim();
-      var hr=cHr?toNum(cHr.value):null; if(hr!==null) r.rehardHardness=hr;
-    });
-
-    /* Sheet 4 */
-    qsa("#tbl-micro tbody tr").forEach(function(tr){
-      var sid=rowSampleId(tr); if(!sid) return;
-      var r=rec(sid);
-      var cCond=cellInput(tr,1), cDesc=cellInput(tr,7);
-      if(cCond&&cCond.value.trim()) r.microCondition=cCond.value.trim();
-      if(cDesc&&cDesc.value.trim()) r.microstructure=cDesc.value.trim();
+      r.rehardTemp=toNum(cellInput(tr,2)?cellInput(tr,2).value:null);
+      r.rehardHold=toNum(cellInput(tr,3)?cellInput(tr,3).value:null);
+      var cc=cellInput(tr,4);
+      if(cc&&cc.value.trim()) r.rehardCool=cc.value.trim();
+      var meanEl=tr.querySelector(".mean-hardness");
+      r.rehardMean=toNum(meanEl?meanEl.value:null);
+      var incEl=tr.querySelector(".pct-increase");
+      r.rehardInc=toNum(incEl?incEl.value:null);
+      if(r.rehardMean!==null) r.stage="Re-hardened";
     });
 
     return map;
@@ -831,36 +1062,8 @@
     return Object.keys(D).map(function(k){return D[k];});
   }
 
-  /* Final hardness per specimen (rehard > soft > initial) */
-  function finalHardness(r){
-    if(r.rehardHardness!==null) return r.rehardHardness;
-    if(r.softHardness!==null)    return r.softHardness;
-    return r.initialHardness;
-  }
-
-  /* Treatment stage label for final hardness */
-  function finalStage(r){
-    if(r.rehardHardness!==null) return "Re-hardened";
-    if(r.softHardness!==null)    return "Softened";
-    return "As-cast";
-  }
-
-  function getBaseline(records){
-    var s01=records.find(function(r){return r.id==="S01";});
-    if(s01&&s01.initialHardness!==null) return s01.initialHardness;
-    var first=records.find(function(r){return /as[\s\-_]*cast/i.test(r.initialCondition)&&r.initialHardness!==null;});
-    return first?first.initialHardness:null;
-  }
-
-  function stageColor(stage){
-    if(stage==="Re-hardened") return "#D9534F";
-    if(stage==="Softened")    return "#2E9E5B";
-    if(stage==="As-cast")     return "#1F4E78";
-    return "#1F4E78";
-  }
-
-  var STAGE_ORDER=["As-cast","Softened","Re-hardened"];
-  var STAGE_COLORS={"As-cast":"#1F4E78","Softened":"#2E9E5B","Re-hardened":"#D9534F"};
+  /* ========== GROUP STATS ========== */
+  var STAGE_COLORS={"As-cast":"#1F4E78","Softened":"#2E9E5B","Re-hardened":"#D9534F","":"#1F4E78"};
   var PALETTE=["#1F4E78","#2E9E5B","#D9534F","#E8A33D","#7B5EA7","#3AA6B9","#C0603A"];
 
   function groupStats(items, keyFn, valueFn){
@@ -1003,7 +1206,6 @@
 
     ctx.fillStyle="#333"; ctx.font=(mobile?11:12)+"px "+FONT_STACK;
     ctx.fillText(cfg.xLabel||"",(x0+x1)/2,H-(mobile?8:12));
-
     ctx.save(); ctx.translate(mobile?12:15,(y0+y1)/2); ctx.rotate(-Math.PI/2);
     ctx.textAlign="center"; ctx.fillText(cfg.yLabel||"",0,0); ctx.restore();
 
@@ -1073,9 +1275,7 @@
     if(cats.length===0){emptyChart(ctx,W,H,cfg.emptyText);return;}
 
     var rotate=cats.some(function(c){return String(c.label).length>11;})||cats.length>5;
-    var m=mobile
-      ?{l:44,r:10,t:16,b:rotate?74:48}
-      :{l:64,r:24,t:18,b:rotate?88:62};
+    var m=mobile?{l:44,r:10,t:16,b:rotate?74:48}:{l:64,r:24,t:18,b:rotate?88:62};
     var x0=m.l,y0=m.t,x1=W-m.r,y1=H-m.b;
     var vals=cats.map(function(c){return c.value;});
     var lo=Math.min.apply(null,vals), hi=Math.max.apply(null,vals);
@@ -1088,14 +1288,12 @@
 
     ctx.lineWidth=1; ctx.strokeStyle="#eceff3";
     tickValues(ysc).forEach(function(t){var y=Math.round(yMap(t))+0.5;ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.stroke();});
-
     ctx.strokeStyle="#9aa5b1";
     ctx.beginPath(); ctx.moveTo(x0+0.5,y0); ctx.lineTo(x0+0.5,y1+0.5); ctx.lineTo(x1,y1+0.5); ctx.stroke();
 
     ctx.fillStyle="#444"; ctx.font=(mobile?10:11)+"px "+FONT_STACK;
     ctx.textAlign="right";
     tickValues(ysc).forEach(function(t){ctx.fillText(fmtNum(t),x0-5,yMap(t));});
-
     ctx.fillStyle="#333"; ctx.font=(mobile?11:12)+"px "+FONT_STACK;
     ctx.textAlign="center"; ctx.fillText(cfg.xLabel||"",(x0+x1)/2,H-(mobile?8:12));
     ctx.save(); ctx.translate(mobile?12:15,(y0+y1)/2); ctx.rotate(-Math.PI/2);
@@ -1156,121 +1354,49 @@
   }
 
   /* ========== CHART RENDERERS ========== */
-  function renderSoftTempVsHardness(records){
+  function renderSoftTemp(records){
     var pts=[];
     records.forEach(function(r){
-      if(r.softTemp!==null&&r.softHardness!==null){
-        pts.push({x:r.softTemp,y:r.softHardness,label:r.id});
-      }
+      if(r.softTemp!==null&&r.softMean!==null)
+        pts.push({x:r.softTemp,y:r.softMean,label:r.id});
     });
     scatterChart(document.getElementById("chart-soft-temp"),{
-      xLabel:"Softening temperature (°C)", yLabel:"HRC",
+      xLabel:"Softening temperature (°C)", yLabel:"Mean HRC",
       trend:true,
       series:[{name:"Softened specimens",color:"#2E9E5B",points:pts}],
-      emptyText:"Enter softening temperatures and hardened hardness readings in Sheet 2."
+      emptyText:"Enter softening temperatures and hardness readings in Sheet 2."
     });
   }
 
-  function renderRehardTempVsHardness(records){
+  function renderRehardTemp(records){
     var pts=[];
     records.forEach(function(r){
-      if(r.rehardTemp!==null&&r.rehardHardness!==null){
-        pts.push({x:r.rehardTemp,y:r.rehardHardness,label:r.id});
-      }
+      if(r.rehardTemp!==null&&r.rehardMean!==null)
+        pts.push({x:r.rehardTemp,y:r.rehardMean,label:r.id});
     });
     scatterChart(document.getElementById("chart-rehard-temp"),{
-      xLabel:"Re-hardening temperature (°C)", yLabel:"HRC",
+      xLabel:"Re-hardening temperature (°C)", yLabel:"Mean HRC",
       trend:true,
       series:[{name:"Re-hardened specimens",color:"#D9534F",points:pts}],
       emptyText:"Enter re-hardening temperatures and hardness readings in Sheet 3."
     });
   }
 
-  function renderHoldVsHardness(records){
-    var soft=[], hard=[];
-    records.forEach(function(r){
-      if(r.softHold!==null&&r.softHardness!==null)
-        soft.push({x:r.softHold,y:r.softHardness,label:r.id});
-      if(r.rehardHold!==null&&r.rehardHardness!==null)
-        hard.push({x:r.rehardHold,y:r.rehardHardness,label:r.id});
-    });
-    scatterChart(document.getElementById("chart-hold"),{
-      xLabel:"Holding time (min)", yLabel:"HRC",
-      trend:true,
-      series:[
-        {name:"Softening",color:"#2E9E5B",points:soft},
-        {name:"Re-hardening",color:"#D9534F",points:hard}
-      ],
-      emptyText:"Enter holding times and hardness readings in Sheets 2 and 3."
-    });
-  }
-
-  function renderCoolingVsHardness(records){
-    var groups=groupStats(
-      records.filter(function(r){return r.softCool&&r.softHardness!==null;}),
-      function(r){return r.softCool;},
-      function(r){return r.softHardness;}
-    ).sort(function(a,b){return b.value-a.value;});
-
-    groups.forEach(function(g,i){g.color=PALETTE[i%PALETTE.length];});
-
-    barChart(document.getElementById("chart-cooling"),{
-      xLabel:"Cooling method (softening)", yLabel:"Mean HRC",
-      categories:groups, showN:true,
-      emptyText:"Record cooling methods in Sheet 2 to compare cooling routes."
-    });
-  }
-
-  function renderInitialCondition(records){
-    var groups=groupStats(
-      records.filter(function(r){return r.initialHardness!==null;})
-    ).length?groupStats(
-      records.filter(function(r){return r.initialHardness!==null;}),
-      function(r){return r.initialCondition;},
-      function(r){return r.initialHardness;}
-    ):[];
-
-    var order=["As-cast","As-received","Softened"];
-    groups.sort(function(a,b){
-      var ia=order.indexOf(a.label), ib=order.indexOf(b.label);
-      if(ia===-1) ia=99; if(ib===-1) ib=99;
-      return ia-ib;
-    });
-
-    var colorMap={"As-cast":"#1F4E78","As-received":"#1F4E78","Softened":"#2E9E5B"};
-    groups.forEach(function(g){g.color=colorMap[g.label]||"#1F4E78";});
-
-    barChart(document.getElementById("chart-init"),{
-      xLabel:"Initial condition", yLabel:"Mean HRC",
-      categories:groups, showN:true, zeroBase:false,
-      emptyText:"Enter initial condition and hardness in Sheet 1."
-    });
-  }
-
   function renderStageBars(records){
-    var byStage={};
+    var byStage={"As-cast":[], "Softened":[], "Re-hardened":[]};
     records.forEach(function(r){
-      if(r.initialHardness!==null){
-        if(!byStage["As-cast"]) byStage["As-cast"]=[];
-        byStage["As-cast"].push(r.initialHardness);
-      }
-      if(r.softHardness!==null){
-        if(!byStage["Softened"]) byStage["Softened"]=[];
-        byStage["Softened"].push(r.softHardness);
-      }
-      if(r.rehardHardness!==null){
-        if(!byStage["Re-hardened"]) byStage["Re-hardened"]=[];
-        byStage["Re-hardened"].push(r.rehardHardness);
-      }
+      if(r.initHardness!==null) byStage["As-cast"].push(r.initHardness);
+      if(r.softMean!==null)     byStage["Softened"].push(r.softMean);
+      if(r.rehardMean!==null)   byStage["Re-hardened"].push(r.rehardMean);
     });
 
-    var cats=STAGE_ORDER.map(function(st){
-      var arr=byStage[st]||[];
-      if(arr.length===0) return null;
-      var mean=arr.reduce(function(a,b){return a+b;},0)/arr.length;
+    var cats=["As-cast","Softened","Re-hardened"].map(function(st){
+      var a=byStage[st];
+      if(a.length===0) return null;
+      var mean=a.reduce(function(x,y){return x+y;},0)/a.length;
       var sd=0;
-      if(arr.length>1) sd=Math.sqrt(arr.reduce(function(a,b){return a+Math.pow(b-mean,2);},0)/(arr.length-1));
-      return {label:st,value:mean,sd:sd,n:arr.length,color:STAGE_COLORS[st]};
+      if(a.length>1) sd=Math.sqrt(a.reduce(function(x,y){return x+Math.pow(y-mean,2);},0)/(a.length-1));
+      return {label:st,value:mean,sd:sd,n:a.length,color:STAGE_COLORS[st]};
     }).filter(Boolean);
 
     barChart(document.getElementById("chart-stage"),{
@@ -1280,28 +1406,62 @@
     });
   }
 
-  function renderPctChange(records,baseline){
-    var soft=[], hard=[];
-    if(baseline&&baseline!==0){
-      records.forEach(function(r){
-        if(r.softTemp!==null&&r.softHardness!==null){
-          var pct=(r.softHardness-baseline)/baseline*100;
-          soft.push({x:r.softTemp,y:pct,label:r.id});
-        }
-        if(r.rehardTemp!==null&&r.rehardHardness!==null){
-          var pct2=(r.rehardHardness-baseline)/baseline*100;
-          hard.push({x:r.rehardTemp,y:pct2,label:r.id});
-        }
+  function renderCoolingBars(records){
+    var groups=groupStats(
+      records.filter(function(r){return r.softCool&&r.softMean!==null;}),
+      function(r){return r.softCool;},
+      function(r){return r.softMean;}
+    ).sort(function(a,b){return b.value-a.value;});
+    groups.forEach(function(g,i){g.color=PALETTE[i%PALETTE.length];});
+
+    barChart(document.getElementById("chart-cooling"),{
+      xLabel:"Cooling condition", yLabel:"Mean HRC",
+      categories:groups, showN:true, zeroBase:false,
+      emptyText:"Record cooling conditions in Sheet 2 to compare."
+    });
+  }
+
+  function renderReductionBars(records){
+    var cats=records.filter(function(r){return r.softRed!==null;})
+      .sort(function(a,b){return a.id.localeCompare(b.id);})
+      .map(function(r){
+        return {label:r.id, value:r.softRed, sd:0, n:1, color:"#2E9E5B"};
       });
-    }
-    scatterChart(document.getElementById("chart-pct-change"),{
-      xLabel:"Temperature (°C)", yLabel:"% change vs baseline",
-      hLine:0,
-      series:[
-        {name:"Softening",color:"#2E9E5B",points:soft},
-        {name:"Re-hardening",color:"#D9534F",points:hard}
-      ],
-      emptyText:"A baseline (S01) plus temperatures are required for this chart."
+    barChart(document.getElementById("chart-reduction"),{
+      xLabel:"Specimen ID", yLabel:"% reduction",
+      categories:cats, zeroBase:true, refLine:0,
+      emptyText:"Enter hardness readings in Sheet 2 to compute % reduction."
+    });
+  }
+
+  function renderIncreaseBars(records){
+    var cats=records.filter(function(r){return r.rehardInc!==null;})
+      .sort(function(a,b){return a.id.localeCompare(b.id);})
+      .map(function(r){
+        return {label:r.id, value:r.rehardInc, sd:0, n:1, color:"#D9534F"};
+      });
+    barChart(document.getElementById("chart-increase"),{
+      xLabel:"Specimen ID", yLabel:"% increase",
+      categories:cats, zeroBase:true, refLine:0,
+      emptyText:"Enter hardness readings in Sheet 3 to compute % increase."
+    });
+  }
+
+  function renderComposition(records){
+    var pts=[];
+    records.forEach(function(r){
+      if(r.C!==null&&r.Si!==null&&r.initHardness!==null){
+        var ce=r.C+r.Si/3;
+        pts.push({x:ce,y:r.initHardness,label:r.id});
+      } else if(r.C!==null&&r.initHardness!==null){
+        pts.push({x:r.C,y:r.initHardness,label:r.id});
+      }
+    });
+    scatterChart(document.getElementById("chart-composition"),{
+      xLabel:"Carbon equivalent (CE)", yLabel:"Initial HRC",
+      trend:true,
+      series:[{name:"As-cast specimens",color:"#1F4E78",points:pts}],
+      emptyText:"Enter C, Si and initial hardness in Sheet 1."
     });
   }
 
@@ -1309,57 +1469,53 @@
     var cats=records
       .slice()
       .sort(function(a,b){return a.id.localeCompare(b.id);})
-      .filter(function(r){return finalHardness(r)!==null;})
+      .filter(function(r){
+        return r.initHardness!==null||r.softMean!==null||r.rehardMean!==null;
+      })
       .map(function(r){
-        var stage=finalStage(r);
-        return {
-          label:r.id, value:finalHardness(r), sd:0, n:1,
-          color:stageColor(stage)
-        };
+        var value=r.rehardMean!==null?r.rehardMean:
+                  r.softMean!==null?r.softMean:r.initHardness;
+        return {label:r.id, value:value, sd:0, n:1,
+                color:STAGE_COLORS[r.stage]||"#1F4E78"};
       });
-
     barChart(document.getElementById("chart-samples"),{
       xLabel:"Specimen ID", yLabel:"HRC",
       categories:cats, zeroBase:false,
-      emptyText:"Enter hardness readings to plot final state per specimen."
+      emptyText:"Enter hardness readings to plot every specimen."
     });
   }
 
   function renderAllCharts(){
-    var records, baseline;
+    recalcAll();
+    var records;
+    try { records=allRecords(); }
+    catch(err){ console.error(err); records=[]; }
     try {
-      records=allRecords();
-      baseline=getBaseline(records);
-    } catch(err){
-      console.error("Data collection error:",err);
-      records=[]; baseline=null;
-    }
-    try {
-      renderSoftTempVsHardness(records);
-      renderRehardTempVsHardness(records);
-      renderHoldVsHardness(records);
-      renderCoolingVsHardness(records);
-      renderInitialCondition(records);
+      renderSoftTemp(records);
+      renderRehardTemp(records);
       renderStageBars(records);
-      renderPctChange(records,baseline);
+      renderCoolingBars(records);
+      renderReductionBars(records);
+      renderIncreaseBars(records);
+      renderComposition(records);
       renderSampleBars(records);
-    } catch(err){
-      console.error("Chart rendering error:",err);
-    }
+    } catch(err){ console.error("Chart rendering error:",err); }
   }
 
   /* ========== EVENTS ========== */
   var chartTimer=null;
-  function scheduleCharts(){
+  function scheduleAll(){
+    recalcAll();
     if(chartTimer) clearTimeout(chartTimer);
-    chartTimer=setTimeout(renderAllCharts,350);
+    chartTimer=setTimeout(renderAllCharts,320);
   }
   document.addEventListener("input",function(e){
-    if(e.target.closest("table")) scheduleCharts();
+    if(e.target.closest("table")) scheduleAll();
   });
   document.addEventListener("change",function(e){
-    if(e.target.closest("table")) scheduleCharts();
+    if(e.target.closest("table")) scheduleAll();
   });
+
   var refreshBtn=document.getElementById("btn-refresh-charts");
   if(refreshBtn) refreshBtn.addEventListener("click",renderAllCharts);
 
@@ -1415,6 +1571,7 @@
   });
 
   /* ========== INIT ========== */
+  recalcAll();
   renderAllCharts();
 })();
 </script>
